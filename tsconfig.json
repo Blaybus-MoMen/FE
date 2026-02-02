@@ -2,16 +2,10 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/mentee/tsconfig.app.json"
+      "path": "./apps/mentee"
     },
     {
-      "path": "./apps/mentee/tsconfig.node.json"
-    },
-    {
-      "path": "./apps/mentor/tsconfig.app.json"
-    },
-    {
-      "path": "./apps/mentor/tsconfig.node.json"
+      "path": "./apps/mentor"
     }
   ]
 }

@@ -6,6 +6,7 @@ import path from 'path'
 
 export default defineConfig({
   base: '/mentee/',
+  envDir: '../../',
   plugins: [
     tailwindcss(),
     react({

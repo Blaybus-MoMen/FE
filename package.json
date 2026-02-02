@@ -10,19 +10,25 @@
     "dev:mentor": "npm run dev --workspace apps/mentor",
     "build:mentee": "npm run build --workspace apps/mentee",
     "build:mentor": "npm run build --workspace apps/mentor",
+    "build": "npm run build --workspaces --if-present",
     "typecheck": "tsc -b",
     "lint": "eslint . --ext .ts,.tsx",
     "clean": "rm -rf node_modules **/node_modules"
   },
-"devDependencies": {
-  "typescript": "^5.4.0",
-  "eslint": "^9.0.0",
-  "prettier": "^3.2.5",
-  "@typescript-eslint/parser": "^8.0.0",
-  "@typescript-eslint/eslint-plugin": "^8.0.0",
-  "typescript-eslint": "^8.46.4",
-  "eslint-plugin-react-hooks": "^7.0.1",
-  "eslint-plugin-react-refresh": "^0.4.24",
-  "globals": "^16.5.0"
-}
+  "devDependencies": {
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.0",
+    "typescript-eslint": "^8.46.4"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "zod": "^4.3.6"
+  }
 }
