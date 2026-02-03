@@ -4,12 +4,10 @@ import { createBrowserRouter, Navigate } from "react-router";
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <Navigate to="/login" />,
+        element: <Navigate to="login" />,
     },
     {
         path: '/login',
         element: <LoginPage />,
     },
-], {
-    basename: "/mentor",
-})
+])

@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/mentee/:path*",
+      "destination": "/apps/mentee/:path*"
+    },
+    {
+      "source": "/mentor/:path*",
+      "destination": "/apps/mentor/:path*"
+    }
+  ]
+}
