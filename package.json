@@ -2,8 +2,7 @@
   "name": "blaybus-momen-fe",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "apps/*"
   ],
   "scripts": {
     "dev:mentee": "npm run dev --workspace apps/mentee",

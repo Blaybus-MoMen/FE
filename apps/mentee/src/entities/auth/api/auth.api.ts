@@ -1,6 +1,6 @@
-import { ApiHelper } from '@package/api.base'
-import { API_PATH } from '@package/api.path'
 import type { ILoginRequest, ILoginResponse, IRefreshRequest, IRefreshResponse } from '@/entities/auth/api/auth.api.type'
+import { ApiHelper } from '@/shared/api/api.base'
+import { API_PATH } from '@/shared/api/api.path'
 
 /** 인증 API */
 export const authApi = {

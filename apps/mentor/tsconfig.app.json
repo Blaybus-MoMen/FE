@@ -29,9 +29,6 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@package/*": [
-        "../../package/api/*"
-      ],
       "@/*": [
         "src/*"
       ],
