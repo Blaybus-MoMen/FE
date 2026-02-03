@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/mentee/:path*",
-      "destination": "/apps/mentee/:path*"
+      "destination": "/apps/mentee/dist/index.html"
     },
     {
       "source": "/mentor/:path*",
-      "destination": "/apps/mentor/:path*"
+      "destination": "/apps/mentor/dist/index.html"
     }
   ]
 }
