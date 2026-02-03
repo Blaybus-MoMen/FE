@@ -11,6 +11,7 @@
     "build:mentee": "npm run build --workspace apps/mentee",
     "build:mentor": "npm run build --workspace apps/mentor",
     "build": "npm run build --workspaces --if-present",
+    "build:deploy": "rm -rf dist && mkdir dist && npm run build:mentee && npm run build:mentor && cp -R apps/mentee/dist dist/mentee && cp -R apps/mentor/dist dist/mentor",
     "typecheck": "tsc -b",
     "lint": "eslint . --ext .ts,.tsx",
     "clean": "rm -rf node_modules **/node_modules"
