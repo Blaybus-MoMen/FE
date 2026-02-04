@@ -30,6 +30,9 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
+      "@package/*": [
+        "../../package/*"
+      ],
       "@/*": [
         "src/*"
       ],
