@@ -15,7 +15,7 @@ const LoginForm = () => {
             <h1 className="text-primary-blue-dark text-[28px] md:text-[2.5rem]">멘토 로그인</h1>
             <h5 className="text-grayscale-dark-gray mt-4">관리자모드 로그인하세요.</h5>
             <div className="flex flex-col gap-5 mt-12">
-                <div className="w-full md:max-w-[458px] h-14 flex items-center border border-grayscale-border rounded-full pl-6 pr-4 py-4 bg-[#FFFFFF] shadow-[inset_0px_0px_4px_0px_#00000040]">
+                <div className="w-full md:max-w-[458px] h-14 flex items-center border border-grayscale-border rounded-full pl-6 pr-4 py-4 bg-white shadow-[inset_0px_0px_4px_0px_#00000040]">
                     <span className="body-medium text-grayscale-medium-gray whitespace-nowrap pr-8 font-normal inline-flex items-center leading-none">
                         멘토 ID
                     </span>
@@ -30,7 +30,7 @@ const LoginForm = () => {
                         {...register('email')}
                     />
                 </div>
-                <div className="w-full md:max-w-[458px] h-14 flex items-center border border-grayscale-border rounded-full pl-6 pr-4 py-4 bg-[#FFFFFF] shadow-[inset_0px_0px_4px_0px_#00000040]">
+                <div className="w-full md:max-w-[458px] h-14 flex items-center border border-grayscale-border rounded-full pl-6 pr-4 py-4 bg-white shadow-[inset_0px_0px_4px_0px_#00000040]">
                     <span className="body-medium text-grayscale-medium-gray whitespace-nowrap pr-5 font-normal inline-flex items-center leading-none">
                         비밀번호
                     </span>

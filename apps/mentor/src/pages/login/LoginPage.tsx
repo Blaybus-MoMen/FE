@@ -6,8 +6,8 @@ import loginLogo from '@/assets/images/login-logo.svg';
  */
 const LoginPage = () => {
     return (
-        <div className="flex flex-col items-center justify-center h-screen relative bg-grayscale-bg-gray md:bg-transparent">
-            <img src={loginLogo} alt="login-logo" className="mb-[35px]" />
+        <div className="flex flex-col items-center justify-center h-screen relative bg-grayscale-bg-gray md:bg-transparent pt-10 pb-[37px] md:py-[37px] gap-[46px] md:gap-[37px]">
+            <img src={loginLogo} alt="login-logo" />
             <LoginForm />
         </div>
     )
