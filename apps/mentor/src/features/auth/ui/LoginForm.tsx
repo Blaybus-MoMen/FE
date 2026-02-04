@@ -25,7 +25,7 @@ const LoginForm = () => {
                     />
                     <input
                         type="text"
-                        className="flex-1 min-w-0 border-0 p-0 bg-transparent outline-none placeholder:text-grayscale-light-gray text-sm md:text-base"
+                        className="flex-1 min-w-0 border-0 p-0 bg-transparent outline-none placeholder:text-grayscale-light-gray text-base"
                         placeholder="아이디를 입력해주세요."
                         {...register('email')}
                     />
@@ -41,7 +41,7 @@ const LoginForm = () => {
                     <div className="flex-1 min-w-0 flex items-center">
                         <input
                             type={showPassword ? 'text' : 'password'}
-                            className="w-full border-0 p-0 bg-transparent outline-none placeholder:text-grayscale-light-gray text-sm md:text-base"
+                            className="w-full border-0 p-0 bg-transparent outline-none placeholder:text-grayscale-light-gray text-base"
                             placeholder="비밀번호를 입력해주세요."
                             {...register('password')}
                         />
