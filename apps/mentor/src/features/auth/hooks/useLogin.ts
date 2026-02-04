@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
@@ -27,6 +28,14 @@ const useLogin = () => {
         },
     })
 
+    /** 비밀번호 표시 상태 */
+    const [showPassword, setShowPassword] = useState(false);
+
+    /** 비밀번호 표시 토글 핸들러 */
+    const handleTogglePassword = () => {
+        setShowPassword(prev => !prev);
+    }
+
     /** 로그인 제출 핸들러 */
     const handleLoginSubmit = handleSubmit((data) => {
         console.log(data)
@@ -36,7 +45,9 @@ const useLogin = () => {
         register,
         isValid,
         handleLoginSubmit,
-        errors
+        errors,
+        showPassword,
+        handleTogglePassword,
     }
 
 }

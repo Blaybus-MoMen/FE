@@ -10,7 +10,7 @@
     html,
     body,
     #root {
-        @apply w-full h-full;
+        @apply w-full h-full min-w-[360px];
         font-family: "Noto Sans KR", sans-serif;
     }
 
@@ -47,6 +47,11 @@
 
     button {
         cursor: pointer;
+    }
+
+    button:disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
     }
 }
 
