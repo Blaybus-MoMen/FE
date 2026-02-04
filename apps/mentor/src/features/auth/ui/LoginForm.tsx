@@ -9,7 +9,7 @@ const LoginForm = () => {
     const { register, handleLoginSubmit, showPassword, handleTogglePassword } = useLogin();
     return (
         <form
-            className="w-full h-full max-w-[360px] md:max-w-[480px] xl:max-w-[600px] max-h-[602px] md:rounded-3xl md:bg-grayscale-bg-gray md:shadow-[0px_0px_30.2px_0px_#00000029] pt-16 pb-[53px] px-4 md:px-8 xl:px-[71px]"
+            className="w-full h-full max-w-[360px] md:max-w-[480px] xl:max-w-[600px] max-h-[602px] md:rounded-3xl md:bg-grayscale-bg-gray md:shadow-[0px_0px_30.2px_0px_#00000029] pt-0 pb-0 px-0 md:pt-16 md:pb-[53px] md:px-8 xl:px-[71px]"
             onSubmit={handleLoginSubmit}
         >
             <h1 className="text-primary-blue-dark text-[28px] md:text-[2.5rem]">멘토 로그인</h1>
@@ -26,7 +26,6 @@ const LoginForm = () => {
                     <input
                         type="text"
                         className="flex-1 min-w-0 border-0 p-0 bg-transparent outline-none placeholder:text-grayscale-light-gray text-base"
-                        placeholder="아이디를 입력해주세요."
                         {...register('email')}
                     />
                 </div>
@@ -42,7 +41,6 @@ const LoginForm = () => {
                         <input
                             type={showPassword ? 'text' : 'password'}
                             className="w-full border-0 p-0 bg-transparent outline-none placeholder:text-grayscale-light-gray text-base"
-                            placeholder="비밀번호를 입력해주세요."
                             {...register('password')}
                         />
                         <button type="button" onClick={handleTogglePassword}>
