@@ -34,7 +34,7 @@ const MenteeList = () => {
                                 <MenteeCard />
                             </div>
                             <div className="flex justify-center">
-                                <button className="bg-primary-blue-dark rounded-full flex items-center justify-center rounded-[37px]">
+                                <button className="bg-primary-blue hover:bg-primary-blue-dark rounded-full flex items-center justify-center rounded-[37px]">
                                     <p className="ui-button text-grayscale-bg-gray px-[58px] py-[16px]">+ 추가하기</p>
                                 </button>
                             </div>
