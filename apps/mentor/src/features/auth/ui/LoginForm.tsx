@@ -53,7 +53,7 @@ const LoginForm = () => {
                     </div>
                 </div>
             </div>
-            <button disabled className="w-full md:max-w-[458px] h-14 bg-primary-blue text-white rounded-full px-6 py-4 mt-12 ui-button">로그인</button>
+            <button type='submit' className="w-full md:max-w-[458px] h-14 bg-primary-blue text-white rounded-full px-6 py-4 mt-12 ui-button">로그인</button>
             <div className="flex w-full justify-center gap-2 mt-6 body-medium text-grayscale-dark-gray">
                 <button type="button">아이디찾기</button>
                 <span className="text-grayscale-light-gray" aria-hidden>|</span>
