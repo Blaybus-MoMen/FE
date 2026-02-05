@@ -1,1 +1,215 @@
-@import "tailwindcss"
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap");
+@import "tailwindcss";
+
+
+/**
+ * 프로젝트 기본 스타일 초기화
+ */
+@layer base {
+
+    html,
+    #root {
+        @apply w-full h-full;
+        font-family: "Noto Sans KR", sans-serif;
+    }
+
+    body {
+        @apply w-full h-full min-w-[360px];
+        font-family: "Noto Sans KR", sans-serif;
+    }
+
+    h1 {
+        @apply font-bold leading-[1.3];
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        @apply font-bold leading-[1.35];
+        font-size: 2rem;
+    }
+
+    h3 {
+        @apply font-medium leading-[1.4];
+        font-size: 1.5rem;
+    }
+
+    h4 {
+        @apply font-medium leading-[1.45];
+        font-size: 1.25rem;
+    }
+
+    h5 {
+        @apply font-medium leading-[1.5];
+        font-size: 1.125rem;
+    }
+
+    body {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.7;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    button:disabled {
+        cursor: not-allowed;
+    }
+
+    .bg-layout {
+        background-image: linear-gradient(to right,
+                var(--color-primary-blue-pale) 0 50%,
+                var(--color-primary-blue) 50% 100%);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .react-calendar {
+        @apply w-full border-none gap-[35px] flex flex-col;
+    }
+
+    .react-calendar abbr {
+        text-decoration: none;
+    }
+
+    .react-calendar__navigation {
+        @apply flex justify-between items-center text-[24px] leading-[1.35] text-grayscale-bg-gray;
+    }
+
+    .react-calendar__month-view__weekdays__weekday {
+        @apply text-[16px] text-point-yellow leading-[1.4] text-center mb-[16px];
+    }
+
+    .react-calendar__month-view__days {
+        @apply grid gap-y-[27px];
+    }
+
+    .react-calendar__month-view__days .react-calendar__tile.react-calendar__month-view__days__day {
+        @apply text-[1rem] text-grayscale-bg-gray leading-[1.7] flex items-center justify-center;
+    }
+
+    .react-calendar__tile abbr {
+        @apply w-[38px] h-[38px] flex items-center justify-center;
+    }
+
+    .react-calendar__tile--active abbr {
+        @apply bg-point-yellow text-black w-[38px] h-[38px] flex items-center justify-center rounded-full;
+    }
+}
+
+
+@layer components {
+
+    .body-large {
+        font-size: 1.125rem;
+        font-weight: 400;
+        line-height: 1.7;
+    }
+
+    .body-medium {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.7;
+    }
+
+    .body-small {
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.6;
+    }
+
+    .ui-button {
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    .ui-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+    .ui-caption {
+        font-size: 0.75rem;
+        font-weight: 400;
+        line-height: 1.4;
+    }
+
+    .ui-overline {
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+
+}
+
+@layer utilities {
+    .scrollbar-track-transparent {
+        scrollbar-color: #BDBDBD transparent;
+    }
+
+    .scrollbar-track-transparent::-webkit-scrollbar {
+        width: 8px;
+        background-color: transparent;
+    }
+
+    .scrollbar-track-transparent::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    .scrollbar-track-transparent::-webkit-scrollbar-thumb {
+        background-color: #BDBDBD;
+        border-radius: 999px;
+    }
+
+    .no-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@theme {
+    /** Primary 색상 */
+    --color-primary-blue: #001871;
+    --color-primary-blue-pale: #E1ECFF;
+    --color-primary-blue-gray: #808BB8;
+    --color-primary-blue-shadow: #99A3C6;
+    --color-primary-blue-light: #33468D;
+    --color-primary-blue-dark: #001256;
+
+    /** Secondary 색상 */
+    --color-secondary-sky: #B8E8FE;
+    --color-secondary-sky-pale: #D4F1FE;
+    --color-secondary-sky-light: #BFEAFE;
+    --color-secondary-sky-dark: #94DBFB;
+
+    /** Accent 색상 */
+    --color-accent-purple: #D7C1F2;
+
+    /** Point 색상 */
+    --color-point-yellow: #FFF59D;
+
+    /** Background 색상 */
+    --color-background-white: #FEFEFE;
+
+    /** Grayscales 색상 */
+    --color-grayscale-black: #222222;
+    --color-grayscale-dark-gray: #666666;
+    --color-grayscale-medium-gray: #999999;
+    --color-grayscale-light-gray: #CCCCCC;
+    --color-grayscale-border: #DEDEDE;
+    --color-grayscale-bg-gray: #F3F3F3;
+
+    /** System 색상 */
+    --color-system-error: #F94848;
+    --color-system-warning: #FFBF2B;
+    --color-system-success: #4CAF50;
+    --color-system-info: #0091EA;
+}

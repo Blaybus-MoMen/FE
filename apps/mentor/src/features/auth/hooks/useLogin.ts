@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import z from "zod";
 
 /** 로그인 스키마  */
@@ -16,6 +17,7 @@ export const loginFormSchema = z.object({
  * @description 로그인 커스텀 훅
  */
 const useLogin = () => {
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -39,6 +41,7 @@ const useLogin = () => {
     /** 로그인 제출 핸들러 */
     const handleLoginSubmit = handleSubmit((data) => {
         console.log(data)
+        navigate('/home');
     })
 
     return {
