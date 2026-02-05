@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import '@package/global.css'
+import './global.css'
 import { Providers } from '@/app/providers'
 import { router } from '@/app/router'
 import { queryClient } from '@/shared/query/query-client'
