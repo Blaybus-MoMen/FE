@@ -1,6 +1,9 @@
 const Box = ({ title }: { title: string }) => (
-    <section className="box-border p-3 rounded-2xl bg-white shadow-md h-[180px]">
+    <section className="flex flex-col gap-2 box-border p-3 rounded-2xl bg-white shadow-md min-h-[180px]">
         <span className="inline-block rounded-full bg-grayscale-light-gray px-4 py-1 ui-overline">{title}</span>
+        <span>
+            안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
+        </span>
     </section>
 );
 

@@ -19,13 +19,13 @@ const FeedbackSidebar = ({ mode, onChangeMode }: Props) => {
     const isDaily = mode === 'daily';
 
     return (
-        <aside className="flex z-999 h-full w-[430px] flex-col gap-7 bg-primary-blue pt-10 text-white shadow-[6px_0_20px_rgba(0,0,0,0.15)]">
+        <aside className="flex z-999 h-full w-[430px] flex-col gap-8 bg-primary-blue pt-10 text-white shadow-[6px_0_20px_rgba(0,0,0,0.15)]">
             <header className="z-10 px-8">
                 <img src={homeLogo} alt="home-logo" className="h-[28px] w-auto cursor-pointer" />
             </header>
 
             <div className="px-8 flex gap-4">
-                <h3 className="font-semibold">피드백</h3>
+                <h3 className="font-semibold">학습관리</h3>
 
                 {(['daily', 'weekly', 'monthly'] as const).map((key) => (
                     <button
@@ -44,7 +44,7 @@ const FeedbackSidebar = ({ mode, onChangeMode }: Props) => {
             <div className="flex flex-1 min-h-0 flex-col gap-7">
                 {isDaily && (
                     <>
-                        <div className="w-[395px] flex box-border pt-4 pb-4 gap-2 flex-col items-end rounded-l-[24px] ml-auto bg-primary-blue-pale">
+                        <div className="w-[395px] flex box-border gap-2 flex-col items-end rounded-l-[24px] ml-auto">
                             <div className="w-[350px] rounded-l-full bg-point-yellow px-5 py-2 text-black ui-label shadow">
                                 일간 피드백 3개
                             </div>

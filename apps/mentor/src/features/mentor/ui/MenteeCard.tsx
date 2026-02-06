@@ -2,8 +2,8 @@ import Avatar from "@/shared/ui/Avatar";
 
 const MenteeCard = () => {
     return (
-        <article className="w-full min-h-40 shrink-0 border border-grayscale-bg-gray rounded-2xl bg-primary-blue p-1.5 flex flex-col">
-            <header className="px-3.5 py-2.5 flex justify-between shrink-0">
+        <article className="w-full min-h-[288px] sm:h-auto sm:min-h-40 shrink-0 border border-grayscale-bg-gray rounded-2xl bg-primary-blue p-1.5 sm:pt-0 flex flex-col">
+            <header className="px-3.5 py-2.5 flex flex-col items-center gap-[19px] sm:gap-2 sm:flex-row sm:items-center sm:justify-between shrink-0">
                 <div className="flex gap-3">
                     <div className="px-5 py-1.5 bg-secondary-sky-light rounded-lg flex items-center justify-center">
                         <p className="ui-label text-grayscale-black">국어</p>
@@ -27,7 +27,7 @@ const MenteeCard = () => {
                     </div>
                 </div>
             </header>
-            <section className="bg-background-white min-h-20 flex-1 shrink-0 rounded-xl px-7 flex items-center justify-between">
+            <section className="bg-background-white min-h-20 flex-1 shrink-0 rounded-xl px-7 mt-[8px] sm:mt-0 flex flex-col items-center justify-center gap-[38px] sm:flex-row sm:justify-between sm:gap-0">
                 <figure className="flex gap-6 items-center">
                     <Avatar className="w-14 h-14">
                         <span>조</span>

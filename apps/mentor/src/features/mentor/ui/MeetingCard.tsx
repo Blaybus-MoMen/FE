@@ -5,7 +5,7 @@ import ArrowRightSvg from '@/assets/icons/arrow-right.svg';
 const MeetingCard = () => {
     return (
         <article
-            className="w-full border-2 border-grayscale-bg-gray px-5 py-5 rounded-[57px] bg-[#FFFFFF4D] shadow-[0px_8px_4.8px_0px_#00000033] flex justify-between items-center"
+            className="w-full md:w-1/2 lg:w-full shrink-0 border-2 border-grayscale-bg-gray px-5 py-5 rounded-[57px] bg-[#FFFFFF4D] shadow-[0px_8px_4.8px_0px_#00000033] flex justify-between items-center"
         >
             <div className="flex gap-[25px] items-center">
                 <div className="w-[55px] h-[55px] border-2 border-grayscale-bg-gray rounded-full bg-grayscale-light-gray flex items-center justify-center">

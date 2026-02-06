@@ -14,7 +14,7 @@ const MENTEE_FILTER_OPTIONS: ISelectOption[] = [
 const MenteeList = () => {
     const [menteeFilter, setMenteeFilter] = useState('all');
     return (
-        <section className="mt-10 mr-[475px] flex min-h-0 flex-1 flex-col overflow-hidden">
+        <section className="mt-10 lg:mr-[475px] flex min-h-0 flex-1 flex-col overflow-hidden">
             <div className="flex min-h-0 flex-1 flex-col">
                 <div className="flex min-w-0 min-h-0 flex-1 flex-col gap-5 overflow-hidden">
                     <div className="flex flex-wrap items-center justify-between">
@@ -34,7 +34,7 @@ const MenteeList = () => {
                                 <MenteeCard />
                             </div>
                             <div className="flex justify-center">
-                                <button className="bg-primary-blue-dark rounded-full flex items-center justify-center rounded-[37px]">
+                                <button className="bg-primary-blue hover:bg-primary-blue-dark rounded-full flex items-center justify-center rounded-[37px]">
                                     <p className="ui-button text-grayscale-bg-gray px-[58px] py-[16px]">+ 추가하기</p>
                                 </button>
                             </div>

@@ -1,8 +1,7 @@
 import homeLogo from '@/assets/images/home-logo.svg';
 import MenteeList from '@/features/mentor/ui/MenteeList';
-import MeetingCalendar from '@/features/mentor/ui/Calendar';
-import MeetingList from '@/features/mentor/ui/MeetingList';
 import Avatar from '@/shared/ui/Avatar';
+import MeetCalendarPanel from '@/features/mentor/ui/MeetCalendarPanel';
 
 /**
  * @description 홈 페이지 컴포넌트
@@ -19,14 +18,9 @@ const HomePage = () => {
                     </Avatar>
                 </div>
             </header>
-            <aside
-                className="absolute right-0 top-0 bottom-0 z-0 w-[475px] rounded-l-[40px] bg-primary-blue py-28 px-14 overflow-hidden flex flex-col"
-            >
-                <MeetingCalendar />
-                <MeetingList />
-            </aside>
             <MenteeList />
-        </main>
+            <MeetCalendarPanel />
+        </main >
     );
 };
 

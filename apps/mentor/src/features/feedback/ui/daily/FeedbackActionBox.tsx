@@ -5,16 +5,8 @@ const actionBtnBase = 'w-full border-3 border-primary-blue-dark rounded-full py-
  */
 const FeedbackActionBox = () => {
     return (
-        <div className="w-full lg:w-[200px] flex justify-center items-center rounded-2xl bg-grayscale-borderp-4">
-            <div
-                className="
-                    w-full
-                    lg:w-[150px]
-                    flex
-                    flex-col
-                    gap-3
-                "
-            >
+        <div className="w-full lg:w-[200px] flex justify-center items-center rounded-2xl bg-grayscale-border p-4">
+            <div className="w-full lg:w-[150px] flex flex-col gap-3">
                 <div className="flex gap-1">
                     <button className={`${actionBtnBase} bg-white text-primary-blue-dark`}>수정</button>
                     <button className={`${actionBtnBase} bg-white text-primary-blue-dark`}>삭제</button>
