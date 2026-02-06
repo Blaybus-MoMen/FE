@@ -5,6 +5,7 @@
  * 프로젝트 기본 스타일 초기화
  */
 @layer base {
+
     html,
     #root {
         @apply w-full h-full;
@@ -63,20 +64,17 @@
         background-repeat: no-repeat, no-repeat, no-repeat;
         background-size:
             auto 100%,
-            auto 100%,
-            100% 100%;
+            auto 100%;
         background-position:
-            left bottom,
-            right bottom,
+            left center,
+            calc(100% + 23px) center,
             0 0;
     }
 
     .bg-feedback-layout {
-        background-image: linear-gradient(
-            to right,
-            var(--color-primary-blue) 0 50%,
-            var(--color-primary-blue-pale) 50% 100%
-        );
+        background-image: linear-gradient(to right,
+                var(--color-primary-blue) 0 50%,
+                var(--color-primary-blue-pale) 50% 100%);
         background-repeat: no-repeat;
         background-size: 100% 100%;
     }

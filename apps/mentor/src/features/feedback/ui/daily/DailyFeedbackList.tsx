@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import SelectBox, { type ISelectOption } from '@/shared/ui/SelectBox';
 import FeedbackCard from '@/features/feedback/ui/common/FeedbackCard';
+import { useModalActions } from '@/shared/store/modal.store';
 
 /**
  * @description 피드백 리스트 섹션
  */
 const FeedbackList = () => {
     const [sort, setSort] = useState('latest');
+
+    const { openModal } = useModalActions();
 
     const options: ISelectOption[] = [
         { value: 'latest', label: '최신순' },
@@ -26,7 +29,7 @@ const FeedbackList = () => {
                     <button className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-primary-blue-dark text-white shadow-xl">
                         –
                     </button>
-                    <button className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-primary-blue-dark text-white shadow-xl">
+                    <button className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-primary-blue-dark text-white shadow-xl" onClick={() => openModal('FEEDBACK')}>
                         +
                     </button>
                 </div>
