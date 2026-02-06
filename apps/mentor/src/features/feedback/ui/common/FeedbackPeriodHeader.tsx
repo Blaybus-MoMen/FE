@@ -1,5 +1,4 @@
-import arrowLeft from '@/assets/icons/arrow-left.svg';
-import arrowRight from '@/assets/icons/arrow-right.svg';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import SelectBox, { type ISelectOption } from '@/shared/ui/SelectBox';
 import { useState } from 'react';
 
@@ -24,11 +23,12 @@ const FeedbackPeriodHeader = ({ label, onPrev, onNext }: Props) => {
         <div className="flex items-center justify-between px-6 py-4">
             <div className="flex items-center gap-4 text-primary-blue">
                 <button onClick={onPrev}>
-                    <img src={arrowLeft} className="text-primary-blue" />
+                    <ChevronLeft />
                 </button>
                 <h4 className="font-bold text-lg">{label}</h4>
+
                 <button onClick={onNext}>
-                    <img src={arrowRight} />
+                    <ChevronRight />
                 </button>
             </div>
 

@@ -35,7 +35,7 @@ const FeedbackCard = ({
     const isCompact = layout === 'compact';
 
     return (
-        <div className={`flex w-full gap-4 ${isCompact ? 'flex-col' : 'flex-col lg:flex-row'}`}>
+        <div className="flex w-full gap-4 flex-col md:flex-row">
             <div className="flex-1 rounded-2xl bg-white p-6 shadow-md">
                 <div className="mb-4 flex items-center gap-3">
                     <span
@@ -58,7 +58,7 @@ const FeedbackCard = ({
                 <div
                     className={`
                         mt-2 ui-caption
-                        ${isCompact ? 'flex flex-col gap-4' : 'grid grid-cols-2 gap-x-10 gap-y-4'}
+                       ${isCompact ? 'flex flex-col gap-4' : 'flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-4'}
                     `}
                 >
                     <div className="flex items-center gap-3">
@@ -93,7 +93,11 @@ const FeedbackCard = ({
                 </div>
             </div>
 
-            {showEditActions && <FeedbackActionBox />}
+            {showEditActions && (
+                <div className="hidden md:block shrink-0">
+                    <FeedbackActionBox />
+                </div>
+            )}
         </div>
     );
 };
