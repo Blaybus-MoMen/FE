@@ -25,11 +25,6 @@ export const router = createBrowserRouter(
                             path: '/home',
                             element: <HomePage />,
                         },
-                    ],
-                },
-                {
-                    element: <AuthGuard />,
-                    children: [
                         {
                             path: '/feedback',
                             element: <FeedbackPage />,
