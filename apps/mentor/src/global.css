@@ -1,21 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap");
-@import "tailwindcss";
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+@import 'tailwindcss';
 
 /**
  * 프로젝트 기본 스타일 초기화
  */
 @layer base {
-
     html,
     #root {
         @apply w-full h-full;
-        font-family: "Noto Sans KR", sans-serif;
+        font-family: 'Noto Sans KR', sans-serif;
     }
 
     body {
         @apply w-full h-full min-w-[360px];
-        font-family: "Noto Sans KR", sans-serif;
+        font-family: 'Noto Sans KR', sans-serif;
     }
 
     h1 {
@@ -58,9 +56,21 @@
     }
 
     .bg-layout {
-        background-image: linear-gradient(to right,
-                var(--color-primary-blue-pale) 0 50%,
-                var(--color-primary-blue) 50% 100%);
+        background-image: linear-gradient(
+            to right,
+            var(--color-primary-blue-pale) 0 50%,
+            var(--color-primary-blue) 50% 100%
+        );
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .bg-feedback-layout {
+        background-image: linear-gradient(
+            to right,
+            var(--color-primary-blue) 0 50%,
+            var(--color-primary-blue-pale) 50% 100%
+        );
         background-repeat: no-repeat;
         background-size: 100% 100%;
     }
@@ -98,9 +108,7 @@
     }
 }
 
-
 @layer components {
-
     .body-large {
         font-size: 1.125rem;
         font-weight: 400;
@@ -142,13 +150,11 @@
         font-weight: 500;
         line-height: 1.4;
     }
-
-
 }
 
 @layer utilities {
     .scrollbar-track-transparent {
-        scrollbar-color: #BDBDBD transparent;
+        scrollbar-color: #bdbdbd transparent;
     }
 
     .scrollbar-track-transparent::-webkit-scrollbar {
@@ -161,7 +167,7 @@
     }
 
     .scrollbar-track-transparent::-webkit-scrollbar-thumb {
-        background-color: #BDBDBD;
+        background-color: #bdbdbd;
         border-radius: 999px;
     }
 
@@ -178,38 +184,38 @@
 @theme {
     /** Primary 색상 */
     --color-primary-blue: #001871;
-    --color-primary-blue-pale: #E1ECFF;
-    --color-primary-blue-gray: #808BB8;
-    --color-primary-blue-shadow: #99A3C6;
-    --color-primary-blue-light: #33468D;
+    --color-primary-blue-pale: #e1ecff;
+    --color-primary-blue-gray: #808bb8;
+    --color-primary-blue-shadow: #99a3c6;
+    --color-primary-blue-light: #33468d;
     --color-primary-blue-dark: #001256;
 
     /** Secondary 색상 */
-    --color-secondary-sky: #B8E8FE;
-    --color-secondary-sky-pale: #D4F1FE;
-    --color-secondary-sky-light: #BFEAFE;
-    --color-secondary-sky-dark: #94DBFB;
+    --color-secondary-sky: #b8e8fe;
+    --color-secondary-sky-pale: #d4f1fe;
+    --color-secondary-sky-light: #bfeafe;
+    --color-secondary-sky-dark: #94dbfb;
 
     /** Accent 색상 */
-    --color-accent-purple: #D7C1F2;
+    --color-accent-purple: #d7c1f2;
 
     /** Point 색상 */
-    --color-point-yellow: #FFF59D;
+    --color-point-yellow: #fff59d;
 
     /** Background 색상 */
-    --color-background-white: #FEFEFE;
+    --color-background-white: #fefefe;
 
     /** Grayscales 색상 */
     --color-grayscale-black: #222222;
     --color-grayscale-dark-gray: #666666;
     --color-grayscale-medium-gray: #999999;
-    --color-grayscale-light-gray: #CCCCCC;
-    --color-grayscale-border: #DEDEDE;
-    --color-grayscale-bg-gray: #F3F3F3;
+    --color-grayscale-light-gray: #cccccc;
+    --color-grayscale-border: #dedede;
+    --color-grayscale-bg-gray: #f3f3f3;
 
     /** System 색상 */
-    --color-system-error: #F94848;
-    --color-system-warning: #FFBF2B;
-    --color-system-success: #4CAF50;
-    --color-system-info: #0091EA;
+    --color-system-error: #f94848;
+    --color-system-warning: #ffbf2b;
+    --color-system-success: #4caf50;
+    --color-system-info: #0091ea;
 }
