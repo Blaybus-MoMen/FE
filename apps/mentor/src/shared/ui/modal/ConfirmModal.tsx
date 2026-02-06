@@ -22,6 +22,9 @@ const variantConfig = {
     },
 } as const
 
+/**
+ * @description Confirm 모달 컴포넌트
+ */
 const ConfirmModal = ({ message, variant = 'success', onConfirm }: IConfirmModalProps) => {
     const { Icon, iconBgClass, iconColorClass } = variantConfig[variant]
     const { closeConfirm } = useModalActions();

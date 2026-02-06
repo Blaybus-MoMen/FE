@@ -20,6 +20,9 @@ const variantConfig = {
     },
 } as const
 
+/**
+ * @description Alert 모달 컴포넌트
+ */
 const AlertModal = ({ message, variant = 'success' }: IAlertModalProps) => {
     const { Icon, iconBgClass, iconColorClass } = variantConfig[variant]
 
