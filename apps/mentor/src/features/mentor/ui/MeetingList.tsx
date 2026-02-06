@@ -5,9 +5,18 @@ import MeetingCard from "@/features/mentor/ui/MeetingCard";
  */
 const MeetingList = () => {
     return (
-        <section className="mt-16 flex-1 min-h-0 flex flex-col gap-5">
-            <h3 className="text-grayscale-bg-gray">금일 미팅</h3>
-            <div className="flex flex-col gap-5 overflow-y-auto no-scrollbar">
+        <section className="mt-0 flex flex-col gap-5">
+            <h3 className="text-grayscale-bg-gray pl-[38px] lg:pl-0">금일 미팅</h3>
+            <div
+                className="
+                    flex flex-col gap-5 max-h-[260px] overflow-y-auto no-scrollbar
+                    md:flex-row md:flex-nowrap md:gap-4 md:max-h-none md:overflow-y-visible md:overflow-x-auto
+                    lg:flex-col lg:overflow-x-visible lg:max-h-none lg:overflow-y-visible
+                "
+            >
+                <MeetingCard />
+                <MeetingCard />
+                <MeetingCard />
                 <MeetingCard />
                 <MeetingCard />
                 <MeetingCard />

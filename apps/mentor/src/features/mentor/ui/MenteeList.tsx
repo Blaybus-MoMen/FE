@@ -14,7 +14,7 @@ const MENTEE_FILTER_OPTIONS: ISelectOption[] = [
 const MenteeList = () => {
     const [menteeFilter, setMenteeFilter] = useState('all');
     return (
-        <section className="mt-10 mr-[475px] flex min-h-0 flex-1 flex-col overflow-hidden">
+        <section className="mt-10 lg:mr-[475px] flex min-h-0 flex-1 flex-col overflow-hidden">
             <div className="flex min-h-0 flex-1 flex-col">
                 <div className="flex min-w-0 min-h-0 flex-1 flex-col gap-5 overflow-hidden">
                     <div className="flex flex-wrap items-center justify-between">
