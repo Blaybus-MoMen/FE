@@ -9,7 +9,7 @@ const MeetingList = () => {
             <h3 className="text-grayscale-bg-gray pl-[38px] lg:pl-0">금일 미팅</h3>
             <div
                 className="
-                    flex flex-col gap-5 max-h-[260px] overflow-y-auto no-scrollbar
+                    flex flex-col gap-5 max-h-[120px] overflow-y-auto no-scrollbar
                     md:flex-row md:flex-nowrap md:gap-4 md:max-h-none md:overflow-y-visible md:overflow-x-auto
                     lg:flex-col lg:overflow-x-visible lg:max-h-none lg:overflow-y-visible
                 "

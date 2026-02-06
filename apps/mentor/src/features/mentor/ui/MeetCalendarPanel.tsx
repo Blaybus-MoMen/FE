@@ -7,7 +7,7 @@ import MeetingList from "@/features/mentor/ui/MeetingList";
  * @description 미팅 캘린더 패널(사이드, 하단 바) 컴포넌트
  */
 const MeetCalendarPanel = () => {
-    const [isAsideOpen, setIsAsideOpen] = useState(true)
+    const [isAsideOpen, setIsAsideOpen] = useState(false)
     return (
         <aside
             className="
