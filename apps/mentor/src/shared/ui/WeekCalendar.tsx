@@ -100,7 +100,7 @@ const WeeklyCalendar = ({
     }
 
     return (
-        <div className="w-full border-none flex flex-col gap-[35px] bg-transparent rounded-[24px] px-6 py-5">
+        <div className="w-full border-none flex flex-col gap-4 md:gap-[35px] bg-transparent rounded-[24px] px-4 py-3 md:px-6 md:py-5">
             <div className="react-calendar__navigation_mo">
                 <button onClick={() => moveMonth(-1)} className="px-2">
                     <img src={arrowLeftIcon} alt="이전 달" />
@@ -119,7 +119,7 @@ const WeeklyCalendar = ({
                 >
                     <img src={arrowLeftIcon} alt="이전 주" />
                 </button>
-                <div className="flex flex-1 justify-between mx-2">
+                <div className="flex flex-1 justify-between mx-1 md:mx-2">
                     {days.map((day) => {
                         const isSelected =
                             selectedDate &&
@@ -129,17 +129,17 @@ const WeeklyCalendar = ({
                             <button
                                 key={day.toISOString()}
                                 onClick={() => selectDate(day)}
-                                className="flex flex-col items-center w-full mx-1"
+                                className="flex flex-col items-center flex-1 mx-1"
                             >
-                                <span className="text-[16px] text-point-yellow leading-[1.4] mb-[8px]">
+                                <span className="text-[12px] md:text-[16px] text-point-yellow leading-[1.4] mb-[4px] md:mb-[8px]">
                                     {day.toLocaleDateString("en-US", {
                                         weekday: "short",
                                     })}
                                 </span>
                                 <span
                                     className={`
-                                        text-[1rem] leading-[1.7] flex items-center justify-center
-                                        w-[38px] h-[38px]
+                                        text-[0.875rem] md:text-[1rem] leading-[1.7] flex items-center justify-center
+                                        w-[30px] h-[30px] md:w-[38px] md:h-[38px]
                                         ${isSelected
                                             ? "bg-point-yellow text-black rounded-full"
                                             : "text-grayscale-bg-gray"
