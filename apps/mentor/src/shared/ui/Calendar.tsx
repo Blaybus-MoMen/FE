@@ -15,7 +15,6 @@ const Calendar = () => {
         new Date(today.getFullYear(), today.getMonth(), 1),
     )
     const isDesktop = useMediaQuery("(min-width: 1024px)")
-    const isTablet = useMediaQuery("(min-width: 768px)")
     const [sheetOpen, setSheetOpen] = useState(false)
     return (
         <>
@@ -40,7 +39,7 @@ const Calendar = () => {
                     setWeekBaseDate={setWeekBaseDate}
                     setDisplayMonth={setDisplayMonth}
                     setSelectedDate={setSelectedDate}
-                    showWeekend={isTablet}
+                    showWeekend={true}
                     onOpenSheet={() => setSheetOpen(true)}
                 />
             )}

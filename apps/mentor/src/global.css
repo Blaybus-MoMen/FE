@@ -89,7 +89,7 @@
     }
 
     .react-calendar__navigation_mo {
-        @apply flex w-[65%] mx-auto justify-between items-center text-[24px] leading-[1.35] text-grayscale-bg-gray;
+        @apply flex w-[80%] mx-auto justify-between items-center text-[24px] leading-[1.35] text-grayscale-bg-gray;
     }
 
     .react-calendar__month-view__weekdays__weekday {
