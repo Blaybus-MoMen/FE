@@ -82,6 +82,7 @@ const FeedbackList = () => {
                 <button
                     type="button"
                     className="rounded-[37px] bg-primary-blue-dark px-[58px] py-[16px] ui-button text-grayscale-bg-gray shadow-xl"
+                    onClick={() => openModal('FEEDBACK')}
                 >
                     + 추가하기
                 </button>

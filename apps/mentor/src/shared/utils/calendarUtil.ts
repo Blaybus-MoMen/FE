@@ -35,6 +35,19 @@ export class CalendarUtil {
     static isSameMonth(a: Date, b: Date) {
         return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth()
     }
+
+    /** 같은 날인지 (년월일) */
+    static isSameDay(a: Date, b: Date) {
+        return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+    }
+
+    /** day가 [start, end] 구간 안에 있는지 (start, end 정규화됨) */
+    static isBetweenInclusive(day: Date, start: Date, end: Date) {
+        const t = day.getTime()
+        const s = start.getTime()
+        const e = end.getTime()
+        return t >= Math.min(s, e) && t <= Math.max(s, e)
+    }
     /**
      * @description 월의 첫 번째 주 날짜 반환
      * @param month 월
