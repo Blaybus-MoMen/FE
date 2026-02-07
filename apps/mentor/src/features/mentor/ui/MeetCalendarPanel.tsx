@@ -14,7 +14,7 @@ const MeetCalendarPanel = () => {
             z-0 flex flex-col overflow-hidden bg-primary-blue
             fixed inset-x-0 bottom-0 w-full mt-6 rounded-t-[32px] pt-[11px] pb-[35px] px-4
             lg:absolute lg:right-0 lg:top-0 lg:bottom-0 lg:inset-x-auto
-            lg:w-[475px] lg:mt-0 lg:rounded-l-[40px] lg:rounded-tr-none lg:rounded-t-[0px]
+            lg:w-[475px] lg:mt-0 lg:rounded-tl-[40px] lg:rounded-bl-[40px] lg:rounded-tr-none lg:rounded-br-none lg:rounded-t-[0px]
             lg:pt-28 lg:pb-[35px] lg:px-14
         "
         >
