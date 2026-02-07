@@ -28,6 +28,7 @@
     "typescript-eslint": "^8.46.4"
   },
   "dependencies": {
+    "lucide-react": "^0.563.0",
     "react-calendar": "^6.0.0"
   }
 }

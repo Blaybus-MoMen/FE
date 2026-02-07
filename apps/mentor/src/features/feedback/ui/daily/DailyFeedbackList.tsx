@@ -14,15 +14,15 @@ const FeedbackList = () => {
     ];
 
     return (
-        <section className="flex flex-1 flex-col gap-6 min-h-0 px-10 pb-10">
-            <div className="flex items-center gap-4">
-                <div className="flex flex-1 gap-4">
+        <section className="flex flex-1 flex-col gap-6 min-h-0 px-4 lg:px-10 pb-10">
+            <div className="flex items-center justify-end lg:justify-between gap-4">
+                <div className="flex w-full justify-between lg:w-auto lg:justify-start gap-4">
                     <h3 className="text-primary-blue-dark">2026년 2월 18일</h3>
 
                     <SelectBox options={options} value={sort} onChange={setSort} triggerClassName="w-[110px]" />
                 </div>
 
-                <div className="flex gap-3">
+                <div className="hidden lg:flex gap-3">
                     <button className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-primary-blue-dark text-white shadow-xl">
                         –
                     </button>

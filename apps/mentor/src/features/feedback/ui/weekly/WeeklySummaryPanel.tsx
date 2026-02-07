@@ -12,10 +12,10 @@ const Box = ({ title }: { title: string }) => (
  */
 const WeeklySummaryPanel = () => {
     return (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4 lg:gap-6">
             <Box title="멘토 총평" />
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
                 <Box title="이번주 잘한점" />
                 <Box title="다음주 보완점" />
             </div>

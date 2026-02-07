@@ -5,38 +5,54 @@ import FeedbackCard from '@/features/feedback/ui/common/FeedbackCard';
  */
 const FeedbackList = () => {
     return (
-        <div className="flex-1 min-h-0 px-6 pb-6">
-            <div className="h-full flex flex-col gap-4 overflow-y-auto pr-2 no-scrollbar">
-                <FeedbackCard
-                    subject="국어"
-                    task="독서 2지문"
-                    isConfirmed
-                    goal="문항 독해력 향상"
-                    period="26.02.12-26.02.18"
-                    days={['월', '수']}
-                    showEditActions={false}
-                    layout="compact"
-                />
-                <FeedbackCard
-                    subject="국어"
-                    task="독서 2지문"
-                    isConfirmed
-                    goal="문항 독해력 향상"
-                    period="26.02.12-26.02.18"
-                    days={['월', '수']}
-                    showEditActions={false}
-                    layout="compact"
-                />
-                <FeedbackCard
-                    subject="국어"
-                    task="독서 2지문"
-                    isConfirmed
-                    goal="문항 독해력 향상"
-                    period="26.02.12-26.02.18"
-                    days={['월', '수']}
-                    showEditActions={false}
-                    layout="compact"
-                />
+        <div className="px-4 lg:px-6 pb-6">
+            <div
+                className="
+                    flex gap-4
+                    overflow-x-auto lg:overflow-x-hidden
+                    overflow-y-hidden lg:overflow-y-auto
+                    no-scrollbar
+                    lg:flex-col
+                "
+            >
+                <div className="shrink-0 w-[280px] lg:w-auto">
+                    <FeedbackCard
+                        subject="국어"
+                        task="독서 2지문"
+                        isConfirmed
+                        goal="문항 독해력 향상"
+                        period="26.02.12-26.02.18"
+                        days={['월', '수']}
+                        showEditActions={false}
+                        layout="compact"
+                    />
+                </div>
+
+                <div className="shrink-0 w-[280px] lg:w-auto">
+                    <FeedbackCard
+                        subject="국어"
+                        task="독서 2지문"
+                        isConfirmed
+                        goal="문항 독해력 향상"
+                        period="26.02.12-26.02.18"
+                        days={['월', '수']}
+                        showEditActions={false}
+                        layout="compact"
+                    />
+                </div>
+
+                <div className="shrink-0 w-[280px] lg:w-auto">
+                    <FeedbackCard
+                        subject="국어"
+                        task="독서 2지문"
+                        isConfirmed
+                        goal="문항 독해력 향상"
+                        period="26.02.12-26.02.18"
+                        days={['월', '수']}
+                        showEditActions={false}
+                        layout="compact"
+                    />
+                </div>
             </div>
         </div>
     );
