@@ -1,9 +1,9 @@
 import Avatar from '@/shared/ui/Avatar';
 import FeedbackSidebar from '@/features/feedback/ui/common/FeedbackSidebar';
-import FeedbackList from '@/features/feedback/ui/daily/DailyFeedbackList';
 import MonthlyFeedbackLayout from '@/features/feedback/ui/monthly/MonthlyFeedbackLayout';
 import WeeklyFeedbackLayout from '@/features/feedback/ui/weekly/WeeklyFeedbackLayout';
 import { useState } from 'react';
+import DailyFeedbackLayout from '@/features/feedback/ui/daily/DailyFeedbackLayout';
 
 /**
  * @description 피드백 페이지 전체 레이아웃
@@ -26,7 +26,7 @@ const FeedbackPage = () => {
                         </div>
                     </header>
 
-                    {mode === 'daily' && <FeedbackList />}
+                    {mode === 'daily' && <DailyFeedbackLayout subject="국어" title="독서 2지문" />}
                     {mode === 'weekly' && <WeeklyFeedbackLayout />}
                     {mode === 'monthly' && <MonthlyFeedbackLayout />}
                 </section>
