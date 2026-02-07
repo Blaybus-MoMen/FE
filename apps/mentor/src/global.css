@@ -5,7 +5,6 @@
  * 프로젝트 기본 스타일 초기화
  */
 @layer base {
-
     html,
     #root {
         @apply w-full h-full;
@@ -78,10 +77,12 @@
         pointer-events: none;
     }
 
-    .bg-feedback-layout {
-        background-image: linear-gradient(to right,
-                var(--color-primary-blue) 0 50%,
-                var(--color-primary-blue-pale) 50% 100%);
+    .bg-study-layout {
+        background-image: linear-gradient(
+            to right,
+            var(--color-primary-blue) 0 50%,
+            var(--color-primary-blue-pale) 50% 100%
+        );
         background-repeat: no-repeat;
         background-size: 100% 100%;
     }

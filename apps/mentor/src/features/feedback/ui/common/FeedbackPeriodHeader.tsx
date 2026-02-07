@@ -12,11 +12,13 @@ interface Props {
  * @description 개별 피드백 카드
  */
 const FeedbackPeriodHeader = ({ label, onPrev, onNext }: Props) => {
-    const [sort, setSort] = useState('latest');
+    const [sort, setSort] = useState('all');
 
     const options: ISelectOption[] = [
-        { value: 'latest', label: '최신순' },
-        { value: 'oldest', label: '오래된순' },
+        { value: 'all', label: '전체' },
+        { value: 'korean', label: '국어' },
+        { value: 'english', label: '영어' },
+        { value: 'math', label: '수학' },
     ];
 
     return (

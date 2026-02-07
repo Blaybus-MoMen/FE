@@ -1,5 +1,3 @@
-import FeedbackActionBox from '@/features/feedback/ui/daily/FeedbackActionBox';
-
 type Subject = '국어' | '영어' | '수학';
 
 interface FeedbackCardProps {
@@ -7,9 +5,6 @@ interface FeedbackCardProps {
     task: string;
     isConfirmed: boolean;
     goal: string;
-    period: string;
-    days: string[];
-    showEditActions?: boolean;
     layout?: 'default' | 'compact';
 }
 
@@ -22,16 +17,7 @@ const SUBJECT_STYLE: Record<Subject, string> = {
 /**
  * @description 개별 피드백 카드
  */
-const FeedbackCard = ({
-    subject,
-    task,
-    isConfirmed,
-    goal,
-    period,
-    days,
-    showEditActions = true,
-    layout = 'default',
-}: FeedbackCardProps) => {
+const FeedbackCard = ({ subject, task, isConfirmed, goal, layout = 'default' }: FeedbackCardProps) => {
     const isCompact = layout === 'compact';
 
     return (
@@ -44,7 +30,7 @@ const FeedbackCard = ({
                         {subject}
                     </span>
 
-                    <p className="font-bold">{task}</p>
+                    <p className="font-bold text-black">{task}</p>
 
                     <span
                         className={`ml-auto rounded-full px-3 py-1 ui-caption ${
@@ -67,37 +53,8 @@ const FeedbackCard = ({
                         </span>
                         <span className="text-grayscale-dark-gray">{goal}</span>
                     </div>
-
-                    <div className="flex items-center gap-3">
-                        <span className="rounded-md bg-grayscale-medium-gray px-3 py-1 text-white whitespace-nowrap">
-                            학습 기간
-                        </span>
-                        <span className="text-grayscale-dark-gray">{period}</span>
-                    </div>
-
-                    <div className={`flex items-center gap-3 ${isCompact ? '' : 'col-span-2'}`}>
-                        <span className="rounded-md bg-grayscale-medium-gray px-3 py-1 text-white whitespace-nowrap">
-                            학습 요일
-                        </span>
-                        <div className="flex gap-2 flex-wrap">
-                            {days.map((day) => (
-                                <span
-                                    key={day}
-                                    className="flex h-6 w-6 items-center justify-center rounded-full bg-grayscale-light-gray text-black"
-                                >
-                                    {day}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
                 </div>
             </div>
-
-            {showEditActions && (
-                <div className="hidden md:block shrink-0">
-                    <FeedbackActionBox />
-                </div>
-            )}
         </div>
     );
 };

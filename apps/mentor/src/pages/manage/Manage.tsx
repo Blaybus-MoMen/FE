@@ -1,20 +1,15 @@
 import Avatar from '@/shared/ui/Avatar';
-import FeedbackSidebar from '@/features/feedback/ui/common/FeedbackSidebar';
-import MonthlyFeedbackLayout from '@/features/feedback/ui/monthly/MonthlyFeedbackLayout';
-import WeeklyFeedbackLayout from '@/features/feedback/ui/weekly/WeeklyFeedbackLayout';
-import { useState } from 'react';
-import DailyFeedbackLayout from '@/features/feedback/ui/daily/DailyFeedbackLayout';
+import ManageSidebar from '@/features/manage/ui/ManageSideBar';
+import StudentList from '@/features/manage/ui/StudentList';
 
 /**
- * @description 피드백 페이지 전체 레이아웃
+ * @description 학습관리 페이지
  */
-const FeedbackPage = () => {
-    const [mode, setMode] = useState<'daily' | 'weekly' | 'monthly'>('daily');
-
+const ManagePage = () => {
     return (
         <main className="relative h-full w-full lg:overflow-hidden overflow-y-auto bg-feedback-layout">
             <div className="flex h-full w-full flex-col lg:flex-row">
-                <FeedbackSidebar mode={mode} onChangeMode={setMode} />
+                <ManageSidebar />
 
                 <section className="flex flex-1 flex-col bg-primary-blue-pale">
                     <header className="flex items-center justify-between px-4 lg:px-10 py-6 lg:py-8">
@@ -26,13 +21,11 @@ const FeedbackPage = () => {
                         </div>
                     </header>
 
-                    {mode === 'daily' && <DailyFeedbackLayout subject="국어" title="독서 2지문" />}
-                    {mode === 'weekly' && <WeeklyFeedbackLayout />}
-                    {mode === 'monthly' && <MonthlyFeedbackLayout />}
+                    <StudentList />
                 </section>
             </div>
         </main>
     );
 };
 
-export default FeedbackPage;
+export default ManagePage;

@@ -9,9 +9,9 @@ const BaseLayout = () => {
     const { pathname } = useLocation();
 
     const isLoginPage = pathname.includes('login');
-    const isFeedbackPage = pathname.startsWith('/feedback');
+    const isStudyPage = pathname.startsWith('/feedback') || pathname.startsWith('/manage');
 
-    const layoutClass = isLoginPage ? '' : isFeedbackPage ? 'bg-feedback-layout' : 'bg-layout bg-layout-md-none';
+    const layoutClass = isLoginPage ? '' : isStudyPage ? 'bg-study-layout' : 'bg-layout bg-layout-md-none';
 
     return (
         <div

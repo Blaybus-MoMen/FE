@@ -22,9 +22,6 @@ const FeedbackList = () => {
                         task="독서 2지문"
                         isConfirmed
                         goal="문항 독해력 향상"
-                        period="26.02.12-26.02.18"
-                        days={['월', '수']}
-                        showEditActions={false}
                         layout="compact"
                     />
                 </div>
@@ -35,9 +32,6 @@ const FeedbackList = () => {
                         task="독서 2지문"
                         isConfirmed
                         goal="문항 독해력 향상"
-                        period="26.02.12-26.02.18"
-                        days={['월', '수']}
-                        showEditActions={false}
                         layout="compact"
                     />
                 </div>
@@ -48,9 +42,16 @@ const FeedbackList = () => {
                         task="독서 2지문"
                         isConfirmed
                         goal="문항 독해력 향상"
-                        period="26.02.12-26.02.18"
-                        days={['월', '수']}
-                        showEditActions={false}
+                        layout="compact"
+                    />
+                </div>
+
+                <div className="shrink-0 w-[280px] lg:w-auto">
+                    <FeedbackCard
+                        subject="국어"
+                        task="독서 2지문"
+                        isConfirmed
+                        goal="문항 독해력 향상"
                         layout="compact"
                     />
                 </div>
