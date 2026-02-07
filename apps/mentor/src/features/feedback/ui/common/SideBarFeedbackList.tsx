@@ -5,10 +5,11 @@ import FeedbackCard from '@/features/feedback/ui/common/FeedbackCard';
  */
 const FeedbackList = () => {
     return (
-        <div className="px-4 lg:px-6 pb-6">
+        <div className="flex-1 min-h-0 px-4 lg:px-6 pb-6">
             <div
                 className="
-                    flex gap-4
+                    h-full
+                    flex flex-nowrap gap-4
                     overflow-x-auto lg:overflow-x-hidden
                     overflow-y-hidden lg:overflow-y-auto
                     no-scrollbar
