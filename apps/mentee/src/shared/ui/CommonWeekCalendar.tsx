@@ -104,7 +104,7 @@ const CommonWeekCalendar = ({
                 <button onClick={() => moveMonth(-1)} className="px-2" aria-label="이전 달">
                     <ChevronLeft size={18} className="text-grayscale-black" />
                 </button>
-                <button onClick={onOpenSheet} className="font-semibold text-base text-grayscale-black">
+                <button onClick={onOpenSheet} className="font-normal text-base text-grayscale-black">
                     {displayMonth.getFullYear()}년 {displayMonth.getMonth() + 1}월
                 </button>
                 <button onClick={() => moveMonth(1)} className="px-2" aria-label="다음 달">

@@ -125,6 +125,39 @@
     .timer {
         font-family: "Inter", sans-serif;
     }
+
+    .fc-toolbar {
+        padding-top: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fc-daygrid-day:hover {
+        background-color: #e0e7ff;
+    }
+
+    .fc-day-today .fc-daygrid-day-number {
+        background-color: var(--color-primary-blue);
+        color: var(--color-background-white);
+        border-radius: 50%;
+        display: flex;
+    }
+
+    .fc .fc-daygrid-day.fc-day-today {
+        background-color: transparent !important;
+    }
+}
+
+@layer utilities {
+    .no-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 @theme {

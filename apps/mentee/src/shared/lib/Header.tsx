@@ -2,16 +2,16 @@ import noti from '@/assets/icons/noti.svg';
 import { useLocation } from 'react-router';
 
 const PATH_TITLE_MAP = {
-    '/learning': '학습피드백',
+    '/manage': '학습관리',
     '/report': '학습리포트',
-    '/mypage': '마이페이지',
+    '/my-page': '마이페이지',
 }
 
 const Header = () => {
     const { pathname } = useLocation();
     const title = PATH_TITLE_MAP[pathname as keyof typeof PATH_TITLE_MAP];
     return (
-        <div className="flex items-center justify-between px-[16px] py-[8px]">
+        <div className="flex items-center justify-between px-[16px] py-[8px] bg-[#f3f3f3]">
             <h3 className='text-primary-blue-dark'>{title}</h3>
             <img src={noti} alt="noti" />
         </div >

@@ -1,10 +1,6 @@
-import { useState } from "react"
+import type { Tab } from "@/pages/report/ReportPage"
 
-type Tab = "monthly" | "weekly" | "daily"
-
-const ReportTabMenu = () => {
-    const [activeTab, setActiveTab] = useState<Tab>("monthly")
-
+const ReportTabMenu = ({ activeTab, setActiveTab }: { activeTab: Tab, setActiveTab: (tab: Tab) => void }) => {
     return (
         <div className="flex items-center justify-between border-b border-grayscale-border">
             <button

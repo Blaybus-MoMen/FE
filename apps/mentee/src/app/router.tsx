@@ -5,6 +5,8 @@ import NavBarLayout from "@/shared/lib/NavBarLayout";
 import { createBrowserRouter, Navigate } from "react-router";
 import MainLayout from "@/shared/lib/MainLayout";
 import ReportPage from "@/pages/report/ReportPage";
+import ManagePage from "@/pages/manage/ManagePage";
+import MyPage from "@/pages/mypage/MyPage";
 
 export const router = createBrowserRouter([
     {
@@ -25,23 +27,24 @@ export const router = createBrowserRouter([
                         path: '/home',
                         element: <HomePage />,
                     },
+                    {
+                        path: '/my-page',
+                        element: <MyPage />,
+                    },
                 ],
             },
             {
                 element: <MainLayout />,
                 children: [
                     {
-                        path: '/learning',
-                        element: <>1</>,
+                        path: '/manage',
+                        element: <ManagePage />,
                     },
                     {
                         path: '/report',
                         element: <ReportPage />,
                     },
-                    {
-                        path: '/mypage',
-                        element: <>3</>,
-                    },
+
                 ]
             }
 

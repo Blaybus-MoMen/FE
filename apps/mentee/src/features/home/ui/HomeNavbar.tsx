@@ -3,9 +3,9 @@ import { Home, GraduationCap, BarChart2, UserCircle } from 'lucide-react';
 
 const navItems = [
     { label: '홈', icon: Home, path: '/home' },
-    { label: '학습 관리', icon: GraduationCap, path: '/learning' },
+    { label: '학습 관리', icon: GraduationCap, path: '/manage' },
     { label: '학습 리포트', icon: BarChart2, path: '/report' },
-    { label: '마이 페이지', icon: UserCircle, path: '/mypage' },
+    { label: '마이 페이지', icon: UserCircle, path: '/my-page' },
 ];
 
 export const HomeNavbar = () => {
