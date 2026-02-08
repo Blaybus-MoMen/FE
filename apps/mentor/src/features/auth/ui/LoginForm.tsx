@@ -19,24 +19,18 @@ const LoginForm = () => {
                     <span className="body-medium text-grayscale-medium-gray whitespace-nowrap pr-8 font-normal inline-flex items-center leading-none">
                         멘토 ID
                     </span>
-                    <div
-                        className="w-px h-6 border border-grayscale-border shrink-0 mr-6"
-                        aria-hidden
-                    />
+                    <div className="w-px h-6 border border-grayscale-border shrink-0 mr-6" aria-hidden />
                     <input
                         type="text"
                         className="flex-1 min-w-0 border-0 p-0 bg-transparent outline-none placeholder:text-grayscale-light-gray text-base"
-                        {...register('email')}
+                        {...register('loginId')}
                     />
                 </div>
                 <div className="w-full md:max-w-[458px] h-14 flex items-center border border-grayscale-border rounded-full pl-6 pr-4 py-4 bg-white shadow-[inset_0px_0px_4px_0px_#00000040]">
                     <span className="body-medium text-grayscale-medium-gray whitespace-nowrap pr-5 font-normal inline-flex items-center leading-none">
                         비밀번호
                     </span>
-                    <div
-                        className="w-px h-6 border border-grayscale-border shrink-0 mr-6"
-                        aria-hidden
-                    />
+                    <div className="w-px h-6 border border-grayscale-border shrink-0 mr-6" aria-hidden />
                     <div className="flex-1 min-w-0 flex items-center">
                         <input
                             type={showPassword ? 'text' : 'password'}
@@ -53,17 +47,24 @@ const LoginForm = () => {
                     </div>
                 </div>
             </div>
-            <button type='submit' className="w-full md:max-w-[458px] h-14 bg-primary-blue hover:bg-primary-blue-dark text-white rounded-full px-6 py-4 mt-12 ui-button">로그인</button>
+            <button
+                type="submit"
+                className="w-full md:max-w-[458px] h-14 bg-primary-blue hover:bg-primary-blue-dark text-white rounded-full px-6 py-4 mt-12 ui-button"
+            >
+                로그인
+            </button>
             <div className="flex w-full justify-center gap-2 mt-6 body-medium text-grayscale-dark-gray">
                 <button type="button">아이디찾기</button>
-                <span className="text-grayscale-light-gray" aria-hidden>|</span>
+                <span className="text-grayscale-light-gray" aria-hidden>
+                    |
+                </span>
                 <button type="button">비밀번호찾기</button>
             </div>
             <div className="flex w-full justify-center mt-4">
                 <h5 className="text-grayscale-dark-gray">개인정보처리방침</h5>
             </div>
         </form>
-    )
-}
+    );
+};
 
 export default LoginForm;
