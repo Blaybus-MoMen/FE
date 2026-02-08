@@ -1,6 +1,12 @@
 import { Trash2 } from 'lucide-react';
 
-type Subject = '국어' | '영어' | '수학';
+const SUBJECT_LABEL_MAP = {
+    KOREAN: '국어',
+    ENGLISH: '영어',
+    MATH: '수학',
+} as const;
+
+type Subject = 'KOREAN' | 'ENGLISH' | 'MATH';
 
 interface FeedbackCardProps {
     subject: Subject;
@@ -10,18 +16,28 @@ interface FeedbackCardProps {
     showActions?: boolean;
     onEdit?: () => void;
     onDelete?: () => void;
+    onToggleConfirm?: () => void;
 }
 
 const SUBJECT_STYLE: Record<Subject, string> = {
-    국어: 'bg-secondary-sky-pale',
-    영어: 'bg-accent-purple',
-    수학: 'bg-point-yellow',
+    KOREAN: 'bg-secondary-sky-pale',
+    ENGLISH: 'bg-accent-purple',
+    MATH: 'bg-point-yellow',
 };
 
 /**
  * @description 학생 목록 아이템
  */
-const StudentItem = ({ subject, task, goal, isConfirmed, showActions = true, onEdit, onDelete }: FeedbackCardProps) => {
+const TodoItem = ({
+    subject,
+    task,
+    goal,
+    isConfirmed,
+    showActions = true,
+    onEdit,
+    onDelete,
+    onToggleConfirm,
+}: FeedbackCardProps) => {
     return (
         <div className="w-full rounded-2xl bg-white p-4 shadow-md">
             <div className="hidden md:flex items-center gap-6">
@@ -36,7 +52,7 @@ const StudentItem = ({ subject, task, goal, isConfirmed, showActions = true, onE
                         <span
                             className={`rounded-lg w-[66px] py-1.5 ui-caption ui-label text-center ${SUBJECT_STYLE[subject]}`}
                         >
-                            {subject}
+                            {SUBJECT_LABEL_MAP[subject as keyof typeof SUBJECT_LABEL_MAP]}
                         </span>
 
                         <h4 className="truncate text-black" title={task}>
@@ -56,6 +72,7 @@ const StudentItem = ({ subject, task, goal, isConfirmed, showActions = true, onE
 
                     <button
                         type="button"
+                        onClick={onToggleConfirm}
                         className={`rounded-full px-5 py-1.5 ui-caption whitespace-nowrap justify-self-start ${
                             isConfirmed
                                 ? 'bg-system-success text-white'
@@ -139,4 +156,4 @@ const StudentItem = ({ subject, task, goal, isConfirmed, showActions = true, onE
     );
 };
 
-export default StudentItem;
+export default TodoItem;

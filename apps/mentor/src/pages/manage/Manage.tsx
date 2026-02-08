@@ -1,15 +1,28 @@
 import Avatar from '@/shared/ui/Avatar';
 import ManageSidebar from '@/features/manage/ui/ManageSideBar';
-import StudentList from '@/features/manage/ui/StudentList';
+import TodoList from '@/features/manage/ui/TodoList';
+import { useParams } from 'react-router';
+import useMentee from '@/features/manage/hooks/useMentee';
+import { useState } from 'react';
 
 /**
  * @description 학습관리 페이지
  */
 const ManagePage = () => {
+    const { menteeId } = useParams<{ menteeId: string }>();
+    const numericMenteeId = Number(menteeId);
+
+    const { mentee, isLoading, isError } = useMentee(numericMenteeId);
+
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
+    if (isLoading) return <div>로딩중...</div>;
+    if (isError || !mentee) return <div>에러 발생</div>;
+
     return (
         <main className="relative h-full w-full lg:overflow-hidden overflow-y-auto bg-feedback-layout">
             <div className="flex h-full w-full flex-col lg:flex-row">
-                <ManageSidebar />
+                <ManageSidebar mentee={mentee} selectedDate={selectedDate} onSelectDate={setSelectedDate} />
 
                 <section className="flex flex-1 flex-col bg-primary-blue-pale">
                     <header className="flex items-center justify-between px-4 lg:px-10 py-6 lg:py-8">
@@ -21,7 +34,7 @@ const ManagePage = () => {
                         </div>
                     </header>
 
-                    <StudentList />
+                    <TodoList menteeId={numericMenteeId} selectedDate={selectedDate} />
                 </section>
             </div>
         </main>

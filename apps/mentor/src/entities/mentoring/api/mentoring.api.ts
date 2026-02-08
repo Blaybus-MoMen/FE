@@ -9,7 +9,7 @@ export const mentoringApi = {
      * @description 담당 멘티 목록 조회 API
      */
     getMenteeList: async () => {
-        const response = await ApiHelper.get<ApiResponse<IGetMenteeListResponse>>(API_PATH.MENTORING.GETMENTEE);
+        const response = await ApiHelper.get<ApiResponse<IGetMenteeListResponse>>(API_PATH.MENTORING.MENTEE.LIST);
         return response;
     },
 };
