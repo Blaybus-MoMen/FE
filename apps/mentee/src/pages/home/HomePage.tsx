@@ -9,7 +9,7 @@ const HomePage = () => {
     const { selectedDate, displayMonth, setSelectedDate, setDisplayMonth } = useCalendar();
     return (
         <div
-            className="relative h-screen overflow-hidden p-[16px] pb-20"
+            className="relative min-h-screen overflow-auto p-[16px] pb-24"
             style={{
                 background: 'linear-gradient(180deg, #E1ECFF 0%, #D7C1F2 50%, #FFF494 100%)',
                 backdropFilter: 'blur(500px)',

@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) navigator.serviceWorker.register('/mentee/dev-sw.js?dev-sw', { scope: '/mentee/', type: 'classic' })
