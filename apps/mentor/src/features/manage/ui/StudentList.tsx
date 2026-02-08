@@ -30,7 +30,7 @@ const StudentList = () => {
                         onClick={() => openModal('FEEDBACK')}
                         type="button"
                         className="
-                        hidden lg:block
+                        hidden md:block
                         rounded-[37px]
                         bg-primary-blue-dark
                         px-[30px] py-[12px]

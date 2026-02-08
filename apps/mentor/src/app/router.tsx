@@ -27,12 +27,12 @@ export const router = createBrowserRouter(
                             element: <HomePage />,
                         },
                         {
-                            path: '/feedback',
-                            element: <FeedbackPage />,
+                            path: '/mentoring/:menteeId/manage',
+                            element: <ManagePage />,
                         },
                         {
-                            path: '/manage',
-                            element: <ManagePage />,
+                            path: '/feedback',
+                            element: <FeedbackPage />,
                         },
                     ],
                 },

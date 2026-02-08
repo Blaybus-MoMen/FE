@@ -24,9 +24,7 @@ const Box = ({ title, height = 200, mentor = true, placeholder }: BoxProps) => (
                 className="flex-1 w-full resize-none rounded-xl bg-grayscale-bg-gray p-4 outline-none border-0 placeholder:text-grayscale-light-gray text-base"
             />
         ) : (
-            <div className="flex-1 rounded-xl p-4 text-base text-grayscale-dark-gray">
-                안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-            </div>
+            <div className="flex-1 rounded-xl p-4 text-base text-grayscale-dark-gray"></div>
         )}
     </section>
 );

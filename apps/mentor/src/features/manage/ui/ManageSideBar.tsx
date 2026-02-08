@@ -16,7 +16,12 @@ const ManageSidebar = () => {
         >
             <header className="z-10 px-4 lg:px-8 flex items-start justify-between mb-6 sm:items-center">
                 <div className="flex flex-col gap-4 items-start sm:flex-row sm:gap-6">
-                    <img src={homeLogo} alt="home-logo" className="h-[28px] w-auto cursor-pointer" />
+                    <img
+                        src={homeLogo}
+                        onClick={() => navigate('/home')}
+                        alt="home-logo"
+                        className="h-[28px] w-auto cursor-pointer"
+                    />
 
                     <div className="flex gap-6">
                         <h3 className="cursor-pointer">학습관리</h3>

@@ -4,4 +4,7 @@ export const API_PATH = {
         LOGOUT: '/auth/logout',
         REFRESH: '/auth/refresh',
     },
-}
+    MENTORING: {
+        GETMENTEE: '/mentoring/mentees',
+    },
+};
