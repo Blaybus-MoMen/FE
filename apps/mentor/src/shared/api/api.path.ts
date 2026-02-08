@@ -5,6 +5,16 @@ export const API_PATH = {
         REFRESH: '/auth/refresh',
     },
     MENTORING: {
-        GETMENTEE: '/mentoring/mentees',
+        MENTEE: {
+            LIST: '/mentoring/mentees',
+            DETAIL: (menteeId: number | string) => `/mentoring/mentees/${menteeId}`,
+        },
+        TODO: {
+            DAY: (menteeId: number) => `/mentoring/mentees/${menteeId}/todos`,
+            CONFIRM: (menteeId: number, todoId: number) => `/mentoring/mentees/${menteeId}/todos/${todoId}/confirm`,
+            CREATE: (menteeId: number) => `/mentoring/mentees/${menteeId}/todos`,
+            UPDATE: (menteeId: number, todoId: number) => `/mentoring/mentees/${menteeId}/todos/${todoId}`,
+            DELETE: (menteeId: number, todoId: number) => `/mentoring/mentees/${menteeId}/todos/${todoId}`,
+        },
     },
 };

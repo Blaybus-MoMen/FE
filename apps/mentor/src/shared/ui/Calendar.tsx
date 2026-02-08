@@ -1,21 +1,22 @@
-import { useState } from "react"
-import useMediaQuery from "@/shared/hooks/useMediaQuery"
-import WeeklyCalendar from "@/shared/ui/WeekCalendar"
-import MonthCalendar from "@/shared/ui/MonthCalendar"
+import { useState } from 'react';
+import useMediaQuery from '@/shared/hooks/useMediaQuery';
+import WeeklyCalendar from '@/shared/ui/WeekCalendar';
+import MonthCalendar from '@/shared/ui/MonthCalendar';
+
+interface Props {
+    selectedDate: Date;
+    onSelectDate: (date: Date) => void;
+}
 
 /**
  * @description 캘린더 컴포넌트
  */
-const Calendar = () => {
-    const today = new Date()
+const Calendar = ({ selectedDate, onSelectDate }: Props) => {
+    const isDesktop = useMediaQuery('(min-width: 1024px)');
+    const [weekBaseDate, setWeekBaseDate] = useState(selectedDate);
+    const [displayMonth, setDisplayMonth] = useState(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1));
+    const [sheetOpen, setSheetOpen] = useState(false);
 
-    const [selectedDate, setSelectedDate] = useState<Date | null>(today)
-    const [weekBaseDate, setWeekBaseDate] = useState(today)
-    const [displayMonth, setDisplayMonth] = useState(
-        new Date(today.getFullYear(), today.getMonth(), 1),
-    )
-    const isDesktop = useMediaQuery("(min-width: 1024px)")
-    const [sheetOpen, setSheetOpen] = useState(false)
     return (
         <>
             {isDesktop ? (
@@ -23,11 +24,9 @@ const Calendar = () => {
                     selectedDate={selectedDate}
                     displayMonth={displayMonth}
                     onSelect={(d) => {
-                        setSelectedDate(d)
-                        setWeekBaseDate(d)
-                        setDisplayMonth(
-                            new Date(d.getFullYear(), d.getMonth(), 1),
-                        )
+                        onSelectDate(d);
+                        setWeekBaseDate(d);
+                        setDisplayMonth(new Date(d.getFullYear(), d.getMonth(), 1));
                     }}
                     onChangeMonth={setDisplayMonth}
                 />
@@ -38,7 +37,7 @@ const Calendar = () => {
                     displayMonth={displayMonth}
                     setWeekBaseDate={setWeekBaseDate}
                     setDisplayMonth={setDisplayMonth}
-                    setSelectedDate={setSelectedDate}
+                    setSelectedDate={onSelectDate}
                     showWeekend={true}
                     onOpenSheet={() => setSheetOpen(true)}
                 />
@@ -56,12 +55,10 @@ const Calendar = () => {
                             selectedDate={selectedDate}
                             displayMonth={displayMonth}
                             onSelect={(d) => {
-                                setSelectedDate(d)
-                                setWeekBaseDate(d)
-                                setDisplayMonth(
-                                    new Date(d.getFullYear(), d.getMonth(), 1),
-                                )
-                                setSheetOpen(false)
+                                onSelectDate(d);
+                                setWeekBaseDate(d);
+                                setDisplayMonth(new Date(d.getFullYear(), d.getMonth(), 1));
+                                setSheetOpen(false);
                             }}
                             onChangeMonth={setDisplayMonth}
                         />
@@ -69,7 +66,7 @@ const Calendar = () => {
                 </div>
             )}
         </>
-    )
-}
+    );
+};
 
 export default Calendar;

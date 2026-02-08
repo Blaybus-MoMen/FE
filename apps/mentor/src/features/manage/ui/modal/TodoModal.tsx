@@ -1,10 +1,15 @@
-import useFeedbackForm from '@/features/feedback/hooks/useFeedbackForm';
+import useTodoForm from '@/features/manage/hooks/useTodoForm';
 import { useModalActions } from '@/shared/store/modal.store';
 import { X } from 'lucide-react';
 import { Controller } from 'react-hook-form';
 import { clsx } from 'clsx';
 import CommonMonthRangeCalendar from '@/shared/ui/CommonMonthRangeCalendar';
 import useRangeCalendar from '@/shared/hooks/useRangeCalendar';
+import type { ModalPayloadMap } from '@/shared/model/modal';
+import { useTodoActions } from '../../hooks/useTodoActions';
+import { useEffect } from 'react';
+import { SUBJECT_MAP } from '../../utils/subject.mapper';
+import { format } from 'date-fns';
 
 const LEARNING_FILE_INPUT_ID = 'learning-file-input';
 
@@ -17,18 +22,54 @@ const SUBJECT_ACTIVE_CLASS: Record<(typeof SUBJECTS)[number], string> = {
 };
 
 /**
- * @description 피드백 모달
+ * @description 학습 모달
  */
-const FeedbackModal = () => {
+const TodoModal = ({ data }: { data: ModalPayloadMap['TODO'] }) => {
     const { closeModal } = useModalActions();
-    const { register, handleSubmit, control } = useFeedbackForm();
+    const { mode, menteeId, todo } = data;
+
+    const { register, handleSubmit, control, setValue } = useTodoForm();
 
     const { rangeStart, rangeEnd, displayMonth, setDisplayMonth, handleRangeSelect, effectiveSelectedDate } =
         useRangeCalendar();
 
-    const onSubmit = handleSubmit((data) => {
-        console.log(data);
+    const { createTodo, updateTodo } = useTodoActions({
+        menteeId,
+        date: todo?.startDate ?? '',
     });
+
+    const onSubmit = handleSubmit((form) => {
+        if (!rangeStart || !rangeEnd) return;
+
+        const payload = {
+            title: form.title!,
+            subject: SUBJECT_MAP[form.subject!],
+            goalDescription: form.learningGoal!,
+            startDate: format(rangeStart, 'yyyy-MM-dd'),
+            endDate: format(rangeEnd, 'yyyy-MM-dd'),
+            repeatDays: [],
+            materials: [],
+        };
+
+        if (mode === 'create') {
+            createTodo(payload);
+        }
+
+        if (mode === 'edit' && todo) {
+            updateTodo(todo.todoId, payload);
+        }
+
+        closeModal('TODO');
+    });
+
+    useEffect(() => {
+        if (mode === 'edit' && todo) {
+            setValue('title', todo.title);
+            setValue('subject', todo.subject === 'KOREAN' ? '국어' : todo.subject === 'ENGLISH' ? '영어' : '수학');
+            setValue('learningGoal', todo.goalDescription);
+        }
+    }, [mode, todo, setValue]);
+
     return (
         <form
             className="fixed inset-0 z-999 flex bg-[#22222266] items-end justify-center md:items-center"
@@ -64,7 +105,7 @@ const FeedbackModal = () => {
                         <button
                             type="button"
                             className="hidden lg:flex w-[44px] h-[44px] bg-primary-blue-dark rounded-full justify-center items-center shadow-[0px_3.64px_3.64px_0px_#00000040]"
-                            onClick={() => closeModal('FEEDBACK')}
+                            onClick={() => closeModal('TODO')}
                         >
                             <X className="w-[15px] h-[15px] text-white" />
                         </button>
@@ -275,4 +316,4 @@ const FeedbackModal = () => {
     );
 };
 
-export default FeedbackModal;
+export default TodoModal;

@@ -91,4 +91,12 @@ export const ApiHelper = {
         const response: AxiosResponse<T> = await apiInstance.patch(url, data, config);
         return response.data;
     },
+
+    /**
+     * PUT 요청
+     */
+    put: async <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> => {
+        const response: AxiosResponse<T> = await apiInstance.put(url, data, config);
+        return response.data;
+    },
 };
