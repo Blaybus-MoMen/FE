@@ -30,7 +30,7 @@ const ReportPage = () => {
     const selectedLabel = LEARNING_AREA_OPTIONS.find((o) => o.value === learningArea)?.label ?? "선택하세요";
 
     return (
-        <div className="h-full w-full">
+        <div className="h-full w-full flex flex-col min-h-0">
             <ReportTabMenu />
             <CommonMonthCalendar
                 selectedDate={selectedDate}
@@ -38,7 +38,7 @@ const ReportPage = () => {
                 onSelect={setSelectedDate}
                 onChangeMonth={setDisplayMonth}
             />
-            <div className="h-[132px] flex items-center justify-center mt-[16px] px-[16px]">
+            <div className="h-[132px] shrink-0 flex items-center justify-center mt-[16px] px-[16px]">
                 <div
                     className="rounded-[30px] w-full h-full shadow-[0px_0px_10px_0px_#0000001A] flex items-center justify-center flex-col"
                     style={{
@@ -53,8 +53,8 @@ const ReportPage = () => {
                     <p className="mt-[4px] text-[40px] text-primary-blue timer">00:00:00</p>
                 </div>
             </div>
-            <div className="rounded-tl-[24px] rounded-tr-[24px] h-full bg-primary-blue-pale mt-[26px] px-[16px] py-[30px]">
-                <div className="flex flex-wrap items-center gap-[8px] mb-[16px]">
+            <div className="rounded-tl-[24px] rounded-tr-[24px] flex-1 min-h-0 flex flex-col bg-primary-blue-pale mt-[26px] px-[16px] py-[30px]">
+                <div className="flex flex-wrap items-center gap-[8px] mb-[16px] shrink-0">
                     <div className="relative inline-block" ref={dropdownRef}>
                         <button
                             type="button"
@@ -96,7 +96,61 @@ const ReportPage = () => {
                         수학
                     </button>
                 </div>
-                <div className="flex flex-col gap-[12px]">
+                <div className="flex flex-col gap-[12px] flex-1 min-h-0 overflow-y-auto pb-24">
+                    <div className="w-full rounded-[14px] bg-[#FEFEFE] border border-grayscale-border shadow-[0px_2px_3px_0px_#00000012_inset] flex pr-[8px]">
+                        <div className="p-[14px] bg-point-yellow rounded-tl-[14px] rounded-bl-[14px] flex items-center justify-center text-[14px] text-grayscale-dark-gray">영어</div>
+                        <div className="flex items-center justify-between flex-1 pl-[12px]">
+                            <p className="text-[16px] text-grayscale-black">수능특강 듣기 p.20-23</p>
+                            <div className="bg-grayscale-bg-gray rounded-[7px] flex items-center justify-center timer px-[14px] py-[6px]">
+                                00:00:00
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-full rounded-[14px] bg-[#FEFEFE] border border-grayscale-border shadow-[0px_2px_3px_0px_#00000012_inset] flex pr-[8px]">
+                        <div className="p-[14px] bg-point-yellow rounded-tl-[14px] rounded-bl-[14px] flex items-center justify-center text-[14px] text-grayscale-dark-gray">영어</div>
+                        <div className="flex items-center justify-between flex-1 pl-[12px]">
+                            <p className="text-[16px] text-grayscale-black">수능특강 듣기 p.20-23</p>
+                            <div className="bg-grayscale-bg-gray rounded-[7px] flex items-center justify-center timer px-[14px] py-[6px]">
+                                00:00:00
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-full rounded-[14px] bg-[#FEFEFE] border border-grayscale-border shadow-[0px_2px_3px_0px_#00000012_inset] flex pr-[8px]">
+                        <div className="p-[14px] bg-point-yellow rounded-tl-[14px] rounded-bl-[14px] flex items-center justify-center text-[14px] text-grayscale-dark-gray">영어</div>
+                        <div className="flex items-center justify-between flex-1 pl-[12px]">
+                            <p className="text-[16px] text-grayscale-black">수능특강 듣기 p.20-23</p>
+                            <div className="bg-grayscale-bg-gray rounded-[7px] flex items-center justify-center timer px-[14px] py-[6px]">
+                                00:00:00
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-full rounded-[14px] bg-[#FEFEFE] border border-grayscale-border shadow-[0px_2px_3px_0px_#00000012_inset] flex pr-[8px]">
+                        <div className="p-[14px] bg-point-yellow rounded-tl-[14px] rounded-bl-[14px] flex items-center justify-center text-[14px] text-grayscale-dark-gray">영어</div>
+                        <div className="flex items-center justify-between flex-1 pl-[12px]">
+                            <p className="text-[16px] text-grayscale-black">수능특강 듣기 p.20-23</p>
+                            <div className="bg-grayscale-bg-gray rounded-[7px] flex items-center justify-center timer px-[14px] py-[6px]">
+                                00:00:00
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-full rounded-[14px] bg-[#FEFEFE] border border-grayscale-border shadow-[0px_2px_3px_0px_#00000012_inset] flex pr-[8px]">
+                        <div className="p-[14px] bg-point-yellow rounded-tl-[14px] rounded-bl-[14px] flex items-center justify-center text-[14px] text-grayscale-dark-gray">영어</div>
+                        <div className="flex items-center justify-between flex-1 pl-[12px]">
+                            <p className="text-[16px] text-grayscale-black">수능특강 듣기 p.20-23</p>
+                            <div className="bg-grayscale-bg-gray rounded-[7px] flex items-center justify-center timer px-[14px] py-[6px]">
+                                00:00:00
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-full rounded-[14px] bg-[#FEFEFE] border border-grayscale-border shadow-[0px_2px_3px_0px_#00000012_inset] flex pr-[8px]">
+                        <div className="p-[14px] bg-point-yellow rounded-tl-[14px] rounded-bl-[14px] flex items-center justify-center text-[14px] text-grayscale-dark-gray">영어</div>
+                        <div className="flex items-center justify-between flex-1 pl-[12px]">
+                            <p className="text-[16px] text-grayscale-black">수능특강 듣기 p.20-23</p>
+                            <div className="bg-grayscale-bg-gray rounded-[7px] flex items-center justify-center timer px-[14px] py-[6px]">
+                                00:00:00
+                            </div>
+                        </div>
+                    </div>
                     <div className="w-full rounded-[14px] bg-[#FEFEFE] border border-grayscale-border shadow-[0px_2px_3px_0px_#00000012_inset] flex pr-[8px]">
                         <div className="p-[14px] bg-point-yellow rounded-tl-[14px] rounded-bl-[14px] flex items-center justify-center text-[14px] text-grayscale-dark-gray">영어</div>
                         <div className="flex items-center justify-between flex-1 pl-[12px]">
@@ -126,7 +180,6 @@ const ReportPage = () => {
                     </div>
                 </div>
             </div>
-
         </div >
     )
 }

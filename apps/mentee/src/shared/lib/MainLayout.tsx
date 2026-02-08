@@ -4,9 +4,11 @@ import Header from "./Header";
 
 const MainLayout = () => {
     return (
-        <div className="h-full w-full shadow-[0px_2px_5px_2px_#00000012] bg-[#FEFEFE]">
+        <div className="h-full w-full flex flex-col shadow-[0px_2px_5px_2px_#00000012] bg-[#FEFEFE]">
             <Header />
-            <Outlet />
+            <main className="flex-1 min-h-0 overflow-auto">
+                <Outlet />
+            </main>
             <HomeNavbar />
         </div>
     )

@@ -19,13 +19,13 @@ const LoginPage = () => {
                 <input
                     type="text"
                     placeholder="ID"
-                    className="w-full border border-grayscale-border shadow-inner shadow-[0_0_4px_0_#00000040] px-4 py-2 focus:outline-none rounded-[28.5px] py-[13px] px-[26px]"
+                    className="w-full border border-grayscale-border shadow-inner shadow-[0_0_4px_0_#00000040] focus:outline-none rounded-[28.5px] py-[13px] px-[26px] bg-white placeholder:text-grayscale-light-gray text-grayscale-black"
                 />
                 <div className="w-full flex items-center border border-grayscale-border shadow-inner shadow-[0_0_4px_0_#00000040] rounded-[28.5px] py-[13px] px-[26px] bg-white">
                     <input
                         type={showPassword ? 'text' : 'password'}
                         placeholder="password"
-                        className="flex-1 min-w-0 border-0 p-0 bg-transparent outline-none placeholder:text-grayscale-light-gray"
+                        className="flex-1 min-w-0 border-0 p-0 bg-transparent outline-none placeholder:text-grayscale-light-gray text-grayscale-black"
                     />
                     <button type="button" onClick={handleTogglePassword} aria-label="비밀번호 보기">
                         <img
