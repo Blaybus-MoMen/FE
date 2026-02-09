@@ -1,23 +1,55 @@
 import homeLogo from '@/assets/images/white-home-logo.svg';
-import Calendar from '@/shared/ui/Calendar';
 import StudentCard from '@/features/manage/ui/StudentCard';
-import { useFeedbackPeriod } from '@/features/feedback/hooks/useFeedbackPeriod';
 import FeedbackPeriodHeader from '@/features/feedback/ui/common/FeedbackPeriodHeader';
 import FeedbackList from '@/features/feedback/ui/common/SideBarFeedbackList';
 import Avatar from '@/shared/ui/Avatar';
 import { useNavigate } from 'react-router';
+import type { IMenteeCardResponse } from '@/entities/manage/api/manage.api.type';
+import type { FeedbackViewMode } from '@/shared/model/feedback';
 
 interface Props {
-    mode: 'daily' | 'weekly' | 'monthly';
-    onChangeMode: (mode: 'daily' | 'weekly' | 'monthly') => void;
+    mode: FeedbackViewMode;
+    onChangeMode: (mode: FeedbackViewMode) => void;
+    menteeList: IMenteeCardResponse[];
+    selectedMenteeId: number | null;
+    onSelectMentee: (menteeId: number) => void;
+    selectedTodoId: number | null;
+    selectedFeedbackId: number | null;
+    onSelectTodo: (todoId: number) => void;
+    onSelectFeedback: (feedbackId: number) => void;
+    periodLabel: string;
+    onPeriodPrev: () => void;
+    onPeriodNext: () => void;
+    dateParams: {
+        yearMonth: string;
+        weekStartDate: string;
+        date: string;
+        year: number;
+        month: number;
+    };
 }
 
 /**
  * @description 피드백 페이지 좌측 사이드바
  */
-const FeedbackSidebar = ({ mode, onChangeMode }: Props) => {
+const FeedbackSidebar = ({
+    mode,
+    onChangeMode,
+    menteeList,
+    selectedMenteeId,
+    onSelectMentee,
+    selectedTodoId,
+    selectedFeedbackId,
+    onSelectTodo,
+    onSelectFeedback,
+    periodLabel,
+    onPeriodPrev,
+    onPeriodNext,
+    dateParams,
+}: Props) => {
     const navigate = useNavigate();
-    const { label, movePrev, moveNext } = useFeedbackPeriod(mode);
+
+    const selectedMentee = menteeList.find((m) => m.menteeId === selectedMenteeId);
 
     return (
         <aside
@@ -68,13 +100,28 @@ const FeedbackSidebar = ({ mode, onChangeMode }: Props) => {
                 <>
                     <div className="mx-4 lg:mx-0 mb-6">
                         <div className="w-full lg:w-[370px] lg:ml-auto rounded-[24px] lg:rounded-l-[24px] lg:rounded-r-none bg-white p-4 shadow mb-4">
-                            <StudentCard />
+                            {menteeList.length > 1 && (
+                                <div className="flex gap-2 mb-3 overflow-x-auto no-scrollbar">
+                                    {menteeList.map((mentee) => (<button key={mentee.menteeId} onClick={() => onSelectMentee(mentee.menteeId)} className={`shrink-0 px-3 py-1 rounded-full text-sm ${selectedMenteeId === mentee.menteeId ? 'bg-primary-blue text-white' : 'bg-grayscale-bg-gray text-grayscale-dark-gray'}`}>{mentee.name}</button>))}
+                                </div>
+                            )}
+                            {selectedMentee && <StudentCard mentee={selectedMentee} />}
                         </div>
                     </div>
 
                     <div className="flex flex-col flex-1 min-h-0 w-full lg:w-[395px] bg-point-yellow rounded-none lg:rounded-tl-[32px] lg:ml-auto">
-                        <FeedbackPeriodHeader label={label} onPrev={movePrev} onNext={moveNext} />
-                        <FeedbackList />
+                        <FeedbackPeriodHeader label={periodLabel} onPrev={onPeriodPrev} onNext={onPeriodNext} />
+                        {selectedMenteeId && (
+                            <FeedbackList
+                                mode={mode}
+                                menteeId={selectedMenteeId}
+                                dateParams={dateParams}
+                                selectedTodoId={selectedTodoId}
+                                selectedFeedbackId={selectedFeedbackId}
+                                onSelectTodo={onSelectTodo}
+                                onSelectFeedback={onSelectFeedback}
+                            />
+                        )}
                     </div>
                 </>
             </div>
