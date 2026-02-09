@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "@VITE_API_BASE_URL/:path*"
+    },
+    {
       "source": "/mentee/:path*",
       "destination": "/mentee/index.html"
     },

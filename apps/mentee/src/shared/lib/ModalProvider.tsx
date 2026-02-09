@@ -9,15 +9,21 @@ import LearningInspectionModal from "@/features/manage/ui/LearningInspectionModa
 import FeedbackConfirmModal from "@/features/manage/ui/FeedbackConfirmModal"
 import WeekFeedbackModal from "@/features/manage/ui/WeekFeedbackModal"
 import MonthFeedbackModal from "@/features/manage/ui/MonthFeedbackModal"
+import CheerUpdateModal from "@/features/home/ui/CheerUpdateModal"
+import FeatureModal from "@/features/mypage/ui/FeatureModal"
+import LearningEditModal from "@/features/manage/ui/LearningEditModal"
 
 
 /** 일반 모달 컴포넌트 매핑 */
 const GENERIC_MODALS: Partial<Record<GenericModalKey, ComponentType<unknown>>> = {
-    LEARNING_ADD: LearningAddModal,
-    LEARNING_INSPECTION: LearningInspectionModal,
+    LEARNING_ADD: LearningAddModal as ComponentType<unknown>,
+    LEARNING_INSPECTION: LearningInspectionModal as ComponentType<unknown>,
     FEEDBACK_CONFIRM: FeedbackConfirmModal,
-    WEEK_FEEDBACK: WeekFeedbackModal,
-    MONTH_FEEDBACK: MonthFeedbackModal,
+    WEEK_FEEDBACK: WeekFeedbackModal as ComponentType<unknown>,
+    MONTH_FEEDBACK: MonthFeedbackModal as ComponentType<unknown>,
+    CHEER_UPDATE: CheerUpdateModal as ComponentType<unknown>,
+    FEATURE: FeatureModal as ComponentType<unknown>,
+    LEARNING_EDIT: LearningEditModal as ComponentType<unknown>,
 }
 const ModalProvider = () => {
     const modals = useModalStore((state) => state.modals)

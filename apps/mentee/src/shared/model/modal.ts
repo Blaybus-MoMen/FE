@@ -7,6 +7,9 @@ export const MODAL_KEY = {
     FEEDBACK_CONFIRM: 'FEEDBACK_CONFIRM',
     WEEK_FEEDBACK: 'WEEK_FEEDBACK',
     MONTH_FEEDBACK: 'MONTH_FEEDBACK',
+    CHEER_UPDATE: 'CHEER_UPDATE',
+    FEATURE: 'FEATURE',
+    LEARNING_EDIT: 'LEARNING_EDIT',
 } as const
 
 /** MODAL_KEY에서 추출한 모달 키 타입  */
@@ -60,9 +63,43 @@ export interface ModalPayloadMap {
     }
     LEARNING_ADD: {
         onConfirm?: () => void
+        date: string
     }
-    LEARNING_INSPECTION: Record<string, never>,
-    FEEDBACK_CONFIRM: Record<string, never>,
-    WEEK_FEEDBACK: Record<string, never>,
-    MONTH_FEEDBACK: Record<string, never>,
+    LEARNING_INSPECTION: {
+        todoId: number
+        title: string
+        subject: string
+        goalDescription: string
+        studyTimeHours: string
+        studyTimeMinutes: string
+        studyTimeSeconds: string
+        isCompleted: boolean
+    },
+    FEEDBACK_CONFIRM: {
+        todoId: number
+        title: string
+        subject: string
+        goalDescription: string
+        studyTimeHours: string
+        studyTimeMinutes: string
+        studyTimeSeconds: string
+        isCompleted: boolean
+    },
+    WEEK_FEEDBACK: {
+        date: string
+    },
+    MONTH_FEEDBACK: {
+        date: string
+    },
+    CHEER_UPDATE: {
+        initialCheerMessage: string
+    }
+    FEATURE: {
+        features: string[]
+    }
+    LEARNING_EDIT: {
+        todoId: number
+        onConfirm?: () => void
+        date: string
+    }
 }

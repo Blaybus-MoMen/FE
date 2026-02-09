@@ -2,9 +2,27 @@ import { useModalActions } from '@/shared/store/modal.store';
 import { MODAL_KEY } from '@/shared/model/modal';
 import { ChevronLeft } from 'lucide-react';
 import noti from '@/assets/icons/noti.svg';
+import { CommonUtil } from '@/shared/utils/commonUtil';
+import { useFeedbackQuestionMutation, useGetTodoFeedbackQuery } from '@/entities/feedback/queries/feedback.queries';
+import clsx from 'clsx';
+import { useState } from 'react';
 
-const FeedbackConfirmModal = () => {
+const FeedbackConfirmModal = ({ todoId, title, subject, goalDescription, studyTimeHours, studyTimeMinutes, studyTimeSeconds, isCompleted }: { todoId: number, title: string, subject: string, goalDescription: string, studyTimeHours: string, studyTimeMinutes: string, studyTimeSeconds: string, isCompleted: boolean }) => {
     const { closeModal } = useModalActions();
+
+    const { data } = useGetTodoFeedbackQuery(todoId);
+
+    const { headerBg, subjectBg } = CommonUtil.getTodoCardStyle(subject);
+
+    const [question, setQuestion] = useState(data?.question || '');
+    const isChanged = question.trim() !== (data?.question || '').trim();
+
+    const { mutateAsync: feedbackQuestion } = useFeedbackQuestionMutation();
+
+    const handleFeedbackQuestion = async () => {
+        await feedbackQuestion({ todoId, question });
+        closeModal(MODAL_KEY.FEEDBACK_CONFIRM);
+    }
 
     return (
         <div
@@ -15,7 +33,7 @@ const FeedbackConfirmModal = () => {
             <header className="shrink-0 h-[56px] flex items-center px-4 bg-[#F9F9F9] border-b border-grayscale-border">
                 <button
                     type="button"
-                    onClick={() => closeModal(MODAL_KEY.LEARNING_INSPECTION)}
+                    onClick={() => closeModal(MODAL_KEY.FEEDBACK_CONFIRM)}
                     className="p-2 -ml-2 flex items-center justify-center text-grayscale-black"
                     aria-label="닫기"
                 >
@@ -27,31 +45,31 @@ const FeedbackConfirmModal = () => {
                 <img src={noti} alt="알림" />
             </header>
             <main className="flex-1 overflow-auto min-h-0 p-4">
-                <div className='bg-[#FFF59D26] flex'>
-                    <div className='w-[50px] bg-point-yellow rounded-tl-[19px] rounded-bl-[19px] flex items-center justify-center'>
-                        <p className='text-ui-label text-grayscale-dark-gray'>{11}</p>
+                <div className={clsx('flex', headerBg)}>
+                    <div className={clsx('w-[50px] rounded-tl-[19px] rounded-bl-[19px] flex items-center justify-center', subjectBg)}>
+                        <p className='text-ui-label text-grayscale-dark-gray'>{CommonUtil.getSubjectName(subject)}</p>
                     </div>
                     <div className='flex-1 flex items-center py-[18px]'>
                         <div className='pl-[20px] pr-[7px] flex justify-between w-full items-center'>
                             <div className='flex flex-col gap-[4px] w-full'>
                                 <div className='flex justify-between w-full'>
-                                    <p className='text-body-medium text-grayscale-black'>{22}</p>
-                                    <div
-                                        className='text-[12px] rounded-[20px] text-[#FEFEFE] py-[4px] px-[15px] bg-[#4CAF50]'
-                                    >
-                                        학습 완료
-                                    </div>
+                                    <p className='text-body-medium text-grayscale-black'>{title}</p>
+                                    {isCompleted ? <button className='h-fit text-[12px] bg-[#4CAF50] text-[#FEFEFE] rounded-[20px] px-[22px] py-[4px]'>
+                                        학습완료
+                                    </button> : <button className='h-fit text-[12px] bg-grayscale-light-gray text-grayscale-dark-gray rounded-[20px] px-[22px] py-[4px]'>
+                                        미완료
+                                    </button>}
                                 </div>
                                 <div className='flex flex-col'>
                                     <div className='flex items-center gap-[6px]'>
                                         <p className='text-[12px] text-grayscale-black'>학습 목표</p>
                                         <p className='text-[12px] text-grayscale-black'>|</p>
-                                        <p className='text-[12px] text-grayscale-black font-bold'>영어 듣기 향샹</p>
+                                        <p className='text-[12px] text-grayscale-black font-bold'>{goalDescription}</p>
                                     </div>
                                     <div className='flex items-center gap-[6px]'>
                                         <p className='text-[12px] text-grayscale-black'>학습시간</p>
                                         <p className='text-[12px] text-grayscale-black'>|</p>
-                                        <p className='text-[12px] text-grayscale-black font-bold'>54:50:30</p>
+                                        <p className='text-[12px] text-grayscale-black font-bold'>{studyTimeHours ?? '00'}:{studyTimeMinutes ?? '00'}:{studyTimeSeconds ?? '00'}</p>
                                     </div>
                                 </div>
                             </div>
@@ -60,14 +78,23 @@ const FeedbackConfirmModal = () => {
                 </div>
                 <div className="mt-[27px] bg-[#FEFEFE] h-[169px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] p-[13px]">
                     <div className='bg-grayscale-border w-fit rounded-[182.13px] px-[12px] py-[5px] text-[12px] text-grayscale-black font-bold'>멘토 피드백</div>
+                    <div className='text-[14px] h-full overflow-y-auto no-scrollbar'>{data?.mentorComment || ''}</div>
                 </div>
-                <textarea className="mt-[20px] w-full bg-[#FEFEFE] h-[162px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] resize-none p-[14px] outline-none focus:outline-none text-[16px]" placeholder='멘토에게 궁금한 내용을 질문해주세요.' />
+                <textarea className="mt-[20px] w-full bg-[#FEFEFE] h-[162px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] resize-none p-[14px] outline-none focus:outline-none text-[14px]" placeholder='멘토에게 궁금한 내용을 질문해주세요.' value={question} onChange={(e) => setQuestion(e.target.value)} />
                 <div className="bg-[#FEFEFE] mt-[14px] h-[169px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] p-[13px]">
                     <div className='bg-grayscale-border w-fit rounded-[182.13px] px-[39px] py-[5px] text-[12px] text-grayscale-black font-bold'>답변</div>
+                    <div className='text-[14px] h-full overflow-y-auto no-scrollbar'>{data?.answer || ''}</div>
                 </div>
                 <button
+                    onClick={handleFeedbackQuestion}
                     type="button"
-                    className="w-full mt-[24px] py-[14px] rounded-[10px] bg-primary-blue text-white text-[14px] font-medium"
+                    disabled={!isChanged}
+                    className={clsx(
+                        'w-full mt-[24px] py-[14px] rounded-[10px] text-[14px] font-medium',
+                        isChanged
+                            ? 'bg-primary-blue text-white'
+                            : 'bg-grayscale-light-gray text-grayscale-dark-gray'
+                    )}
                 >
                     저장하기
                 </button>

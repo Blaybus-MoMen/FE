@@ -5,10 +5,17 @@ import noti from '@/assets/icons/noti.svg';
 import WeekCalendarHeader from '@/shared/ui/WeekCalendarHeader';
 import useCalendar from '@/shared/hooks/useCalendar';
 import { CalendarUtil } from '@/shared/utils/calendarUtil';
+import { useGetWeekTodoFeedbackQuery } from '@/entities/feedback/queries/feedback.queries';
+import { CommonUtil } from '@/shared/utils/commonUtil';
 
-const WeekFeedbackModal = () => {
+const WeekFeedbackModal = ({ date }: { date: string }) => {
     const { closeModal } = useModalActions();
-    const { selectedDate, displayMonth, setSelectedDate, setDisplayMonth } = useCalendar();
+    const { selectedDate, displayMonth, setSelectedDate, setDisplayMonth } = useCalendar(new Date(date));
+
+
+    const formattedSelectedDate = CommonUtil.formatDateToYYYYMMDD(selectedDate as Date);
+
+    const { data } = useGetWeekTodoFeedbackQuery(formattedSelectedDate);
 
     return (
         <div
@@ -19,7 +26,7 @@ const WeekFeedbackModal = () => {
             <header className="shrink-0 h-[56px] flex items-center px-4 bg-[#F9F9F9] border-b border-grayscale-border">
                 <button
                     type="button"
-                    onClick={() => closeModal(MODAL_KEY.LEARNING_INSPECTION)}
+                    onClick={() => closeModal(MODAL_KEY.WEEK_FEEDBACK)}
                     className="p-2 -ml-2 flex items-center justify-center text-grayscale-black"
                     aria-label="닫기"
                 >
@@ -52,12 +59,15 @@ const WeekFeedbackModal = () => {
                 />
                 <div className="mt-[27px] bg-[#FEFEFE] h-[169px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] p-[13px]">
                     <div className='bg-grayscale-border w-fit rounded-[182.13px] px-[27px] py-[5px] text-[12px] text-grayscale-black font-bold'>멘토 총평</div>
+                    <div className='text-[14px] h-full overflow-y-auto no-scrollbar'>{data?.[0]?.overallReview || ''}</div>
                 </div>
                 <div className="mt-[27px] bg-[#FEFEFE] h-[169px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] p-[13px]">
                     <div className='bg-grayscale-border w-fit rounded-[182.13px] px-[16px] py-[5px] text-[12px] text-grayscale-black font-bold'>이번주 잘한점</div>
+                    <div className='text-[14px] h-full overflow-y-auto no-scrollbar'>{data?.[0]?.wellDone || ''}</div>
                 </div>
                 <div className="mt-[27px] bg-[#FEFEFE] h-[169px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] p-[13px]">
                     <div className='bg-grayscale-border w-fit rounded-[182.13px] px-[9px] py-[5px] text-[12px] text-grayscale-black font-bold'>다음주 보완할 점</div>
+                    <div className='text-[14px] h-full overflow-y-auto no-scrollbar'>{data?.[0]?.toImprove || ''}</div>
                 </div>
             </main >
         </div >

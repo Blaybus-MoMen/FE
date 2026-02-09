@@ -1,5 +1,5 @@
-import noti from '@/assets/icons/noti.svg';
 import { useLocation } from 'react-router';
+import Alarm from '../ui/Alarm';
 
 const PATH_TITLE_MAP = {
     '/manage': '학습관리',
@@ -11,9 +11,9 @@ const Header = () => {
     const { pathname } = useLocation();
     const title = PATH_TITLE_MAP[pathname as keyof typeof PATH_TITLE_MAP];
     return (
-        <div className="flex items-center justify-between px-[16px] py-[8px] bg-[#f3f3f3]">
+        <div className="flex items-center justify-between px-[16px] py-[8px] bg-[#e1ecff]">
             <h3 className='text-primary-blue-dark'>{title}</h3>
-            <img src={noti} alt="noti" />
+            <Alarm />
         </div >
     )
 }
