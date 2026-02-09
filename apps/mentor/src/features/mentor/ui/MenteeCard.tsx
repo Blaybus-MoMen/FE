@@ -34,18 +34,16 @@ const MenteeCard = ({ mentee }: MenteeCardProps) => {
         <article className="w-full min-h-[288px] sm:h-auto sm:min-h-40 shrink-0 border border-grayscale-bg-gray rounded-2xl bg-primary-blue p-1.5 sm:pt-0 flex flex-col">
             <header className="px-3.5 py-2.5 flex flex-col items-center gap-[19px] sm:gap-2 sm:flex-row sm:items-center sm:justify-between shrink-0">
                 <div className="flex gap-3">
-                    {mentee.subjects.map((subject) => {
+                    {mentee.subjects.map((subject, index) => {
                         const meta = SUBJECT_META[subject];
 
                         return (
-                            <>
-                                <div
-                                    key={subject}
-                                    className={`px-5 py-1.5 rounded-lg flex items-center justify-center ${meta.bgClass}`}
-                                >
-                                    <p className="ui-label text-grayscale-black">{meta.label}</p>
-                                </div>
-                            </>
+                            <div
+                                key={`${subject}-${index}`}
+                                className={`px-5 py-1.5 rounded-lg flex items-center justify-center ${meta.bgClass}`}
+                            >
+                                <p className="ui-label text-grayscale-black">{meta.label}</p>
+                            </div>
                         );
                     })}
                 </div>

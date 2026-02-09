@@ -33,6 +33,8 @@ const useLogin = () => {
 
     /** 로그인 폼 제출 핸들러 */
     const onSubmit: SubmitHandler<ILoginRequest> = async (data) => {
+        if (isPending) return;
+
         try {
             const response = await mutateAsync(data);
 

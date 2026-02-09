@@ -11,6 +11,7 @@ export const API_PATH = {
         },
         TODO: {
             DAY: (menteeId: number) => `/mentoring/mentees/${menteeId}/todos`,
+            DETAIL: (todoId: number) => `/mentoring/todos/${todoId}`,
             CONFIRM: (menteeId: number, todoId: number) => `/mentoring/mentees/${menteeId}/todos/${todoId}/confirm`,
             CREATE: (menteeId: number) => `/mentoring/mentees/${menteeId}/todos`,
             UPDATE: (menteeId: number, todoId: number) => `/mentoring/mentees/${menteeId}/todos/${todoId}`,

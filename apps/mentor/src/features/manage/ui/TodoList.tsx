@@ -3,6 +3,8 @@ import { useModalActions } from '@/shared/store/modal.store';
 import { format } from 'date-fns';
 import { useGetMenteeTodosQuery } from '@/entities/manage/queries/manage.queries';
 import { useTodoActions } from '../hooks/useTodoActions';
+import { CalendarUtil } from '@/shared/utils/calendarUtil';
+import { useMemo } from 'react';
 
 interface Props {
     menteeId: number;
@@ -15,21 +17,21 @@ interface Props {
 const TodoList = ({ menteeId, selectedDate }: Props) => {
     const { openModal } = useModalActions();
 
-    const yearMonth = format(selectedDate, 'yyyy-MM');
     const date = format(selectedDate, 'yyyy-MM-dd');
 
     const { toggleConfirm, deleteTodo } = useTodoActions({ menteeId, date });
 
-    const weekStartDate = format(
-        new Date(selectedDate.setDate(selectedDate.getDate() - selectedDate.getDay())),
-        'yyyy-MM-dd'
-    );
+    const params = useMemo(() => {
+        const yearMonth = format(selectedDate, 'yyyy-MM');
+        const date = format(selectedDate, 'yyyy-MM-dd');
+        const weekStartDate = format(CalendarUtil.startOfWeek(selectedDate, 0), 'yyyy-MM-dd');
+
+        return { yearMonth, date, weekStartDate };
+    }, [selectedDate]);
 
     const { data } = useGetMenteeTodosQuery({
         menteeId,
-        yearMonth,
-        weekStartDate,
-        date,
+        ...params,
     });
 
     const todos = data?.data ?? [];
@@ -43,7 +45,12 @@ const TodoList = ({ menteeId, selectedDate }: Props) => {
 
                 <div className="hidden md:flex gap-3">
                     <button
-                        onClick={() => openModal('TODO')}
+                        onClick={() =>
+                            openModal('TODO', {
+                                mode: 'create',
+                                menteeId,
+                            })
+                        }
                         type="button"
                         className="
                         hidden md:block

@@ -73,10 +73,10 @@ const TodoItem = ({
                     <button
                         type="button"
                         onClick={onToggleConfirm}
-                        className={`rounded-full px-5 py-1.5 ui-caption whitespace-nowrap justify-self-start ${
+                        className={`rounded-full px-5 py-1.5 ui-caption whitespace-nowrap justify-self-start border-[1.5px] ${
                             isConfirmed
-                                ? 'bg-system-success text-white'
-                                : 'bg-grayscale-light-gray border-[1.5px] border-grayscale-medium-gray text-black'
+                                ? 'bg-system-success text-white border-system-success'
+                                : 'bg-grayscale-light-gray border-grayscale-medium-gray text-black'
                         }`}
                     >
                         멘토 확인
