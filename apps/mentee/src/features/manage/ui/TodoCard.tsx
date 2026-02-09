@@ -16,12 +16,13 @@ interface ITodoCardProps {
     studyTimeSeconds: string;
     date: string;
     isCompleted: boolean;
+    creatorType: string;
 }
 
 
 const TodoCard = (props: ITodoCardProps) => {
     const queryClient = useQueryClient();
-    const { todoId, title, subject, goalDescription, hasFeedback, studyTimeHours, studyTimeMinutes, studyTimeSeconds, date, isCompleted } = props;
+    const { todoId, title, subject, goalDescription, hasFeedback, studyTimeHours, studyTimeMinutes, studyTimeSeconds, date, isCompleted, creatorType } = props;
     const { openModal } = useModalActions()
 
     const { headerBg, subjectBg } = CommonUtil.getTodoCardStyle(subject);
@@ -30,7 +31,7 @@ const TodoCard = (props: ITodoCardProps) => {
 
     const handleOpenModal = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-        openModal('MONTH_FEEDBACK');
+        openModal('FEEDBACK_CONFIRM', { todoId: todoId, title: title, subject: subject, goalDescription: goalDescription, studyTimeHours: studyTimeHours, studyTimeMinutes: studyTimeMinutes, studyTimeSeconds: studyTimeSeconds, isCompleted: isCompleted });
     };
 
     const handleOpenEditModal = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -63,23 +64,25 @@ const TodoCard = (props: ITodoCardProps) => {
                         <div className='flex flex-col min-w-0 flex-1'>
                             <div className='flex items-center gap-[6px] min-w-0'>
                                 <p className='text-body-medium text-grayscale-black truncate min-w-0 max-w-[140px] text-[16px]'>{title}</p>
-                                <button
-                                    type="button"
-                                    onClick={handleOpenEditModal}
-                                    className='shrink-0 text-primary-blue'
-                                >
-                                    <Edit3 size={16} />
-                                </button>
+                                {creatorType === 'MENTEE' && (
+                                    <button
+                                        type="button"
+                                        onClick={handleOpenEditModal}
+                                        className='shrink-0 text-primary-blue'
+                                    >
+                                        <Edit3 size={16} />
+                                    </button>
+                                )}
                             </div>
                             <div className='flex items-center gap-[6px] min-w-0'>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black shrink-0'>학습목표</p>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black shrink-0'>|</p>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black truncate min-w-0'>{goalDescription}</p>
+                                <p className='text-[12px]  text-grayscale-black shrink-0'>학습목표</p>
+                                <p className='text-[12px] text-grayscale-black shrink-0'>|</p>
+                                <p className='text-[12px] text-grayscale-black truncate min-w-0'>{goalDescription}</p>
                             </div>
                             <div className='flex items-center gap-[6px]'>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black'>학습시간</p>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black'>|</p>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black'>{studyTimeHours}:{studyTimeMinutes}:{studyTimeSeconds}</p>
+                                <p className='text-[12px] text-grayscale-black'>학습시간</p>
+                                <p className='text-[12px] text-grayscale-black'>|</p>
+                                <p className='text-[12px] text-grayscale-black'>{studyTimeHours}:{studyTimeMinutes}:{studyTimeSeconds}</p>
                             </div>
                         </div>
                         <div className="flex flex-col gap-[4px] shrink-0">

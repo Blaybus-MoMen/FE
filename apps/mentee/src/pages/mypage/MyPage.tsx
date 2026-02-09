@@ -94,7 +94,7 @@ const MyPage = () => {
                     </div>
                     <div className='flex items-center justify-center gap-[8px] mt-[17px] w-full'>
                         {data?.cards?.map((item) => (
-                            <div key={item} className='border-primary-blue border-[1px] rounded-[20px] px-[17px] py-[3px] text-primary-blue-dark text-[14px]'>{item}</div>
+                            <div key={item} className='border-primary-blue border-[1px] rounded-[20px] px-[10px] py-[3px] text-primary-blue-dark text-[14px]'>{item}</div>
                         ))}
                     </div>
                 </div>

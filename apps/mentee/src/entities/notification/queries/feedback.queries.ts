@@ -4,14 +4,14 @@ import { notificationApi } from "../api/notification.api"
 
 export const useGetNotificationListQuery = () => {
     return useQuery({
-        queryKey: ['getMyPageInfo'],
+        queryKey: ['getNotificationList'],
         queryFn: () => notificationApi.getNotificationList(),
     })
 }
 
 export const useGetUnreadNotificationListQuery = () => {
     return useQuery({
-        queryKey: ['getMyPageInfo'],
+        queryKey: ['getUnreadNotificationList'],
         queryFn: () => notificationApi.getUnreadNotificationList(),
     })
 }

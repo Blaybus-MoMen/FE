@@ -1,33 +1,38 @@
 import { useState } from "react";
 import { useModalActions } from "@/shared/store/modal.store";
 import { clsx } from "clsx";
+import { useUpdateCardMutation } from "@/entities/study/queries/study.queries";
+import { useQueryClient } from "@tanstack/react-query";
 
 const FEATURES = [
-    '1등급 목표',
-    '2등급 목표',
-    '3등급 목표',
     '팩폭 환영',
     '유리 멘탈',
-    '자기 주도',
     '아침형 인간',
     '내신 올킬',
     '벼락치기형',
-    '체계적인',
+    '전교 1등 도전',
     '꼼꼼함',
+    '끈기있는',
     '질문 많음',
+    '집중력 갑',
+    '집중력 부족',
     '이해 중심',
     '암기형',
     '기초부터',
-    '슬로우한',
-    '끈기있는',
-    '만점목표'
+    '만점목표',
+    '인서울 목표',
+    '수포자 탈출',
+    '영포자 탈출',
+    '슬로우 스타터',
 ] as const;
+
 
 const MAX_SELECTION = 3;
 
 const FEATURES_SET = new Set(FEATURES);
 
 const FeatureModal = ({ features }: { features: string[] }) => {
+    const queryClient = useQueryClient();
     const { closeModal } = useModalActions();
     const [selected, setSelected] = useState<(typeof FEATURES)[number][]>(() =>
         features.filter((f): f is (typeof FEATURES)[number] => FEATURES_SET.has(f as (typeof FEATURES)[number]))
@@ -42,6 +47,20 @@ const FeatureModal = ({ features }: { features: string[] }) => {
                     : prev
         );
     };
+
+    const { mutateAsync: updateCard } = useUpdateCardMutation();
+
+    const handleUpdateCard = async () => {
+        try {
+            await updateCard({ cards: selected });
+            queryClient.invalidateQueries({
+                queryKey: ['getMyPageInfo'],
+            });
+            closeModal('FEATURE');
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div
@@ -65,8 +84,8 @@ const FeatureModal = ({ features }: { features: string[] }) => {
                             type="button"
                             onClick={() => handleSelect(feature)}
                             className={clsx(
-                                "py-[4px] px-[14px] rounded-[20px] text-[14px] border-primary-blue border",
-                                selected.includes(feature) ? "bg-[#E1ECFF80]" : "bg-[#FEFEFE]"
+                                "py-[4px] px-[7px] rounded-[20px] text-[14px] border-primary-blue border",
+                                selected.includes(feature) ? "bg-[#D5E4FF]" : "bg-[#FEFEFE]"
                             )}
                         >
                             {feature}
@@ -76,12 +95,15 @@ const FeatureModal = ({ features }: { features: string[] }) => {
                 <button
                     type="button"
                     disabled={selected.length < MAX_SELECTION}
+                    onClick={handleUpdateCard}
                     className={clsx(
-                        "w-full mt-[24px] py-[14px] rounded-[10px] text-white text-[14px] font-medium",
-                        selected.length >= MAX_SELECTION ? "bg-primary-blue" : "bg-primary-blue/70 cursor-not-allowed"
+                        "w-full mt-[24px] py-[14px] rounded-[10px] text-[14px] font-medium",
+                        selected.length >= MAX_SELECTION
+                            ? "bg-primary-blue text-white"
+                            : "bg-grayscale-light-gray text-grayscale-dark-gray cursor-not-allowed"
                     )}
                 >
-                    추가하기
+                    수정하기
                 </button>
             </div>
         </div >

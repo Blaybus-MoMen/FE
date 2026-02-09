@@ -56,11 +56,11 @@ const LearningInspectionModal = (props: { todoId: number, title: string, subject
                             <div className='flex flex-col gap-[4px] w-full'>
                                 <div className='flex justify-between w-full'>
                                     <p className='text-body-medium text-grayscale-black'>{title}</p>
-                                    <div
-                                        className='text-[12px] rounded-[20px] text-[#FEFEFE] py-[4px] px-[15px] bg-[#4CAF50]'
-                                    >
-                                        {isCompleted ? '학습 완료' : '미완료'}
-                                    </div>
+                                    {isCompleted ? <button className='h-fit text-[12px] bg-[#4CAF50] text-[#FEFEFE] rounded-[20px] px-[22px] py-[4px]'>
+                                        학습완료
+                                    </button> : <button className='h-fit text-[12px] bg-grayscale-light-gray text-grayscale-dark-gray rounded-[20px] px-[22px] py-[4px]'>
+                                        미완료
+                                    </button>}
                                 </div>
                                 <div className='flex flex-col'>
                                     <div className='flex items-center gap-[6px]'>

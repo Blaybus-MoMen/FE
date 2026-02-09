@@ -26,3 +26,16 @@ export interface IMonthTodoFeedbackResponse {
     aiSummary: string,
     mentorComment: string,
 }
+
+export interface ITodoQuestionRequest {
+    question: string;
+    todoId: number;
+}
+
+export interface ITodoQuestionResponse {
+    feedbackId: number,
+    todoId: number,
+    mentorComment: string,
+    question: string,
+    answer: string,
+}

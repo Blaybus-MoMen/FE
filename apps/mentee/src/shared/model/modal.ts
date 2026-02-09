@@ -75,7 +75,16 @@ export interface ModalPayloadMap {
         studyTimeSeconds: string
         isCompleted: boolean
     },
-    FEEDBACK_CONFIRM: Record<string, never>,
+    FEEDBACK_CONFIRM: {
+        todoId: number
+        title: string
+        subject: string
+        goalDescription: string
+        studyTimeHours: string
+        studyTimeMinutes: string
+        studyTimeSeconds: string
+        isCompleted: boolean
+    },
     WEEK_FEEDBACK: {
         date: string
     },

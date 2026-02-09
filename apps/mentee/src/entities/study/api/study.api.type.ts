@@ -129,3 +129,7 @@ export interface ISubmitTodoRequest {
     memo: string
     todoId: number
 }
+
+export interface IUpdateCardRequest {
+    cards: string[]
+}

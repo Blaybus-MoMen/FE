@@ -30,7 +30,7 @@ const ManagePage = () => {
                     </div>
                 ) : (
                     data.map((todo) => (
-                        <TodoCard key={todo.todoId} todoId={todo.todoId} title={todo.title} subject={todo.subject} goalDescription={todo.goalDescription} hasFeedback={todo.hasFeedback} studyTimeHours={todo.studyTimeHours} studyTimeMinutes={todo.studyTimeMinutes} studyTimeSeconds={todo.studyTimeSeconds} date={formattedSelectedDate} isCompleted={todo.isCompleted} />
+                        <TodoCard key={todo.todoId} todoId={todo.todoId} title={todo.title} subject={todo.subject} goalDescription={todo.goalDescription} hasFeedback={todo.hasFeedback} studyTimeHours={todo.studyTimeHours} studyTimeMinutes={todo.studyTimeMinutes} studyTimeSeconds={todo.studyTimeSeconds} date={formattedSelectedDate} isCompleted={todo.isCompleted} creatorType={todo.creatorType} />
                     ))
                 )}
             </div>

@@ -13,11 +13,13 @@ export const API_PATH = {
         TODO: '/study/todos',
         TODO_SUBMISSION: (todoId: number) => `/study/todos/${todoId}/submission`,
         TODO_STUDY_TIME: (todoId: number) => `/study/todos/${todoId}/study-time`,
+        CARD: '/study/me/cards',
     },
     FEEDBACK: {
         TODO: '/feedback/todo',
         TODO_WEEK: '/study/feedback/weekly',
-        TODO_MONTH: '/study/feedback/monthly'
+        TODO_MONTH: '/study/feedback/monthly',
+        QUESTION: (feedbackId: number) => `/feedback/todo/${feedbackId}/question`,
     },
     NOTIFICATION: {
         LIST: '/notifications',
