@@ -21,10 +21,12 @@ export const HomeLearningCard = ({
     goalDescription,
     mentorConfirmed,
 }: IHomeLearningCardProps) => {
+    const { headerBg, subjectBg } = CommonUtil.getTodoCardStyle(subject);
+
     return (
         <div className='min-w-full flex-shrink-0 snap-center flex flex-col gap-[8px]'>
-            <div className='bg-[#FFF59D26] h-[79px] flex'>
-                <div className={`w-[50px] rounded-tl-[19px] rounded-bl-[19px] flex items-center justify-center ${CommonUtil.getSubjectColor(subject) || 'bg-grayscale-bg-gray'}`}>
+            <div className={`h-[79px] flex ${headerBg} rounded-[25px]`}>
+                <div className={`w-[50px] rounded-tl-[19px] rounded-bl-[19px] flex items-center justify-center ${subjectBg}`}>
                     <p className='text-ui-label text-grayscale-dark-gray'>{CommonUtil.getSubjectName(subject)}</p>
                 </div>
                 <div className='flex-1 flex items-center'>

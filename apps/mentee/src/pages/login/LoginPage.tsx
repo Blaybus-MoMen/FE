@@ -6,7 +6,7 @@ import useLogin from '@/features/auth/hooks/useLogin';
 const LoginPage = () => {
     const { register, handleLoginSubmit, isValid, showPassword, handleTogglePassword } = useLogin();
     return (
-        <div className="flex flex-col justify-center h-screen bg-background-white gap-[42px] px-[16px]">
+        <div className="flex flex-col justify-center h-screen bg-[#e1ecff] gap-[42px] px-[16px]">
             <div className="flex justify-center">
                 <img src={loginLogo} alt="login-logo" className="w-fit" />
             </div>

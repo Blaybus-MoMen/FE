@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useModalActions } from "@/shared/store/modal.store";
 import { MODAL_KEY } from "@/shared/model/modal";
 import { useUpdateCheerMessageMutation } from "@/entities/study/queries/study.queries";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CheerUpdateModalProps {
     initialCheerMessage?: string;
 }
 
 const CheerUpdateModal = ({ initialCheerMessage = "" }: CheerUpdateModalProps) => {
+    const queryClient = useQueryClient();
     const { closeModal } = useModalActions();
     const { mutateAsync: updateCheerMessage } = useUpdateCheerMessageMutation();
     const [cheerMessageValue, setCheerMessageValue] = useState(initialCheerMessage);
@@ -20,6 +22,9 @@ const CheerUpdateModal = ({ initialCheerMessage = "" }: CheerUpdateModalProps) =
         }
         try {
             await updateCheerMessage({ cheerMessage: trimmed });
+            queryClient.invalidateQueries({
+                queryKey: ['getMyInfo'],
+            });
             closeModal(MODAL_KEY.CHEER_UPDATE);
         } catch (error) {
             console.error(error);

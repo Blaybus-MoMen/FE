@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { studyApi } from "../api/study.api"
-import type { ICreateTodoRequest, IUpdateCheerMessageRequest, IUpdateStudyTimeRequest } from "../api/study.api.type"
+import type { ICreateTodoRequest, IUpdateCheerMessageRequest, IUpdateStudyTimeRequest, IUpdateTodoRequest } from "../api/study.api.type"
 
 
 export const useGetMyPageInfoQuery = () => {
@@ -49,7 +49,7 @@ export const useGetMonthlyTodoListQuery = (params: string) => {
     })
 }
 
-export const useGetTodoDetailQuery = (params: string) => {
+export const useGetTodoDetailQuery = (params: number) => {
     return useQuery({
         queryKey: ['getTodoDetail', params],
         queryFn: () => studyApi.getTodoDetail(params),
@@ -105,5 +105,17 @@ export const useUpdateStudyTimeMutation = () => {
 export const useCreateTodoMutation = () => {
     return useMutation({
         mutationFn: (params: ICreateTodoRequest) => studyApi.createTodo(params),
+    })
+}
+
+export const useDeleteTodoMutation = () => {
+    return useMutation({
+        mutationFn: (params: number) => studyApi.deleteTodo(params),
+    })
+}
+
+export const useUpdateTodoMutation = () => {
+    return useMutation({
+        mutationFn: (params: IUpdateTodoRequest) => studyApi.updateTodo(params),
     })
 }

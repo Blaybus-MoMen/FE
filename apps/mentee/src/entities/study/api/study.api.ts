@@ -1,6 +1,6 @@
 import { ApiHelper } from '@/shared/api/api.base'
 import { API_PATH } from '@/shared/api/api.path'
-import type { ICreateTodoRequest, IDailyStatsResponse, IGetMyInfoResponse, IGetMyPageInfoResponse, IStudyTimeResponse, ITodoDetailResponse, ITodoListResponse, ITodoSubmissionResponse, IUpdateCheerMessageRequest, IUpdateStudyTimeRequest } from './study.api.type'
+import type { ICreateTodoRequest, IDailyStatsResponse, IGetMyInfoResponse, IGetMyPageInfoResponse, IStudyTimeResponse, ITodoDetailResponse, ITodoListResponse, ITodoSubmissionResponse, IUpdateCheerMessageRequest, IUpdateStudyTimeRequest, IUpdateTodoRequest } from './study.api.type'
 import type { ApiResponse } from '@/shared/model/type'
 
 /** 스터디 API */
@@ -26,26 +26,13 @@ export const studyApi = {
         return response.data
     },
     getMonthlyTodoList: async (params: string) => {
-        // const response = await ApiHelper.get<ITodoListResponse[]>(`${API_PATH.STUDY.TODO_LIST}?yearMonth=${params}`)
-        // return response
-        return [{
-            todoId: 1,
-            title: "수학 문제 풀기",
-            subject: "MATH",
-            goalDescription: "쎈 수학 킬러문항 5문제 풀기",
-            startDate: "2026-02-02",
-            endDate: "2026-02-02",
-            mentorConfirmed: false,
-            creatorType: "MENTOR",
-            hasFeedback: false,
-            studyTimeHours: 0,
-            studyTimeMinutes: 0,
-            studyTimeSeconds: 0
-        },]
-    },
-    getTodoDetail: async (params: string) => {
-        const response = await ApiHelper.get<ITodoDetailResponse>(`${API_PATH.STUDY.TODO_LIST}/${params}`)
+        const response = await ApiHelper.get<ApiResponse<ITodoListResponse[]>>(`${API_PATH.STUDY.TODO_LIST}?yearMonth=${params}`)
         return response
+
+    },
+    getTodoDetail: async (params: number) => {
+        const response = await ApiHelper.get<ApiResponse<ITodoDetailResponse>>(`${API_PATH.STUDY.TODO}/${params}`)
+        return response.data
     },
     getDailyStudyTime: async (params: string) => {
         const response = await ApiHelper.get<IStudyTimeResponse>(`${API_PATH.STUDY.STUDY_TIME}?date=${params}`)
@@ -68,7 +55,16 @@ export const studyApi = {
         return response
     },
     createTodo: async (params: ICreateTodoRequest) => {
-        const response = await ApiHelper.post(API_PATH.STUDY.TODO, params)
+        const response = await ApiHelper.post<ApiResponse<number[]>>(API_PATH.STUDY.TODO, params)
+        return response
+    },
+    deleteTodo: async (todoId: number) => {
+        const response = await ApiHelper.delete(`${API_PATH.STUDY.TODO}/${todoId}`)
+        return response
+    },
+    updateTodo: async (params: IUpdateTodoRequest) => {
+        const { todoId, ...rest } = params;
+        const response = await ApiHelper.patch(`${API_PATH.STUDY.TODO}/${todoId}/content`, rest)
         return response
     },
     updateStudyTime: async (todoId: number, params: IUpdateStudyTimeRequest) => {

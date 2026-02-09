@@ -23,4 +23,7 @@ export const API_PATH = {
         LIST: '/notifications',
         UNREAD_LIST: '/notifications/unread-count',
     },
+    FILE: {
+        UPLOAD: '/files/upload',
+    },
 }

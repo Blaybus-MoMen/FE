@@ -8,7 +8,7 @@ import { SUBJECT_LIST } from '@/shared/constants/constants';
 import { clsx } from 'clsx';
 import MobileSelect from '@/shared/ui/MobileSelect';
 import { useFileUploadMutation } from '@/entities/file/queries/file.queries';
-import { useCreateTodoMutation } from '@/entities/study/queries/study.queries';
+import { useGetTodoDetailQuery, useUpdateTodoMutation } from '@/entities/study/queries/study.queries';
 import { useQueryClient } from '@tanstack/react-query';
 
 const YEARS = Array.from({ length: 11 }, (_, i) => 2020 + i);
@@ -56,15 +56,17 @@ const parseDateString = (dateStr: string) => {
     return { year: y, month: m, day: d, weekday: date.getDay() };
 };
 
-const LearningAddModal = ({ date }: { date: string }) => {
+const LearningEditModal = ({ date, todoId }: { date: string, todoId: number }) => {
     const queryClient = useQueryClient();
     const { closeModal } = useModalActions();
     const { year, month, day, weekday } = parseDateString(date);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [uploadingNames, setUploadingNames] = useState<string[]>([]);
     const { mutateAsync: uploadFile } = useFileUploadMutation();
+    const { mutateAsync: updateTodo } = useUpdateTodoMutation();
 
-    const { mutateAsync: createTodo } = useCreateTodoMutation();
+    const { data } = useGetTodoDetailQuery(todoId);
+
 
     const {
         register,
@@ -89,6 +91,29 @@ const LearningAddModal = ({ date }: { date: string }) => {
             materials: [],
         },
     });
+
+    useEffect(() => {
+        if (!data) return;
+        const { title, subject, goalDescription, startDate, endDate, materials } = data;
+        setValue('title', title);
+        setValue('subject', subject as LearningAddFormValues['subject']);
+        setValue('goalDescription', goalDescription);
+        const startParsed = parseDateString(startDate);
+        const endParsed = parseDateString(endDate);
+        setValue('startYear', startParsed.year);
+        setValue('startMonth', startParsed.month);
+        setValue('startDay', startParsed.day);
+        setValue('endYear', endParsed.year);
+        setValue('endMonth', endParsed.month);
+        setValue('endDay', endParsed.day);
+        setValue(
+            'materials',
+            (materials ?? []).map((m) => ({
+                fileUrl: m.fileUrl,
+                fileName: m.fileName,
+            })),
+        );
+    }, [data, setValue]);
 
     const materials = watch('materials');
 
@@ -155,12 +180,13 @@ const LearningAddModal = ({ date }: { date: string }) => {
                 endDate,
                 repeatDays: repeatDaysPayload,
                 materials: data.materials,
+                todoId,
             };
-            await createTodo(payload);
+            await updateTodo(payload);
             queryClient.invalidateQueries({
                 queryKey: ['getDailyTodoList', date],
             });
-            closeModal(MODAL_KEY.LEARNING_ADD);
+            closeModal(MODAL_KEY.LEARNING_EDIT);
         } catch (error) {
             console.error(error);
         }
@@ -189,7 +215,7 @@ const LearningAddModal = ({ date }: { date: string }) => {
         <div
             className="fixed inset-0 z-50 flex flex-col justify-end "
             role="presentation"
-            onClick={() => closeModal(MODAL_KEY.LEARNING_ADD)}
+            onClick={() => closeModal(MODAL_KEY.LEARNING_EDIT)}
         >
             <div
                 role="dialog"
@@ -198,7 +224,7 @@ const LearningAddModal = ({ date }: { date: string }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex shrink-0 justify-center">
-                    <h3 className="font-medium text-primary-blue">학습 추가하기</h3>
+                    <h3 className="font-medium text-primary-blue">학습 수정하기</h3>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex min-h-0 flex-1 flex-col overflow-y-auto no-scrollbar">
                     <div className='mt-[24px] flex flex-col gap-[16px] pb-[26px] border-b border-grayscale-bg-gray'>
@@ -443,7 +469,7 @@ const LearningAddModal = ({ date }: { date: string }) => {
                         disabled={!isValid || repeatDays.length === 0}
                         className="w-full mt-[24px] py-[14px] rounded-[50px] bg-primary-blue text-white text-[14px] font-medium disabled:bg-grayscale-light-gray disabled:text-grayscale-dark-gray"
                     >
-                        추가하기
+                        수정하기
                     </button>
                 </form>
             </div>
@@ -451,4 +477,4 @@ const LearningAddModal = ({ date }: { date: string }) => {
     );
 };
 
-export default LearningAddModal;
+export default LearningEditModal;

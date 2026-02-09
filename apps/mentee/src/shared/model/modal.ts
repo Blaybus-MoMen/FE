@@ -9,6 +9,7 @@ export const MODAL_KEY = {
     MONTH_FEEDBACK: 'MONTH_FEEDBACK',
     CHEER_UPDATE: 'CHEER_UPDATE',
     FEATURE: 'FEATURE',
+    LEARNING_EDIT: 'LEARNING_EDIT',
 } as const
 
 /** MODAL_KEY에서 추출한 모달 키 타입  */
@@ -73,5 +74,10 @@ export interface ModalPayloadMap {
     }
     FEATURE: {
         features: string[]
+    }
+    LEARNING_EDIT: {
+        todoId: number
+        onConfirm?: () => void
+        date: string
     }
 }

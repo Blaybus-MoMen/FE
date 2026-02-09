@@ -47,11 +47,11 @@ const ConfirmModal = ({ message, variant = 'success', onConfirm }: IConfirmModal
                         </p>
                     )}
                 </div>
-                <div className="flex w-full flex-col gap-3 sm:flex-row sm:justify-center">
+                <div className="flex w-full gap-3">
                     <button
                         type="button"
                         onClick={closeConfirm}
-                        className="w-full h-14 rounded-full border-2 border-grayscale-border bg-white px-6 py-4 mt-12 text-grayscale-dark-gray hover:bg-grayscale-bg-gray ui-button md:max-w-[458px]"
+                        className="w-full h-14 rounded-full border-2 border-grayscale-border bg-white px-6 py-4 mt-12 text-grayscale-dark-gray hover:bg-grayscale-bg-gray ui-button"
                     >
                         취소
                     </button>
@@ -61,7 +61,7 @@ const ConfirmModal = ({ message, variant = 'success', onConfirm }: IConfirmModal
                             onConfirm?.()
                             closeConfirm()
                         }}
-                        className="w-full h-14 rounded-full bg-primary-blue px-6 py-4 mt-12 text-white hover:bg-primary-blue-dark ui-button md:max-w-[458px]"
+                        className="w-full h-14 rounded-full bg-primary-blue px-6 py-4 mt-12 text-white hover:bg-primary-blue-dark ui-button"
                     >
                         확인
                     </button>
