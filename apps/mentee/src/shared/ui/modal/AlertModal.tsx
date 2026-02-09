@@ -30,7 +30,7 @@ const AlertModal = ({ message, variant = 'success' }: IAlertModalProps) => {
 
     return (
         <div
-            className="fixed inset-0 z-50 flex min-h-screen w-full items-center justify-center bg-black/50 p-6"
+            className="fixed inset-0 z-999 flex min-h-screen w-full items-center justify-center bg-black/50 p-6"
             role="presentation"
         >
             <div

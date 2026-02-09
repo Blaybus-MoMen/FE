@@ -119,6 +119,13 @@ export interface IUpdateTodoRequest extends ICreateTodoRequest {
     todoId: number
 }
 export interface IUpdateStudyTimeRequest {
+    todoId: number
     studyTime: number
 }
 
+export interface ISubmitTodoRequest {
+    fileUrl: string
+    fileName: string
+    memo: string
+    todoId: number
+}

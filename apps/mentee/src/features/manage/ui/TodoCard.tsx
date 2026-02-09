@@ -10,18 +10,18 @@ interface ITodoCardProps {
     title: string;
     subject: string;
     goalDescription: string;
-    mentorConfirmed: boolean;
     hasFeedback: boolean;
     studyTimeHours: string;
     studyTimeMinutes: string;
     studyTimeSeconds: string;
     date: string;
+    isCompleted: boolean;
 }
 
 
 const TodoCard = (props: ITodoCardProps) => {
     const queryClient = useQueryClient();
-    const { todoId, title, subject, goalDescription, hasFeedback, studyTimeHours, studyTimeMinutes, studyTimeSeconds, date } = props;
+    const { todoId, title, subject, goalDescription, hasFeedback, studyTimeHours, studyTimeMinutes, studyTimeSeconds, date, isCompleted } = props;
     const { openModal } = useModalActions()
 
     const { headerBg, subjectBg } = CommonUtil.getTodoCardStyle(subject);
@@ -53,7 +53,7 @@ const TodoCard = (props: ITodoCardProps) => {
     };
 
     return (
-        <div className="bg-[#FEFEFE80] shadow-[0px_2px_5px_2px_#00000012] rounded-[25px] p-[8px]" aria-label="학습 리포트" onClick={() => openModal('LEARNING_INSPECTION')}>
+        <div className="bg-[#FEFEFE80] shadow-[0px_2px_5px_2px_#00000012] rounded-[25px] p-[8px]" aria-label="학습 리포트" onClick={() => openModal('LEARNING_INSPECTION', { todoId: todoId, title: title, subject: subject, goalDescription: goalDescription, studyTimeHours: studyTimeHours, studyTimeMinutes: studyTimeMinutes, studyTimeSeconds: studyTimeSeconds, isCompleted: isCompleted })}>
             <div className={clsx('h-[79px] flex rounded-[25px]', headerBg)}>
                 <div className={clsx('w-[50px] rounded-tl-[19px] rounded-bl-[19px] flex items-center justify-center', subjectBg)}>
                     <p className='text-ui-label text-[14px] text-grayscale-dark-gray'>{CommonUtil.getSubjectName(subject)}</p>

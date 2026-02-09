@@ -1,22 +1,36 @@
 import alarm from '@/assets/icons/alarm.svg';
+import { useModalActions } from '@/shared/store/modal.store';
+import { CommonUtil } from '@/shared/utils/commonUtil';
 
 export type ReportCardProps = {
     type: 'total' | 'subject';
-    subject?: string;
+    subjectCode?: string;
     timeDisplay?: string;
+    date?: string;
 };
 
 export const ReportCard = ({
     type,
-    subject = '국어',
+    subjectCode = 'KOREAN',
     timeDisplay = '00:00:00',
+    date,
 }: ReportCardProps) => {
     const isTotal = type === 'total';
 
-    const cardClassName = [
-        'w-[164px] h-[164px] shrink-0 snap-center flex items-center justify-center rounded-[25px] flex-col gap-[8px] shadow-[0px_0px_8px_0px_#0000001A]',
-        isTotal ? 'bg-[#FEFEFEB2]' : 'bg-[#BFEAFE80]',
-    ].join(' ');
+    const { openModal } = useModalActions();
+
+    const { subjectBg } = CommonUtil.getTodoCardStyle(subjectCode);
+    const subjectLabel = CommonUtil.getSubjectName(subjectCode);
+
+    const subjectBgColorMap: Record<string, string> = {
+        KOREAN: '#BFEAFE80',
+        ENGLISH: '#D7C1F280',
+        MATH: '#FFF59D80',
+    };
+    const subjectCardBg = subjectBgColorMap[subjectCode] ?? '#BFEAFE80';
+
+    const cardClassName =
+        'w-full h-full rounded-[23px] flex items-center justify-center flex-col gap-[8px]';
 
     const totalGradientBorder = isTotal ? (
         <div
@@ -42,8 +56,8 @@ export const ReportCard = ({
                         </>
                     ) : (
                         <>
-                            <div className="text-[14px] text-grayscale-dark-gray bg-grayscale-light-gray px-[12px] py-[2px] rounded-[5px]">
-                                {subject}
+                            <div className={`text-[14px] text-grayscale-dark-gray px-[12px] py-[2px] rounded-[5px] ${subjectBg}`}>
+                                {subjectLabel}
                             </div>
                             <p className="text-[14px] text-grayscale-dark-gray">학습시간</p>
                         </>
@@ -54,13 +68,38 @@ export const ReportCard = ({
                 >
                     {timeDisplay}
                 </p>
+                {isTotal && (
+                    <button
+                        onClick={() => openModal('WEEK_FEEDBACK', { date: date ?? '' })}
+                        type="button"
+                        className="px-[22px] py-[12px] rounded-[16px] text-[#FEFEFE] text-[12px] font-medium bg-primary-blue"
+                    >
+                        주간 피드백 확인하기
+                    </button>
+                )}
             </>
         );
     }
-
     if (isTotal) {
         return totalGradientBorder;
     }
-
-    return <div className={cardClassName}>{renderContent()}</div>;
+    return (
+        <div
+            className="w-[164px] h-[164px] shrink-0 snap-center rounded-[25px] p-[2px] shadow-[0px_0px_8px_0px_#0000001A]"
+            style={{
+                borderRadius: '25px',
+                background:
+                    'linear-gradient(270deg, #FEFEFE 0%, rgba(254, 254, 254, 0) 50%, #FEFEFE 100%)',
+            }}
+        >
+            <div
+                className={cardClassName}
+                style={{
+                    background: subjectCardBg,
+                }}
+            >
+                {renderContent()}
+            </div>
+        </div>
+    );
 };

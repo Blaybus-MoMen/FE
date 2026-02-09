@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { studyApi } from "../api/study.api"
-import type { ICreateTodoRequest, IUpdateCheerMessageRequest, IUpdateStudyTimeRequest, IUpdateTodoRequest } from "../api/study.api.type"
+import type { ICreateTodoRequest, ISubmitTodoRequest, IUpdateCheerMessageRequest, IUpdateStudyTimeRequest, IUpdateTodoRequest } from "../api/study.api.type"
 
 
 export const useGetMyPageInfoQuery = () => {
@@ -25,18 +25,18 @@ export const useGetDailyStatsQuery = (params: string) => {
 }
 
 
-export const useGetDailyTodoListQuery = (params: string) => {
+export const useGetDailyTodoListQuery = (params: string, filterSubject?: string[]) => {
     return useQuery({
-        queryKey: ['getDailyTodoList', params],
-        queryFn: () => studyApi.getDailyTodoList(params),
+        queryKey: ['getDailyTodoList', params, filterSubject],
+        queryFn: () => studyApi.getDailyTodoList(params, filterSubject ?? []),
         enabled: !!params,
     })
 }
 
-export const useGetWeeklyTodoListQuery = (params: string) => {
+export const useGetWeeklyTodoListQuery = (params: string, filterSubject: string[]) => {
     return useQuery({
-        queryKey: ['getWeeklyTodoList', params],
-        queryFn: () => studyApi.getWeeklyTodoList(params),
+        queryKey: ['getWeeklyTodoList', params, filterSubject],
+        queryFn: () => studyApi.getWeeklyTodoList(params, filterSubject),
         enabled: !!params,
     })
 }
@@ -97,8 +97,8 @@ export const useUpdateCheerMessageMutation = () => {
 
 export const useUpdateStudyTimeMutation = () => {
     return useMutation({
-        mutationFn: ({ todoId, studyTime }: { todoId: number } & IUpdateStudyTimeRequest) =>
-            studyApi.updateStudyTime(todoId, { studyTime }),
+        mutationFn: (params: IUpdateStudyTimeRequest) =>
+            studyApi.updateStudyTime(params),
     })
 }
 
@@ -117,5 +117,11 @@ export const useDeleteTodoMutation = () => {
 export const useUpdateTodoMutation = () => {
     return useMutation({
         mutationFn: (params: IUpdateTodoRequest) => studyApi.updateTodo(params),
+    })
+}
+
+export const useSubmitTodoMutation = () => {
+    return useMutation({
+        mutationFn: (params: ISubmitTodoRequest) => studyApi.subMissionTodo(params),
     })
 }

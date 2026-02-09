@@ -17,7 +17,7 @@ import LearningEditModal from "@/features/manage/ui/LearningEditModal"
 /** 일반 모달 컴포넌트 매핑 */
 const GENERIC_MODALS: Partial<Record<GenericModalKey, ComponentType<unknown>>> = {
     LEARNING_ADD: LearningAddModal as ComponentType<unknown>,
-    LEARNING_INSPECTION: LearningInspectionModal,
+    LEARNING_INSPECTION: LearningInspectionModal as ComponentType<unknown>,
     FEEDBACK_CONFIRM: FeedbackConfirmModal,
     WEEK_FEEDBACK: WeekFeedbackModal,
     MONTH_FEEDBACK: MonthFeedbackModal,

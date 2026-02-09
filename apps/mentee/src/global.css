@@ -152,6 +152,22 @@
         border-radius: 25px;
         box-shadow: 0px 0px 10px 0px #0000001A;
     }
+
+    .fc .fc-daygrid-event {
+        border: none !important;
+        border-radius: 8px;
+        color: #111827;
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .fc .fc-daygrid-event,
+    .fc .fc-daygrid-event .fc-event-main,
+    .fc .fc-daygrid-event .fc-event-title,
+    .fc .fc-daygrid-event * {
+        color: #111827 !important;
+    }
+
 }
 
 @layer utilities {

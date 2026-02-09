@@ -9,7 +9,7 @@ interface IHomeLearningCardProps {
     goalDescription: string;
     startDate: string;
     endDate: string;
-    mentorConfirmed: boolean;
+    isCompleted: boolean;
 }
 
 
@@ -19,7 +19,7 @@ export const HomeLearningCard = ({
     title,
     subject,
     goalDescription,
-    mentorConfirmed,
+    isCompleted,
 }: IHomeLearningCardProps) => {
     const { headerBg, subjectBg } = CommonUtil.getTodoCardStyle(subject);
 
@@ -34,13 +34,13 @@ export const HomeLearningCard = ({
                         <div className='flex flex-col gap-[4px]'>
                             <p className='text-body-medium text-grayscale-black'>{title}</p>
                             <div className='flex flex-col'>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black'>학습목표</p>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black'>{goalDescription}</p>
+                                <p className='text-[12px] text-grayscale-black'>학습목표</p>
+                                <p className='text-[12px] text-grayscale-black'>{goalDescription}</p>
                             </div>
                         </div>
-                        {mentorConfirmed ? <button className='h-fit text-[12px] bg-[#4CAF50] text-[#FEFEFE] rounded-[20px] px-[22px] py-[4px]'>
+                        {isCompleted ? <button className='h-fit text-[12px] bg-[#4CAF50] text-[#FEFEFE] rounded-[20px] px-[22px] py-[4px]'>
                             학습완료
-                        </button> : <button className='h-fit text-[12px] bg-grayscale-bg-gray text-grayscale-medium-gray rounded-[20px] px-[22px] py-[4px]'>
+                        </button> : <button className='h-fit text-[12px] bg-grayscale-light-gray text-grayscale-dark-gray rounded-[20px] px-[22px] py-[4px]'>
                             미완료
                         </button>}
 

@@ -11,14 +11,14 @@ export const useGetTodoFeedbackQuery = (params: number) => {
 
 export const useGetWeekTodoFeedbackQuery = (params: string) => {
     return useQuery({
-        queryKey: ['getMyPageInfo'],
+        queryKey: ['getMyPageInfo', params],
         queryFn: () => feedbackApi.getWeekTodoFeedback(params),
     })
 }
 
 export const useGetMonthTodoFeedbackQuery = (params: string) => {
     return useQuery({
-        queryKey: ['getMyPageInfo'],
+        queryKey: ['getMonthTodoFeedback', params],
         queryFn: () => feedbackApi.getMonthTodoFeedback(params),
     })
 }

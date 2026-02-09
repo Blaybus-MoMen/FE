@@ -15,7 +15,16 @@ export class CommonUtil {
         const day = String(date.getDate()).padStart(2, '0')
         return `${year}-${month}-${day}`
     }
-
+    /**
+     * @description Date를 "YYYYMM" 형식 문자열로 변환
+     * @param date 날짜
+     * @returns "202602" 형식 문자열
+     */
+    static formatDateToYYYYMM(date: Date): string {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        return `${year}-${month}`;
+    }
     /**
      * @description 과목 코드로 과목명 반환 (KOREAN → 국어 등)
      * @param subjectKey 과목 코드 (KOREAN, ENGLISH, MATH 등)

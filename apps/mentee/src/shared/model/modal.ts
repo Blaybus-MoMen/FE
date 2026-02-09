@@ -65,10 +65,23 @@ export interface ModalPayloadMap {
         onConfirm?: () => void
         date: string
     }
-    LEARNING_INSPECTION: Record<string, never>,
+    LEARNING_INSPECTION: {
+        todoId: number
+        title: string
+        subject: string
+        goalDescription: string
+        studyTimeHours: string
+        studyTimeMinutes: string
+        studyTimeSeconds: string
+        isCompleted: boolean
+    },
     FEEDBACK_CONFIRM: Record<string, never>,
-    WEEK_FEEDBACK: Record<string, never>,
-    MONTH_FEEDBACK: Record<string, never>,
+    WEEK_FEEDBACK: {
+        date: string
+    },
+    MONTH_FEEDBACK: {
+        date: string
+    },
     CHEER_UPDATE: {
         initialCheerMessage: string
     }

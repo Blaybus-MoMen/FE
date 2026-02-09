@@ -3,6 +3,7 @@ import alarm from '@/assets/icons/alarm.svg';
 import play from '@/assets/icons/play.svg';
 import pause from '@/assets/icons/pause.svg';
 import stop from '@/assets/icons/stop.svg';
+import { useUpdateStudyTimeMutation } from '@/entities/study/queries/study.queries';
 
 const STORAGE_KEY = 'learning-timer';
 
@@ -54,11 +55,11 @@ export const HomeLearningCardTimer = ({ todoId }: IHomeLearningCardTimerProps) =
     );
     const [now, setNow] = useState(() => Date.now());
 
+    const { mutateAsync } = useUpdateStudyTimeMutation()
 
 
-    /* =======================
-       2️⃣ 화면 갱신용 tick
-    ======================= */
+
+
     useEffect(() => {
         if (!isActive) return;
 
@@ -69,9 +70,6 @@ export const HomeLearningCardTimer = ({ todoId }: IHomeLearningCardTimerProps) =
         return () => clearInterval(interval);
     }, [isActive]);
 
-    /* =======================
-       3️⃣ 페이지 떠날 때 저장
-    ======================= */
     useEffect(() => {
         if (!startedAt && elapsedSeconds === 0) return;
 
@@ -83,9 +81,7 @@ export const HomeLearningCardTimer = ({ todoId }: IHomeLearningCardTimerProps) =
 
         localStorage.setItem(`${STORAGE_KEY}-${todoId}`, JSON.stringify(data));
     }, [elapsedSeconds, startedAt, isActive, todoId]);
-    /* =======================
-       시간 계산
-    ======================= */
+
     const displaySeconds = (() => {
         if (!isActive) return elapsedSeconds;
         if (!startedAt) return elapsedSeconds;
@@ -94,9 +90,7 @@ export const HomeLearningCardTimer = ({ todoId }: IHomeLearningCardTimerProps) =
         return Math.max(0, elapsedSeconds + diff);
     })();
 
-    /* =======================
-       컨트롤
-    ======================= */
+
     const handleStart = () => {
         setStartedAt(Date.now());
         setIsActive(true);
@@ -111,11 +105,20 @@ export const HomeLearningCardTimer = ({ todoId }: IHomeLearningCardTimerProps) =
         setIsActive(false);
     };
 
-    const handleStop = () => {
-        setElapsedSeconds(0);
-        setStartedAt(null);
-        setIsActive(false);
-        localStorage.removeItem(`${STORAGE_KEY}-${todoId}`);
+    const handleStop = async () => {
+        try {
+            setElapsedSeconds(0);
+            setStartedAt(null);
+            setIsActive(false);
+            localStorage.removeItem(`${STORAGE_KEY}-${todoId}`);
+            const params = {
+                todoId,
+                studyTime: displaySeconds,
+            }
+            await mutateAsync(params)
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

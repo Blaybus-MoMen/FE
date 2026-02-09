@@ -10,6 +10,12 @@ export const SUBJECT_NAME = {
     'MATH': '수학',
 }
 
+export const SUBJECT_EVENT_COLOR: Record<'KOREAN' | 'ENGLISH' | 'MATH', string> = {
+    KOREAN: '#BFEAFE',
+    ENGLISH: '#D7C1F2',
+    MATH: '#FFF59D',
+};
+
 export const SUBJECT_TODO_CARD_STYLE = {
     KOREAN: {
         headerBg: 'bg-[#BFEAFE4D]',

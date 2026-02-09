@@ -1,33 +1,52 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { ReportCard } from './ReportCard';
-import type { ReportCardProps } from './ReportCard';
+import { useGetWeeklyStudyTimeQuery } from '@/entities/study/queries/study.queries';
 
 const CARD_WIDTH = 164;
 const GAP = 16;
 const CARD_STEP = CARD_WIDTH + GAP;
 
-type ReportCardSliceProps = {
-    items?: ReportCardProps[];
-};
 
-const DEFAULT_ITEMS: ReportCardProps[] = [
-    { type: 'total', timeDisplay: '00:00:00' },
-    { type: 'subject', subject: '국어', timeDisplay: '00:00:00' },
-    { type: 'subject', subject: '영어', timeDisplay: '00:00:00' },
-    { type: 'subject', subject: '수학', timeDisplay: '00:00:00' },
-];
 
-export const ReportCardSlice = ({ items = DEFAULT_ITEMS }: ReportCardSliceProps) => {
+
+
+export const ReportCardSlice = ({ date }: { date: string }) => {
+    const { data } = useGetWeeklyStudyTimeQuery(date);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const scrollRef = useRef<HTMLDivElement>(null);
-    const cardCount = items.length;
+
+    const subjectEntries =
+        data && data.subjectStudyTime
+            ? Object.entries(data.subjectStudyTime)
+            : [];
+
+    const cards =
+        data == null
+            ? []
+            : [
+                {
+                    type: 'total' as const,
+                    timeDisplay: `${String(data.totalHours ?? '00').padStart(2, '0')}:${String(
+                        data.totalMinutes ?? '00',
+                    ).padStart(2, '0')}:${String(data.totalSeconds ?? '00').padStart(2, '0')}`,
+                },
+                ...subjectEntries.map(([subjectCode, timeInfo]) => ({
+                    type: 'subject' as const,
+                    subjectCode,
+                    timeDisplay: `${String(timeInfo.hours ?? '00').padStart(2, '0')}:${String(
+                        timeInfo.minutes ?? '00',
+                    ).padStart(2, '0')}:${String(timeInfo?.seconds ?? '00').padStart(2, '0')}`,
+                })),
+            ];
+
+    const cardCount = cards.length;
 
     const updateIndexFromScroll = useCallback(() => {
         const el = scrollRef.current;
         if (!el) return;
         const scrollLeft = el.scrollLeft;
         const index = Math.round(scrollLeft / CARD_STEP);
-        setCurrentCardIndex(Math.min(Math.max(0, index), cardCount - 1));
+        setCurrentCardIndex(Math.min(Math.max(0, index), Math.max(cardCount - 1, 0)));
     }, [cardCount]);
 
     const scrollToIndex = useCallback((index: number) => {
@@ -53,8 +72,8 @@ export const ReportCardSlice = ({ items = DEFAULT_ITEMS }: ReportCardSliceProps)
                 style={{ WebkitOverflowScrolling: 'touch' }}
                 onScroll={updateIndexFromScroll}
             >
-                {items.map((item, index) => (
-                    <ReportCard key={index} {...item} />
+                {cards.map((item, index) => (
+                    <ReportCard key={index} {...item} date={date} />
                 ))}
             </div>
             <div className="flex justify-center items-center gap-[8px] mt-[8px]">
