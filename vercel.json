@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "@API_BASE_URL/api/:path*"
+      "destination": "http://${API_BASE_URL}/api/:path*"
     },
     {
       "source": "/mentee/:path*",
