@@ -6,7 +6,7 @@ import path from 'path'
 
 export default defineConfig({
   base: '/mentor/',
-  envDir: '../../',
+  envDir: './',
   plugins: [
     tailwindcss(),
     react({
@@ -25,6 +25,14 @@ export default defineConfig({
       '@features': path.resolve(__dirname, 'src/features'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@shared': path.resolve(__dirname, 'src/shared'),
+    },
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://221.148.101.200:8089',
+        changeOrigin: true,
+      },
     },
   },
 })
