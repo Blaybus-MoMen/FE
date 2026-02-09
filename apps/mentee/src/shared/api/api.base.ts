@@ -1,5 +1,7 @@
 import axios from 'axios'
 import type { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { useAuthStore } from '../store/auth.store'
+import { useModalStore } from '../store/modal.store'
 
 
 const apiInstance = axios.create({
@@ -17,6 +19,10 @@ const apiInstance = axios.create({
  */
 apiInstance.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
+        const token = useAuthStore.getState().token
+        if (token && config.headers) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
         return config
     },
     (error) => {
@@ -25,11 +31,23 @@ apiInstance.interceptors.request.use(
 )
 /**
  * @param response - Axios 응답
- * @description Response 인터셉터
+ * @description Response 인터셉터 - 401 시 토큰 제거 후 로그인으로 이동
  */
 apiInstance.interceptors.response.use(
     (response) => response,
     (error) => {
+        const response = error.response
+        if (response) {
+            if (response.status === 401) {
+                useAuthStore.getState().removeToken()
+                window.location.href = '/mentee/login'
+            } else if (response.data?.success === false && response.data?.message) {
+                useModalStore.getState().openAlert({
+                    message: response.data.message,
+                    variant: 'error',
+                })
+            }
+        }
         return Promise.reject(error)
     }
 )

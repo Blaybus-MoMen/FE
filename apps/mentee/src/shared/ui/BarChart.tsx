@@ -19,7 +19,7 @@ interface IBarChartProps<T> {
  */
 const BarChart = <T extends object>({
     width = 500,
-    height = 280,
+    height = 300,
     data,
     xKey,
     series,
@@ -32,7 +32,6 @@ const BarChart = <T extends object>({
         const svg = d3.select(svgRef.current)
         svg.selectAll("*").remove()
 
-        /** 과목별 그라데이션 (국어/영어/수학) */
         const subjectGradients: Record<string, [string, string]> = {
             국어: ['rgba(212, 241, 254, 0.8)', 'rgba(243, 243, 243, 0.8)'],
             영어: ['rgba(215, 193, 242, 0.8)', 'rgba(243, 243, 243, 0.8)'],
@@ -75,7 +74,7 @@ const BarChart = <T extends object>({
                 .attr("x", width / 2)
                 .attr("y", height / 2)
                 .attr("text-anchor", "middle")
-                .style("font-size", "14px")
+                .style("font-size", "16px")
                 .style("fill", "#94a3b8")
                 .text("표시할 항목이 없습니다.")
             return
@@ -120,7 +119,7 @@ const BarChart = <T extends object>({
         xAxisG.select(".domain").remove()
         xAxisG.selectAll(".tick line").remove()
         xAxisG.selectAll("text")
-            .style("font-size", "11px")
+            .style("font-size", "14px")
             .style("text-anchor", "middle")
 
         const yAxis = d3.axisLeft(y).ticks(6).tickSize(0)
@@ -199,7 +198,7 @@ const BarChart = <T extends object>({
                 .attr("x", barX + barW / 2)
                 .attr("y", innerHeight - 8)
                 .attr("text-anchor", "middle")
-                .style("font-size", "12px")
+                .style("font-size", "16px")
                 .style("fill", "#64748b")
                 .text(`${pctLabel}%`)
         })

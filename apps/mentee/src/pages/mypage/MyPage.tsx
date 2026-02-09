@@ -1,11 +1,51 @@
 import noti from '@/assets/icons/noti.svg';
 import edit from '@/assets/icons/edit.svg';
+import { LogOut, User } from 'lucide-react';
+import { useNavigate } from 'react-router';
 import Avatar from '@/shared/ui/Avatar';
 import student from '@/assets/icons/student.svg';
 import BarChart from '@/shared/ui/BarChart';
 import talk from '@/assets/icons/talk.svg';
+import { useLogoutMutation } from '@/entities/auth/queries/auth.queries';
+import { useGetMyPageInfoQuery } from '@/entities/study/queries/study.queries';
+import { SUBJECT_NAME } from '@/shared/constants/constants';
+import { useAuthAction } from '@/shared/store/auth.store';
+import { useModalActions } from '@/shared/store/modal.store';
+
+const DEFAULT_CHART_DATA = [
+    { 과목: '국어', 학습시간: 0 },
+    { 과목: '영어', 학습시간: 0 },
+    { 과목: '수학', 학습시간: 0 },
+];
+
+const getChartDataFromCompletionRates = (rates: Record<string, number> | undefined) => {
+    if (!rates || Object.keys(rates).length === 0) {
+        return DEFAULT_CHART_DATA;
+    }
+    return Object.entries(rates).map(([subject, 학습시간]) => ({
+        과목: (SUBJECT_NAME as Record<string, string>)[subject] ?? subject,
+        학습시간,
+    }));
+};
 
 const MyPage = () => {
+    const navigate = useNavigate();
+    const { data } = useGetMyPageInfoQuery();
+    const { openModal } = useModalActions();
+    const { removeToken } = useAuthAction();
+    const { mutateAsync: logout } = useLogoutMutation();
+    const chartData = getChartDataFromCompletionRates(data?.subjectCompletionRates);
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            removeToken();
+            navigate('/login');
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <div
             className="relative min-h-screen overflow-auto p-[16px] pb-24 bg-[#e1ecff]"
@@ -13,7 +53,10 @@ const MyPage = () => {
             <div className='flex items-center justify-between gap-[8px]'>
                 <h3>마이 페이지</h3>
                 <div className='flex gap-[8px]'>
-                    <button><img src={edit} alt='edit' /> </button>
+                    <button type="button" onClick={handleLogout} className="flex items-center justify-center" aria-label="로그아웃">
+                        <LogOut className="w-5 h-5" />
+                    </button>
+                    <button onClick={() => openModal('FEATURE', { features: data?.cards.length ? data?.cards : [], })}><img src={edit} alt='edit' /> </button>
                     <button><img src={noti} alt='noti' /> </button>
                 </div>
             </div>
@@ -31,7 +74,9 @@ const MyPage = () => {
                 >
                     <div className='flex gap-[13px] w-full items-center'>
                         <div className="relative inline-block">
-                            <Avatar alt="avatar" className="w-[48px] h-[48px]">조</Avatar>
+                            <Avatar alt="avatar" className="w-[48px] h-[48px]" src={data?.profileImageUrl ?? undefined}>
+                                {!data?.profileImageUrl && <User className="w-6 h-6 text-grayscale-dark-gray" />}
+                            </Avatar>
                             <img
                                 src={student}
                                 alt="student"
@@ -39,29 +84,25 @@ const MyPage = () => {
                             />
                         </div>
                         <div className='flex flex-col'>
-                            <p className='text-[12px] text-grayscale-black'>고등학교 3학년</p>
-                            <p className='text-[16px] text-grayscale-black font-medium'>조민수 학생</p>
+                            <p className='text-[12px] text-grayscale-black'>{data?.grade}</p>
+                            <p className='text-[16px] text-grayscale-black font-medium'>{data?.name} 학생</p>
                         </div>
                         <div className='ml-[10px] flex-1 w-full h-[97px] rounded-[22px] bg-[#FEFEFE99] p-[20px] flex flex-col justify-center items-center'>
                             <p className='text-[12px] font-bold text-grayscale-dark-gray'>설스터디와 공부한지</p>
-                            <p className='text-[32px] font-bold text-primary-blue'>365일</p>
+                            <p className='text-[32px] font-bold text-primary-blue'>{data?.daysWithUs}일</p>
                         </div>
                     </div>
                     <div className='flex items-center justify-center gap-[8px] mt-[17px] w-full'>
-                        <div className='border-primary-blue border-[1px] rounded-[20px] px-[17px] py-[3px] text-primary-blue-dark text-[14px]'>1등급 목표</div>
-                        <div className='border-primary-blue border-[1px] rounded-[20px] px-[17px] py-[3px] text-primary-blue-dark text-[14px]'>체계적인</div>
-                        <div className='border-primary-blue border-[1px] rounded-[20px] px-[17px] py-[3px] text-primary-blue-dark text-[14px]'>자기주도</div>
+                        {data?.cards?.map((item) => (
+                            <div key={item} className='border-primary-blue border-[1px] rounded-[20px] px-[17px] py-[3px] text-primary-blue-dark text-[14px]'>{item}</div>
+                        ))}
                     </div>
                 </div>
             </div>
             <div className="h-[295px] bg-[#FEFEFE80] mt-[15px] rounded-[25px] shadow-[0px_1px_8px_0px_#0000000D] p-[20px]">
                 <p className='text-[16px] text-grayscale-black'>전체 학습 현황</p>
                 <BarChart
-                    data={[
-                        { 과목: '국어', 학습시간: 45 },
-                        { 과목: '영어', 학습시간: 32 },
-                        { 과목: '수학', 학습시간: 58 },
-                    ]}
+                    data={chartData}
                     xKey="과목"
                     series={[{ key: '학습시간', label: '학습시간' }]}
                 />
@@ -75,7 +116,7 @@ const MyPage = () => {
                     <p>상담 신청하기</p>
                 </button>
             </div>
-        </div>
+        </div >
     )
 
 }

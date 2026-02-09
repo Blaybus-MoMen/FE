@@ -1,57 +1,52 @@
-import alarm from '@/assets/icons/alarm.svg';
-import play from '@/assets/icons/play.svg';
 import pdf from '@/assets/icons/pdf.svg';
+import { CommonUtil } from '@/shared/utils/commonUtil';
+import { HomeLearningCardTimer } from './HomeLearningCardTimer';
 
-export type HomeLearningCardProps = {
-    subject?: string;
-    title?: string;
-    goalLabel?: string;
-    goalText?: string;
-    status?: string;
-    timerDisplay?: string;
-};
+interface IHomeLearningCardProps {
+    todoId: number;
+    title: string;
+    subject: string;
+    goalDescription: string;
+    startDate: string;
+    endDate: string;
+    mentorConfirmed: boolean;
+}
+
+
 
 export const HomeLearningCard = ({
-    subject = '수학',
-    title = '수능특강 듣기 p.20-23',
-    goalLabel = '학습 목표',
-    goalText = '영어 듣기 향상',
-    status = '미완료',
-    timerDisplay = '00:00',
-}: HomeLearningCardProps) => {
+    todoId,
+    title,
+    subject,
+    goalDescription,
+    mentorConfirmed,
+}: IHomeLearningCardProps) => {
     return (
         <div className='min-w-full flex-shrink-0 snap-center flex flex-col gap-[8px]'>
             <div className='bg-[#FFF59D26] h-[79px] flex'>
-                <div className='w-[50px] bg-point-yellow rounded-tl-[19px] rounded-bl-[19px] flex items-center justify-center'>
-                    <p className='text-ui-label text-grayscale-dark-gray'>{subject}</p>
+                <div className={`w-[50px] rounded-tl-[19px] rounded-bl-[19px] flex items-center justify-center ${CommonUtil.getSubjectColor(subject) || 'bg-grayscale-bg-gray'}`}>
+                    <p className='text-ui-label text-grayscale-dark-gray'>{CommonUtil.getSubjectName(subject)}</p>
                 </div>
                 <div className='flex-1 flex items-center'>
                     <div className='pl-[20px] pr-[7px] flex justify-between w-full items-center'>
                         <div className='flex flex-col gap-[4px]'>
                             <p className='text-body-medium text-grayscale-black'>{title}</p>
-                            <div className='flex items-center gap-[6px]'>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black'>{goalLabel}</p>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black'>|</p>
-                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black'>{goalText}</p>
+                            <div className='flex flex-col'>
+                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black'>학습목표</p>
+                                <p className='text-[12px] text-grayscale-medium-gray text-grayscale-black'>{goalDescription}</p>
                             </div>
                         </div>
-                        <button className='h-fit text-[12px] bg-grayscale-bg-gray text-grayscale-medium-gray rounded-[20px] px-[22px] py-[4px]'>
-                            {status}
-                        </button>
+                        {mentorConfirmed ? <button className='h-fit text-[12px] bg-[#4CAF50] text-[#FEFEFE] rounded-[20px] px-[22px] py-[4px]'>
+                            학습완료
+                        </button> : <button className='h-fit text-[12px] bg-grayscale-bg-gray text-grayscale-medium-gray rounded-[20px] px-[22px] py-[4px]'>
+                            미완료
+                        </button>}
+
                     </div>
                 </div>
             </div>
             <div className='flex items-center w-full gap-[8px]'>
-                <div className='flex-1 rounded-[20px] bg-[#FEFEFE] p-[12px] h-[135px]'>
-                    <div className='flex gap-[4px]'>
-                        <img src={alarm} alt='alarm' />
-                        <p className='text-[14px] text-grayscale-dark-gray'>타이머</p>
-                    </div>
-                    <p className='text-[28px] text-grayscale-dark-gray'>{timerDisplay}</p>
-                    <div className='flex justify-end'>
-                        <img src={play} alt='play' />
-                    </div>
-                </div>
+                <HomeLearningCardTimer todoId={todoId} />
                 <div className='flex-1 rounded-[20px] bg-[#FEFEFE] p-[12px] h-[135px] flex flex-col justify-between'>
                     <div className='flex flex-col gap-[4px]'>
                         <p className='text-[14px] text-grayscale-dark-gray'>오늘의 학습지</p>

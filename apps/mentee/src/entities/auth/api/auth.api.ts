@@ -1,6 +1,7 @@
-import type { ILoginRequest, ILoginResponse, IRefreshRequest, IRefreshResponse } from '@/entities/auth/api/auth.api.type'
+import type { ILoginRequest, ILoginResponse } from '@/entities/auth/api/auth.api.type'
 import { ApiHelper } from '@/shared/api/api.base'
 import { API_PATH } from '@/shared/api/api.path'
+import type { ApiResponse } from '@/shared/model/type'
 
 /** 인증 API */
 export const authApi = {
@@ -9,7 +10,7 @@ export const authApi = {
      * @param {ILoginRequest} params - 로그인 요청 파라미터
      */
     login: async (params: ILoginRequest) => {
-        const response = await ApiHelper.post<ILoginResponse>(API_PATH.AUTH.LOGIN, { params })
+        const response = await ApiHelper.post<ApiResponse<ILoginResponse>>(API_PATH.AUTH.LOGIN, params)
         return response
     },
     /**
@@ -20,12 +21,4 @@ export const authApi = {
         const response = await ApiHelper.post(API_PATH.AUTH.LOGOUT)
         return response
     },
-    /**
-    * @description 토큰 재발급 API
-    * @param {IRefreshRequest} params - 토큰 재발급 요청 파라미터
-    */
-    refresh: async (params: IRefreshRequest) => {
-        const response = await ApiHelper.post<IRefreshResponse>(API_PATH.AUTH.REFRESH, { params })
-        return response
-    }
 }
