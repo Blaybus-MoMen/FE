@@ -23,6 +23,11 @@ export interface ITodoResponse {
     mentorConfirmed: boolean;
     creatorType: CreatorType;
     hasFeedback: boolean;
+
+    materials?: {
+        fileUrl: string;
+        fileName: string;
+    }[];
 }
 
 /** Todo 확인 토글 요청 */
@@ -37,7 +42,7 @@ export interface CreateTodoRequest {
     goalDescription: string;
     startDate: string;
     endDate: string;
-    repeatDays: string[];
+    repeatDays?: string[];
     materials: {
         fileUrl: string;
         fileName: string;
@@ -61,6 +66,27 @@ export interface UpdateTodoRequest {
     endDate: string;
     isCompleted?: boolean;
     studyTime?: number;
+    materials: {
+        fileUrl: string;
+        fileName: string;
+    }[];
+}
+
+/** Todo 상세 정보 응답 타입 */
+export interface ITodoDetailResponse {
+    todoId: number;
+    title: string;
+    subject: Subjects;
+    goalDescription: string;
+    startDate: string;
+    endDate: string;
+    mentorConfirmed: boolean;
+    creatorType: CreatorType;
+    isCompleted: boolean;
+    hasFeedback: boolean;
+    studyTimeHours: string;
+    studyTimeMinutes: string;
+    studyTimeSeconds: string;
     materials: {
         fileUrl: string;
         fileName: string;

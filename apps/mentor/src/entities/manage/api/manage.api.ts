@@ -6,6 +6,7 @@ import type {
     CreateTodoResponse,
     IMenteeCardResponse,
     ITodoConfirmRequest,
+    ITodoDetailResponse,
     ITodoResponse,
     UpdateTodoRequest,
 } from './manage.api.type';
@@ -42,7 +43,7 @@ export const manageApi = {
      * @description 멘토 확인 토글
      */
     confirmTodo: async (menteeId: number, todoId: number, body: ITodoConfirmRequest) => {
-        return ApiHelper.post<ApiResponse<{}>>(API_PATH.MENTORING.TODO.CONFIRM(menteeId, todoId), body);
+        return ApiHelper.patch<ApiResponse<{}>>(API_PATH.MENTORING.TODO.CONFIRM(menteeId, todoId), body);
     },
 
     /**
@@ -53,10 +54,10 @@ export const manageApi = {
     },
 
     /**
-     * @description 투두 생성 API
+     * @description 투두 수정 API
      */
     updateTodo: (menteeId: number, todoId: number, body: UpdateTodoRequest) => {
-        return ApiHelper.put<ApiResponse<{}>>(API_PATH.MENTORING.TODO.UPDATE(menteeId, todoId), body);
+        return ApiHelper.patch<ApiResponse<{}>>(API_PATH.MENTORING.TODO.UPDATE(menteeId, todoId), body);
     },
 
     /**
@@ -64,5 +65,12 @@ export const manageApi = {
      */
     deleteTodo: (menteeId: number, todoId: number) => {
         return ApiHelper.delete<ApiResponse<{}>>(API_PATH.MENTORING.TODO.DELETE(menteeId, todoId));
+    },
+
+    /**
+     * @description Todo 상세 조회 API
+     */
+    getTodoDetail: async (todoId: number) => {
+        return ApiHelper.get<ApiResponse<ITodoDetailResponse>>(API_PATH.MENTORING.TODO.DETAIL(todoId));
     },
 };

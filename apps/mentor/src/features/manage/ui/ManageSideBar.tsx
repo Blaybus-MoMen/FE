@@ -18,7 +18,7 @@ const ManageSidebar = ({ mentee, selectedDate, onSelectDate }: Props) => {
     const navigate = useNavigate();
 
     return (
-        <aside className="flex z-999 lg:min-h-screen lg:h-full w-full lg:w-[430px] flex-col bg-primary-blue pt-6 lg:pt-10 text-white shadow-[6px_0_20px_rgba(0,0,0,0.15)]">
+        <aside className="flex z-9 lg:min-h-screen lg:h-full w-full lg:w-[430px] flex-col bg-primary-blue pt-6 lg:pt-10 text-white shadow-[6px_0_20px_rgba(0,0,0,0.15)]">
             <header className="z-10 px-4 lg:px-8 flex items-start justify-between mb-6 sm:items-center">
                 <div className="flex flex-col gap-4 items-start sm:flex-row sm:gap-6">
                     <img

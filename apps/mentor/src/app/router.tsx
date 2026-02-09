@@ -3,14 +3,15 @@ import HomePage from '@/pages/home/HomePage';
 import LoginPage from '@/pages/login/LoginPage';
 import ManagePage from '@/pages/manage/Manage';
 import AuthGuard from '@/shared/lib/AuthGuard';
+import RootRedirect from '@/shared/lib/RootRedirect';
 import BaseLayout from '@/widget/MentorLayout';
-import { createBrowserRouter, Navigate } from 'react-router';
+import { createBrowserRouter } from 'react-router';
 
 export const router = createBrowserRouter(
     [
         {
             path: '/',
-            element: <Navigate to="login" />,
+            element: <RootRedirect />,
         },
         {
             element: <BaseLayout />,

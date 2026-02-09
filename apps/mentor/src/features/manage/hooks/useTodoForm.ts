@@ -7,6 +7,7 @@ export const feedbackFormSchema = z.object({
     title: z.string().optional(),
     learningGoal: z.string().optional(),
     learningFile: z.any().optional(),
+    repeatDays: z.array(z.string()).optional(),
 });
 
 export type FeedbackFormValues = z.infer<typeof feedbackFormSchema>;
@@ -16,6 +17,7 @@ const defaultValues: FeedbackFormValues = {
     title: '',
     learningGoal: '',
     learningFile: undefined,
+    repeatDays: [],
 };
 
 /**
@@ -34,6 +36,7 @@ const useTodoForm = () => {
         setValue,
         control,
         formState: { errors },
+        reset,
     } = form;
 
     return {
@@ -43,6 +46,7 @@ const useTodoForm = () => {
         setValue,
         control,
         errors,
+        reset,
     };
 };
 

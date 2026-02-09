@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, type UseQueryOptions } from '@tanstack/react-query';
 import { manageApi } from '@/entities/manage/api/manage.api';
 import type { CreateTodoRequest, UpdateTodoRequest } from '../api/manage.api.type';
 
@@ -91,5 +91,19 @@ export const useDeleteTodoMutation = (menteeId: number, date: string) => {
                 queryKey: ['mentoring', 'mentee', menteeId, 'todos', date],
             });
         },
+    });
+};
+
+type TodoDetailResponse = Awaited<ReturnType<typeof manageApi.getTodoDetail>>;
+
+export const useGetTodoDetailQuery = (
+    todoId: number,
+    options?: Omit<UseQueryOptions<TodoDetailResponse>, 'queryKey' | 'queryFn'>
+) => {
+    return useQuery({
+        queryKey: ['mentoring', 'todo', todoId],
+        queryFn: () => manageApi.getTodoDetail(todoId),
+        enabled: !!todoId,
+        ...options,
     });
 };
