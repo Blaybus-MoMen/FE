@@ -8,6 +8,7 @@ import run from '@/assets/images/run.png';
 const HomeLearningSummary = ({ date }: { date: string }) => {
     const { data } = useGetDailyStatsQuery(date);
     const rate = data?.completionRatePercent ?? 0;
+    const isOverHalf = rate > 50;
     const runnerImg = rate === 0 ? start : rate >= 100 ? finish : run;
     const runnerAlt = rate === 0 ? '준비' : rate >= 100 ? '완료' : '달리기';
 
@@ -35,8 +36,14 @@ const HomeLearningSummary = ({ date }: { date: string }) => {
                     boxShadow: '0px 3px 4px 0px #00000026',
                 }}
             >
-                <span className="absolute right-[8px] top-0 z-10 text-[11px] font-medium text-primary-blue-light">{data?.message}</span>
                 <div className="relative w-full h-[10px]">
+                    <div
+                        className={`absolute -top-5 w-full flex ${isOverHalf ? 'justify-start' : 'justify-end'}`}
+                    >
+                        <span className="text-[11px] font-medium text-primary-blue-light">
+                            {data?.message}
+                        </span>
+                    </div>
                     <img
                         src={runnerImg}
                         alt={runnerAlt}
