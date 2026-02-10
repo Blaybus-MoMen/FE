@@ -24,10 +24,19 @@ const LearningInspectionModal = (props: { todoId: number, title: string, subject
 
     useEffect(() => {
         if (!data) return;
-        const files: SubmissionFile[] = (data.files ?? []).map((url) => ({
-            fileUrl: url,
-            fileName: url.split('/').pop() || url,
-        }));
+        const files: SubmissionFile[] = (data.files ?? []).map((item: string | { fileUrl: string; fileName: string }) => {
+            if (typeof item === 'string') {
+                return {
+                    fileUrl: item,
+                    fileName: item.split('/').pop() || item,
+                };
+            }
+            const fileUrl = item.fileUrl as string;
+            const fileName =
+                (item.fileName as string) ||
+                (fileUrl ? fileUrl.split('/').pop() || fileUrl : '');
+            return { fileUrl, fileName };
+        });
         setMemo(data.memo ?? '');
         setSubmissionFiles(files);
     }, [data]);

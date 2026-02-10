@@ -1,6 +1,6 @@
 import pdf from '@/assets/icons/pdf.svg';
-import { useDownloadMaterialsMutation } from '@/entities/file/queries/file.queries';
 import { CommonUtil } from '@/shared/utils/commonUtil';
+import { useFileDownloadMutation } from '@/entities/file/queries/file.queries';
 import { HomeLearningCardTimer } from './HomeLearningCardTimer';
 
 interface IHomeLearningCardProps {
@@ -29,13 +29,25 @@ export const HomeLearningCard = ({
     materials,
 }: IHomeLearningCardProps) => {
     const { headerBg, subjectBg } = CommonUtil.getTodoCardStyle(subject);
-    const { mutateAsync: downloadMaterials, isPending } = useDownloadMaterialsMutation();
+    const { mutateAsync: downloadFile, isPending } = useFileDownloadMutation();
 
-    const handleDownload = () => {
-        if (materials.length === 0) return;
-        downloadMaterials({
-            materials: materials.map((m) => ({ fileUrl: m.fileUrl, fileName: m.fileName })),
-        }).catch(console.error);
+    const handleDownload = async () => {
+        try {
+            if (materials.length === 0) return;
+            const first = materials[0];
+
+            console.log(first);
+            if (!first?.fileUrl) return;
+            const pathOrId = first.fileUrl.includes('/files/')
+                ? first.fileUrl.replace(/^.*\/files\/?/, '')
+                : first.fileUrl;
+
+            console.log(pathOrId);
+            await downloadFile(pathOrId);
+        } catch (error) {
+            console.error(error);
+        }
+
     };
 
     return (

@@ -11,15 +11,9 @@ import { SUBJECT_NAME } from '@/shared/constants/constants';
 import { useAuthAction } from '@/shared/store/auth.store';
 import { useModalActions } from '@/shared/store/modal.store';
 
-const DEFAULT_CHART_DATA = [
-    { 과목: '국어', 학습시간: 0 },
-    { 과목: '영어', 학습시간: 0 },
-    { 과목: '수학', 학습시간: 0 },
-];
-
 const getChartDataFromCompletionRates = (rates: Record<string, number> | undefined) => {
     if (!rates || Object.keys(rates).length === 0) {
-        return DEFAULT_CHART_DATA;
+        return [];
     }
     return Object.entries(rates).map(([subject, 학습시간]) => ({
         과목: (SUBJECT_NAME as Record<string, string>)[subject] ?? subject,

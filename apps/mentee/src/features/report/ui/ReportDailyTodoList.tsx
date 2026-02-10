@@ -51,23 +51,21 @@ const ReportDailyTodoList = () => {
                 </div>
             </div>
             <div className="rounded-tl-[24px] rounded-tr-[24px] flex-1 min-h-0 flex flex-col bg-grayscale-bg-gray mt-[26px] px-[16px] py-[30px]">
-                {!!data?.length && (
-                    <div className="flex flex-wrap items-center gap-[8px] mb-[16px] shrink-0">
-                        {SUBJECT_LIST.map((subject) => {
-                            const isIncluded = filterSubject.includes(subject.value)
-                            return (
-                                <button
-                                    key={subject.value}
-                                    type="button"
-                                    className={`h-fit px-[16px] py-[6px] text-[12px] rounded-[14px] border border-grayscale-border shadow-[0px_2px_3px_0px_#00000012_inset] ${isIncluded ? 'text-grayscale-black bg-[#FEFEFE]' : 'bg-[var(--color-grayscale-border)] text-grayscale-dark-gray'}`}
-                                    onClick={() => handleFilterSubject(subject.value)}
-                                >
-                                    {subject.label}
-                                </button>
-                            )
-                        })}
-                    </div>
-                )}
+                <div className="flex flex-wrap items-center gap-[8px] mb-[16px] shrink-0">
+                    {SUBJECT_LIST.map((subject) => {
+                        const isIncluded = filterSubject.includes(subject.value)
+                        return (
+                            <button
+                                key={subject.value}
+                                type="button"
+                                className={`h-fit px-[16px] py-[6px] text-[12px] rounded-[14px] border border-grayscale-border shadow-[0px_2px_3px_0px_#00000012_inset] ${isIncluded ? 'text-grayscale-black bg-[#FEFEFE]' : 'bg-[var(--color-grayscale-border)] text-grayscale-dark-gray'}`}
+                                onClick={() => handleFilterSubject(subject.value)}
+                            >
+                                {subject.label}
+                            </button>
+                        )
+                    })}
+                </div>
                 <div className="flex flex-col gap-[12px] flex-1 min-h-0 overflow-y-auto pb-24 no-scrollbar">
                     {!data?.length ? (
                         <div className="flex-1 flex items-center justify-center min-h-[120px]">

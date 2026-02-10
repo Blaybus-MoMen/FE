@@ -27,12 +27,12 @@ export default defineConfig({
       '@shared': path.resolve(__dirname, 'src/shared'),
     },
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://221.148.101.200:8089',
-        changeOrigin: true,
-      },
-    },
-  },
+  // server: {
+  //   proxy: {
+  //     '/api': {
+  //       target: 'http://221.148.101.200:8089',
+  //       changeOrigin: true,
+  //     },
+  //   },
+  // },
 })

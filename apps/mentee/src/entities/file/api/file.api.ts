@@ -13,10 +13,10 @@ export const fileApi = {
         );
         return response;
     },
-    fileDownload: async (pathOrId: string): Promise<Blob> => {
-        return ApiHelper.get<Blob>(
-            `${API_PATH.FILE.DOWNLOAD}/${pathOrId}`,
-            { responseType: 'blob' },
+    fileDownload: async (pathOrId: string) => {
+        const response = await ApiHelper.get(
+            `${API_PATH.FILE.DOWNLOAD}/${pathOrId}`
         );
-    },
+        return response;
+    }
 }

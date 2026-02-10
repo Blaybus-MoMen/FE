@@ -27,10 +27,23 @@ const BarChart = <T extends object>({
     const svgRef = useRef<SVGSVGElement | null>(null)
 
     useEffect(() => {
-        if (!svgRef.current || data.length === 0) return
+        if (!svgRef.current) return
 
         const svg = d3.select(svgRef.current)
         svg.selectAll("*").remove()
+
+        if (data.length === 0) {
+            svg
+                .attr("viewBox", `0 0 ${width} ${height}`)
+                .append("text")
+                .attr("x", width / 2)
+                .attr("y", height / 2)
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .style("fill", "#94a3b8")
+                .text("학습 현황이 없습니다.")
+            return
+        }
 
         const subjectGradients: Record<string, [string, string]> = {
             국어: ['rgba(212, 241, 254, 0.8)', 'rgba(243, 243, 243, 0.8)'],
