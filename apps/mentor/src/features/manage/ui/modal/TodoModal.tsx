@@ -130,7 +130,11 @@ const TodoModal = ({ data }: { data: ModalPayloadMap['TODO'] }) => {
     }, [mode, todo, setValue]);
 
     useEffect(() => {
-        if (!todoDetail?.data) return;
+        if (!todoDetail?.data) {
+            setPreviewFiles([]);
+            setCurrentIndex(0);
+            return;
+        }
 
         const d = todoDetail.data;
 
@@ -141,17 +145,25 @@ const TodoModal = ({ data }: { data: ModalPayloadMap['TODO'] }) => {
         setRangeStart(new Date(d.startDate));
         setRangeEnd(new Date(d.endDate));
 
-        if (d.materials?.length) {
-            setPreviewFiles(
-                d.materials.map((m) => ({
-                    type: 'server',
-                    fileUrl: m.fileUrl,
-                    fileName: m.fileName,
-                }))
-            );
+        const materials = d.materials ?? [];
+
+        setPreviewFiles(
+            materials.map((m) => ({
+                type: 'server',
+                fileUrl: m.fileUrl,
+                fileName: m.fileName,
+            }))
+        );
+
+        setCurrentIndex(0);
+    }, [todoDetail]);
+
+    useEffect(() => {
+        if (mode === 'create') {
+            setPreviewFiles([]);
             setCurrentIndex(0);
         }
-    }, [todoDetail]);
+    }, [mode]);
 
     return (
         <form

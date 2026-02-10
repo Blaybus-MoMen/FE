@@ -56,6 +56,16 @@ const MonthlyFeedbackLayout = ({ menteeId, dateParams }: Props) => {
         }
     }, [feedback]);
 
+    useEffect(() => {
+        setAiSummary('');
+        setMentorComment('');
+
+        if (feedback) {
+            setAiSummary(feedback.aiSummary ?? '');
+            setMentorComment(feedback.mentorComment ?? '');
+        }
+    }, [dateParams.year, dateParams.month, feedback]);
+
     const saveMutation = useSaveMonthlyFeedbackMutation(menteeId);
     const aiMutation = useRequestMonthlyAiSummaryMutation(menteeId);
 

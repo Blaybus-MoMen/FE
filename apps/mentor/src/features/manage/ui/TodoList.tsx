@@ -3,8 +3,6 @@ import { useModalActions } from '@/shared/store/modal.store';
 import { format } from 'date-fns';
 import { useGetMenteeTodosQuery } from '@/entities/manage/queries/manage.queries';
 import { useTodoActions } from '../hooks/useTodoActions';
-import { CalendarUtil } from '@/shared/utils/calendarUtil';
-import { useMemo } from 'react';
 
 interface Props {
     menteeId: number;
@@ -21,17 +19,9 @@ const TodoList = ({ menteeId, selectedDate }: Props) => {
 
     const { toggleConfirm, deleteTodo } = useTodoActions({ menteeId, date });
 
-    const params = useMemo(() => {
-        const yearMonth = format(selectedDate, 'yyyy-MM');
-        const date = format(selectedDate, 'yyyy-MM-dd');
-        const weekStartDate = format(CalendarUtil.startOfWeek(selectedDate, 0), 'yyyy-MM-dd');
-
-        return { yearMonth, date, weekStartDate };
-    }, [selectedDate]);
-
     const { data } = useGetMenteeTodosQuery({
         menteeId,
-        ...params,
+        date,
     });
 
     const todos = data?.data ?? [];
