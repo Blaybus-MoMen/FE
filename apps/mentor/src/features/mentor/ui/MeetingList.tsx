@@ -16,13 +16,13 @@ const MeetingList = () => {
                     lg:flex-col lg:overflow-x-visible lg:max-h-none lg:overflow-y-visible
                 "
             >
-                <MeetingCard />
-                <MeetingCard />
-                <MeetingCard />
-                <MeetingCard />
-                <MeetingCard />
-                <MeetingCard />
-                <MeetingCard />
+                <MeetingCard name="오태훈" />
+                <MeetingCard name="김윤주" />
+                <MeetingCard name="조민수" />
+                <MeetingCard name="임채린" />
+                <MeetingCard name="정원준" />
+                <MeetingCard name="한지훈" />
+                <MeetingCard name="송지유" />
             </div>
         </section>
     )

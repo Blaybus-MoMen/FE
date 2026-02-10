@@ -27,15 +27,28 @@ const BarChart = <T extends object>({
     const svgRef = useRef<SVGSVGElement | null>(null)
 
     useEffect(() => {
-        if (!svgRef.current || data.length === 0) return
+        if (!svgRef.current) return
 
         const svg = d3.select(svgRef.current)
         svg.selectAll("*").remove()
 
+        if (data.length === 0) {
+            svg
+                .attr("viewBox", `0 0 ${width} ${height}`)
+                .append("text")
+                .attr("x", width / 2)
+                .attr("y", height / 2)
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .style("fill", "#94a3b8")
+                .text("학습 현황이 없습니다.")
+            return
+        }
+
         const subjectGradients: Record<string, [string, string]> = {
-            국어: ['rgba(212, 241, 254, 0.8)', 'rgba(243, 243, 243, 0.8)'],
-            영어: ['rgba(215, 193, 242, 0.8)', 'rgba(243, 243, 243, 0.8)'],
-            수학: ['rgba(255, 245, 157, 0.8)', 'rgba(243, 243, 243, 0.8)'],
+            국어: ['rgba(160, 193, 255, 0.8)', 'rgba(212, 241, 254, 0.8)'],
+            영어: ['rgba(172, 104, 255, 0.8)', 'rgba(215, 193, 242, 0.8)'],
+            수학: ['rgba(255, 197, 96, 0.8)', 'rgba(255, 245, 157, 0.8)'],
         }
         const defs = svg.append("defs")
 
@@ -121,6 +134,7 @@ const BarChart = <T extends object>({
         xAxisG.selectAll("text")
             .style("font-size", "14px")
             .style("text-anchor", "middle")
+            .attr("dy", "1.2em")
 
         const yAxis = d3.axisLeft(y).ticks(6).tickSize(0)
         const yAxisG = container.append("g").call(yAxis)
@@ -151,7 +165,7 @@ const BarChart = <T extends object>({
 
         type RectDatum = { seriesKey: string; value: number; category: string }
 
-        /** 게이지: 전체 높이 = 흰색 트랙(인셋 섀도우) + 데이터 높이만 그라데이션 */
+        /** 막대를 세로 타원(캡슐) 모양으로 표현 */
         const barGroups = groups
             .selectAll("g.bar")
             .data(rectData)
@@ -168,35 +182,31 @@ const BarChart = <T extends object>({
             const valueY = y(pct)
             const valueHeight = innerHeight - valueY
             const fillColor = subjectGradients[datum.category] ? `url(#gradient-${datum.category})` : defaultFill
+            const radius = barW / 2
 
-            const rx = Math.min(50, barW / 2)
-            const ry = Math.min(40, valueHeight / 2)
-            const trackRx = Math.min(50, barW / 2)
-            const trackRy = Math.min(40, innerHeight / 2)
+            g.append("rect")
+                .attr("x", barX)
+                .attr("y", 0)
+                .attr("width", barW)
+                .attr("height", innerHeight)
+                .attr("rx", radius)
+                .attr("ry", radius)
+                .attr("fill", "#ffffff")
+                .attr("filter", "url(#inset-shadow)")
 
-            const trackPath = `M ${barX} ${innerHeight - trackRy} Q ${barX} ${innerHeight} ${barX + trackRx} ${innerHeight} L ${barX + barW - trackRx} ${innerHeight} Q ${barX + barW} ${innerHeight} ${barX + barW} ${innerHeight - trackRy} L ${barX + barW} ${trackRy} Q ${barX + barW} 0 ${barX + barW - trackRx} 0 L ${barX + trackRx} 0 Q ${barX} 0 ${barX} ${trackRy} Z`
-            const isFull = valueHeight >= innerHeight - 0.5
-            if (!isFull) {
-                g.append("path")
-                    .attr("d", trackPath)
-                    .attr("fill", "#ffffff")
-                    .attr("filter", "url(#inset-shadow)")
-            }
-            const bottomRy = Math.min(ry, valueHeight / 2)
-            const pillPath =
-                valueHeight <= 0
-                    ? ''
-                    : isFull
-                        ? trackPath
-                        : `M ${barX} ${innerHeight - bottomRy} Q ${barX} ${innerHeight} ${barX + rx} ${innerHeight} L ${barX + barW - rx} ${innerHeight} Q ${barX + barW} ${innerHeight} ${barX + barW} ${innerHeight - bottomRy} L ${barX + barW} ${valueY + ry} Q ${barX + barW} ${valueY} ${barX + barW - rx} ${valueY} L ${barX + rx} ${valueY} Q ${barX} ${valueY} ${barX} ${valueY + ry} Z`
-            g.append("path")
-                .attr("d", pillPath)
+            g.append("rect")
+                .attr("x", barX)
+                .attr("y", valueY)
+                .attr("width", barW)
+                .attr("height", Math.max(valueHeight, 0))
+                .attr("rx", radius)
+                .attr("ry", radius)
                 .attr("fill", fillColor)
 
             const pctLabel = totalSum > 0 ? Math.round((datum.value / totalSum) * 100) : 0
             g.append("text")
                 .attr("x", barX + barW / 2)
-                .attr("y", innerHeight - 8)
+                .attr("y", innerHeight - 24)
                 .attr("text-anchor", "middle")
                 .style("font-size", "16px")
                 .style("fill", "#64748b")

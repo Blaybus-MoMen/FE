@@ -18,18 +18,19 @@ export const SUBJECT_EVENT_COLOR: Record<'KOREAN' | 'ENGLISH' | 'MATH', string> 
 
 export const SUBJECT_TODO_CARD_STYLE = {
     KOREAN: {
-        headerBg: 'bg-[#BFEAFE4D]',
+        headerBg: 'bg-[#ebf8fe]',
         subjectBg: 'bg-secondary-sky-light',
     },
     ENGLISH: {
-        headerBg: 'bg-[#D7C1F24D]',
+        headerBg: 'bg-[#f2ecfa]',
         subjectBg: 'bg-accent-purple',
     },
     MATH: {
-        headerBg: 'bg-[#FFF59D26]',
+        headerBg: 'bg-[#fefdef]',
         subjectBg: 'bg-point-yellow',
     },
 } as const
+
 
 export const SUBJECT_LIST = [
     {

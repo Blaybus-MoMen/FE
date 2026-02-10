@@ -8,28 +8,42 @@ import run from '@/assets/images/run.png';
 const HomeLearningSummary = ({ date }: { date: string }) => {
     const { data } = useGetDailyStatsQuery(date);
     const rate = data?.completionRatePercent ?? 0;
+    const isOverHalf = rate > 50;
     const runnerImg = rate === 0 ? start : rate >= 100 ? finish : run;
     const runnerAlt = rate === 0 ? '준비' : rate >= 100 ? '완료' : '달리기';
 
     return (
-        <div className="bg-[#FFFFFFB2] px-[11px] py-[13px] rounded-[20px] border border-[#FEFEFE] mt-[17px]">
-            <div className='flex items-center justify-center gap-[11px] mt-[22px]'>
-                <div className='w-full h-full rounded-[25px] bg-primary-blue flex flex-col gap-[8px] items-center justify-center max-w-[90px] min-h-[96px]'>
+        <div className="px-[11px] rounded-[20px] mt-[5px]">
+            <div className='flex items-center justify-center gap-[11px]'>
+                <div className='w-full h-full rounded-[25px] bg-primary-blue flex flex-col items-center justify-center max-w-[90px] min-h-[96px]'>
                     <p className='text-[14px] text-[#FEFEFE]'>총 학습</p>
                     <h2 className='text-ui-label text-[#FEFEFE]'>{data?.total ?? 0}</h2>
                 </div>
-                <div className='w-full h-full rounded-[25px] bg-primary-blue-pale flex flex-col gap-[8px] items-center justify-center max-w-[90px] min-h-[96px]'>
+                <div className='w-full h-full rounded-[25px] bg-[#FEFEFE] flex flex-col items-center justify-center max-w-[90px] min-h-[96px] border-[2px] border-primary-blue'>
                     <p className='text-[14px] text-grayscale-dark-gray'>완료 학습</p>
                     <h2 className='text-ui-label text-primary-blue'>{data?.completed ?? 0}</h2>
                 </div>
-                <div className='w-full h-full rounded-[25px] bg-primary-blue-pale flex flex-col gap-[8px] items-center justify-center max-w-[90px] min-h-[96px]'>
-                    <p className='text-[14px] text-grayscale-dark-gray'>남은 학습</p>
+                <div className='w-full h-full rounded-[25px] bg-[#FEFEFE] flex flex-col items-center justify-center max-w-[90px] min-h-[96px] border-[2px] border-primary-blue'>
+                    <p className='text-[14px] text-grayscale-dark-gray'>잔여 학습</p>
                     <h2 className='text-ui-label text-primary-blue'>{data?.remaining ?? 0}</h2>
                 </div>
             </div>
-            <div className='mt-[23px] relative pt-6'>
-                <span className="absolute right-0 top-0 z-10 text-[11px] font-medium text-primary-blue-light">{data?.message}</span>
+            <div
+                className='mt-[23px] relative pt-[55px] pb-[16px] px-[19px] rounded-[18px]'
+                style={{
+                    background: '#FFFFFF80',
+                    border: '2px solid #FFFFFF',
+                    boxShadow: '0px 3px 4px 0px #00000026',
+                }}
+            >
                 <div className="relative w-full h-[10px]">
+                    <div
+                        className={`absolute -top-5 w-full flex ${isOverHalf ? 'justify-start' : 'justify-end'}`}
+                    >
+                        <span className="text-[11px] font-medium text-primary-blue-light">
+                            {data?.message}
+                        </span>
+                    </div>
                     <img
                         src={runnerImg}
                         alt={runnerAlt}

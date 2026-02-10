@@ -1,6 +1,6 @@
 import pdf from '@/assets/icons/pdf.svg';
-import { useDownloadMaterialsMutation } from '@/entities/file/queries/file.queries';
 import { CommonUtil } from '@/shared/utils/commonUtil';
+import { useFileDownloadMutation } from '@/entities/file/queries/file.queries';
 import { HomeLearningCardTimer } from './HomeLearningCardTimer';
 
 interface IHomeLearningCardProps {
@@ -29,13 +29,39 @@ export const HomeLearningCard = ({
     materials,
 }: IHomeLearningCardProps) => {
     const { headerBg, subjectBg } = CommonUtil.getTodoCardStyle(subject);
-    const { mutateAsync: downloadMaterials, isPending } = useDownloadMaterialsMutation();
+    const { mutateAsync: downloadFile, isPending } = useFileDownloadMutation();
 
-    const handleDownload = () => {
+    const handleDownload = async () => {
         if (materials.length === 0) return;
-        downloadMaterials({
-            materials: materials.map((m) => ({ fileUrl: m.fileUrl, fileName: m.fileName })),
-        }).catch(console.error);
+
+        const targets = materials
+            .filter((m) => !!m.fileUrl)
+            .map((m) => {
+                const basePathOrId = m.fileUrl.includes('/files/')
+                    ? m.fileUrl.replace(/^.*\/files\/?/, '')
+                    : m.fileUrl;
+
+                const pathOrId = basePathOrId.includes('?')
+                    ? `${basePathOrId}&download=true`
+                    : `${basePathOrId}?download=true`;
+
+                return {
+                    pathOrId,
+                    fileName: m.fileName,
+                };
+            });
+
+        if (targets.length === 0) return;
+
+        try {
+            await Promise.all(
+                targets.map(({ pathOrId, fileName }) =>
+                    downloadFile({ pathOrId, fileName }),
+                ),
+            );
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

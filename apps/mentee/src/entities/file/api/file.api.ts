@@ -13,9 +13,9 @@ export const fileApi = {
         );
         return response;
     },
-    fileDownload: async (pathOrId: string): Promise<Blob> => {
+    fileDownload: async (pathOrIdWithQuery: string): Promise<Blob> => {
         return ApiHelper.get<Blob>(
-            `${API_PATH.FILE.DOWNLOAD}/${pathOrId}`,
+            `${API_PATH.FILE.DOWNLOAD}/${pathOrIdWithQuery}`,
             { responseType: 'blob' },
         );
     },

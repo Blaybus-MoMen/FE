@@ -1,7 +1,6 @@
 import arrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import arrowRightIcon from '@/assets/icons/arrow-right.svg';
 import { CalendarUtil } from '../utils/calendarUtil';
-import { useEffect } from 'react';
 
 interface IWeeklyCalendarProps {
     weekBaseDate: Date;

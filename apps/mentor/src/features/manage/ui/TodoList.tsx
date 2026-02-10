@@ -64,7 +64,7 @@ const TodoList = ({ menteeId, selectedDate }: Props) => {
                         task={todo.title}
                         goal={todo.goalDescription}
                         isConfirmed={todo.mentorConfirmed}
-                        showActions={todo.creatorType === 'MENTOR' && !todo.hasFeedback}
+                        showActions={todo.creatorType === 'MENTOR'}
                         onEdit={() =>
                             openModal('TODO', {
                                 mode: 'edit',
