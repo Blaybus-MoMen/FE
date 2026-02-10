@@ -1,15 +1,14 @@
-import { useState } from 'react';
+import { useState } from "react";
 import ArrowDoubleDown from '@/assets/icons/arrow-double-down.svg';
-import Calendar from '@/shared/ui/Calendar';
-import MeetingList from '@/features/mentor/ui/MeetingList';
+import Calendar from "@/shared/ui/Calendar";
+import MeetingList from "@/features/mentor/ui/MeetingList";
 
 /**
  * @description 미팅 캘린더 패널(사이드, 하단 바) 컴포넌트
  */
 const MeetCalendarPanel = () => {
-    const [isAsideOpen, setIsAsideOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date());
-
+    const [isAsideOpen, setIsAsideOpen] = useState(false)
+    const [selectedDate, setSelectedDate] = useState(new Date())
     return (
         <aside
             className="
@@ -20,26 +19,29 @@ const MeetCalendarPanel = () => {
             lg:pt-28 lg:pb-[35px] lg:px-14
         "
         >
-            <button type="button" className="mb-3 flex w-full items-center justify-center lg:hidden cursor-default">
+            <button
+                type="button"
+                className="mb-3 flex w-full items-center justify-center lg:hidden cursor-default"
+            >
                 <img
                     src={ArrowDoubleDown}
-                    alt={isAsideOpen ? '섹션 접기' : '섹션 펼치기'}
-                    onClick={() => setIsAsideOpen((prev) => !prev)}
-                    className={`cursor-pointer transition-transform duration-200 ${isAsideOpen ? '' : 'rotate-180'}`}
+                    alt={isAsideOpen ? "섹션 접기" : "섹션 펼치기"}
+                    onClick={() => setIsAsideOpen(prev => !prev)}
+                    className={`cursor-pointer transition-transform duration-200 ${isAsideOpen ? "" : "rotate-180"}`}
                 />
             </button>
             <div
                 className={
                     isAsideOpen
-                        ? 'flex-1 min-h-0 flex flex-col gap-5 lg:overflow-y-auto no-scrollbar'
-                        : 'flex-1 min-h-0 hidden lg:flex lg:flex-col gap-5 lg:overflow-y-auto no-scrollbar'
+                        ? "flex-1 min-h-0 flex flex-col gap-5 lg:overflow-y-auto no-scrollbar"
+                        : "flex-1 min-h-0 hidden lg:flex lg:flex-col gap-5 lg:overflow-y-auto no-scrollbar"
                 }
             >
                 <Calendar selectedDate={selectedDate} onSelectDate={setSelectedDate} />
                 <MeetingList />
             </div>
         </aside>
-    );
-};
+    )
+}
 
 export default MeetCalendarPanel;
