@@ -15,7 +15,7 @@ RUN npm ci
 COPY . .
 
 # Create .env files for both apps
-ARG VITE_API_BASE_URL=
+ARG VITE_API_BASE_URL=http://100.50.98.194:8089
 ARG VITE_API_VERSION=/api/v1
 
 RUN echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > apps/mentor/.env && \
