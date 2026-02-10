@@ -18,7 +18,7 @@ import LearningEditModal from "@/features/manage/ui/LearningEditModal"
 const GENERIC_MODALS: Partial<Record<GenericModalKey, ComponentType<unknown>>> = {
     LEARNING_ADD: LearningAddModal as ComponentType<unknown>,
     LEARNING_INSPECTION: LearningInspectionModal as ComponentType<unknown>,
-    FEEDBACK_CONFIRM: FeedbackConfirmModal,
+    FEEDBACK_CONFIRM: FeedbackConfirmModal as ComponentType<unknown>,
     WEEK_FEEDBACK: WeekFeedbackModal as ComponentType<unknown>,
     MONTH_FEEDBACK: MonthFeedbackModal as ComponentType<unknown>,
     CHEER_UPDATE: CheerUpdateModal as ComponentType<unknown>,

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { studyApi } from "../api/study.api"
-import type { ICreateTodoRequest, ISubmitTodoRequest, IUpdateCardRequest, IUpdateCheerMessageRequest, IUpdateStudyTimeRequest, IUpdateTodoRequest } from "../api/study.api.type"
+import type { ICreateTodoRequest, IProblemSubmitRequest, ISubmitTodoRequest, IUpdateCardRequest, IUpdateCheerMessageRequest, IUpdateStudyTimeRequest, IUpdateTodoRequest } from "../api/study.api.type"
 
 
 export const useGetMyPageInfoQuery = () => {
@@ -129,5 +129,11 @@ export const useSubmitTodoMutation = () => {
 export const useUpdateCardMutation = () => {
     return useMutation({
         mutationFn: (params: IUpdateCardRequest) => studyApi.updateCard(params),
+    })
+}
+
+export const useProblemSubmitMutation = () => {
+    return useMutation({
+        mutationFn: (params: IProblemSubmitRequest) => studyApi.problemSubmit(params),
     })
 }

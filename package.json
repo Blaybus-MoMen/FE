@@ -16,6 +16,7 @@
     "clean": "rm -rf node_modules **/node_modules"
   },
   "devDependencies": {
+    "@types/event-source-polyfill": "^1.0.5",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
@@ -29,6 +30,7 @@
   },
   "dependencies": {
     "date-fns": "^4.1.0",
+    "event-source-polyfill": "^1.0.31",
     "lucide-react": "^0.563.0",
     "react-calendar": "^6.0.0"
   }

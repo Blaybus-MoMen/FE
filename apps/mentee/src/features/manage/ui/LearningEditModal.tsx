@@ -74,7 +74,8 @@ const LearningEditModal = ({ date, todoId }: { date: string, todoId: number }) =
         handleSubmit,
         watch,
         setValue,
-        formState: { errors, isValid },
+        reset,
+        formState: { errors, isValid, isDirty },
     } = useForm<LearningAddFormValues>({
         resolver: zodResolver(learningAddSchema),
         defaultValues: {
@@ -95,25 +96,31 @@ const LearningEditModal = ({ date, todoId }: { date: string, todoId: number }) =
     useEffect(() => {
         if (!data) return;
         const { title, subject, goalDescription, startDate, endDate, materials } = data;
-        setValue('title', title);
-        setValue('subject', subject as LearningAddFormValues['subject']);
-        setValue('goalDescription', goalDescription);
         const startParsed = parseDateString(startDate);
         const endParsed = parseDateString(endDate);
-        setValue('startYear', startParsed.year);
-        setValue('startMonth', startParsed.month);
-        setValue('startDay', startParsed.day);
-        setValue('endYear', endParsed.year);
-        setValue('endMonth', endParsed.month);
-        setValue('endDay', endParsed.day);
-        setValue(
-            'materials',
-            (materials ?? []).map((m) => ({
-                fileUrl: m.fileUrl,
-                fileName: m.fileName,
-            })),
-        );
-    }, [data, setValue]);
+        const start = new Date(startParsed.year, startParsed.month - 1, startParsed.day);
+        const end = new Date(endParsed.year, endParsed.month - 1, endParsed.day);
+        const weekdaysSet = new Set<number>();
+        const cursor = new Date(start);
+        while (cursor <= end) {
+            weekdaysSet.add(cursor.getDay());
+            cursor.setDate(cursor.getDate() + 1);
+        }
+        const repeatDaysFromRange = Array.from(weekdaysSet).sort((a, b) => a - b);
+        reset({
+            title,
+            subject: subject as LearningAddFormValues['subject'],
+            goalDescription,
+            startYear: startParsed.year,
+            startMonth: startParsed.month,
+            startDay: startParsed.day,
+            endYear: endParsed.year,
+            endMonth: endParsed.month,
+            endDay: endParsed.day,
+            repeatDays: repeatDaysFromRange,
+            materials: (materials ?? []).map((m) => ({ fileUrl: m.fileUrl, fileName: m.fileName })),
+        });
+    }, [data, reset]);
 
     const materials = watch('materials');
 
@@ -126,10 +133,11 @@ const LearningEditModal = ({ date, todoId }: { date: string, todoId: number }) =
                 const res = await uploadFile({ file });
                 const fileUrl = res.data?.fileUrl ?? '';
                 if (fileUrl) {
-                    setValue('materials', [
-                        ...watch('materials'),
-                        { fileUrl, fileName: file.name },
-                    ]);
+                    setValue(
+                        'materials',
+                        [...watch('materials'), { fileUrl, fileName: file.name }],
+                        { shouldValidate: true, shouldDirty: true },
+                    );
                 }
             } finally {
                 setUploadingNames((prev) => prev.filter((n) => n !== file.name));
@@ -140,7 +148,7 @@ const LearningEditModal = ({ date, todoId }: { date: string, todoId: number }) =
 
     const removeMaterial = (index: number) => {
         const next = materials.filter((_, i) => i !== index);
-        setValue('materials', next);
+        setValue('materials', next, { shouldValidate: true, shouldDirty: true });
     };
 
     const startYear = watch('startYear');
@@ -466,7 +474,7 @@ const LearningEditModal = ({ date, todoId }: { date: string, todoId: number }) =
                     </div>
                     <button
                         type="submit"
-                        disabled={!isValid || repeatDays.length === 0}
+                        disabled={!isValid || repeatDays.length === 0 || !isDirty}
                         className="w-full mt-[24px] py-[14px] rounded-[50px] bg-primary-blue text-white text-[14px] font-medium disabled:bg-grayscale-light-gray disabled:text-grayscale-dark-gray"
                     >
                         수정하기

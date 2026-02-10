@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router';
-import Alarm from '../ui/Alarm';
 
 const PATH_TITLE_MAP = {
     '/manage': '학습관리',
@@ -13,7 +12,6 @@ const Header = () => {
     return (
         <div className="flex items-center justify-between px-[16px] py-[8px] bg-[#e1ecff]">
             <h3 className='text-primary-blue-dark'>{title}</h3>
-            <Alarm />
         </div >
     )
 }

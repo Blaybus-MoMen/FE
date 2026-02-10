@@ -1,7 +1,6 @@
 import { useModalActions } from '@/shared/store/modal.store';
 import { MODAL_KEY } from '@/shared/model/modal';
 import { ChevronLeft } from 'lucide-react';
-import noti from '@/assets/icons/noti.svg';
 import WeekCalendarHeader from '@/shared/ui/WeekCalendarHeader';
 import useCalendar from '@/shared/hooks/useCalendar';
 import { CalendarUtil } from '@/shared/utils/calendarUtil';
@@ -35,7 +34,6 @@ const WeekFeedbackModal = ({ date }: { date: string }) => {
                 <h1 className="flex-1 text-center text-[16px] font-medium text-grayscale-black pr-8">
                     주간 피드백
                 </h1>
-                <img src={noti} alt="알림" />
             </header>
             <main className="flex-1 overflow-auto min-h-0 p-4">
                 <WeekCalendarHeader

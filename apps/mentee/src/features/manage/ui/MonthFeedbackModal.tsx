@@ -1,7 +1,6 @@
 import { useModalActions } from '@/shared/store/modal.store';
 import { MODAL_KEY } from '@/shared/model/modal';
 import { ChevronLeft } from 'lucide-react';
-import noti from '@/assets/icons/noti.svg';
 import useCalendar from '@/shared/hooks/useCalendar';
 import MonthCalendarHeader from '@/shared/ui/MonthCalendarHeader';
 import { CommonUtil } from '@/shared/utils/commonUtil';
@@ -32,7 +31,6 @@ const MonthFeedbackModal = ({ date }: { date: string }) => {
                 <h1 className="flex-1 text-center text-[16px] font-medium text-grayscale-black pr-8">
                     월간 피드백
                 </h1>
-                <img src={noti} alt="알림" />
             </header>
             <main className="flex-1 overflow-auto min-h-0 p-4">
                 <MonthCalendarHeader
@@ -56,11 +54,11 @@ const MonthFeedbackModal = ({ date }: { date: string }) => {
                         setDisplayMonth(nextMonth);
                     }}
                 />
-                <div className="mt-[27px] bg-[#FEFEFE] h-[169px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] p-[13px]">
+                <div className="mt-[27px] bg-[#FEFEFE] h-[350px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] p-[13px]">
                     <div className='bg-grayscale-border w-fit rounded-[182.13px] px-[32px] py-[5px] text-[12px] text-grayscale-black font-bold'>AI 요약</div>
                     <div className='text-[14px] h-full overflow-y-auto no-scrollbar'>{data?.[0]?.aiSummary || ''}</div>
                 </div>
-                <div className="mt-[27px] bg-[#FEFEFE] h-[169px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] p-[13px]">
+                <div className="mt-[27px] bg-[#FEFEFE] h-[300px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] p-[13px]">
                     <div className='bg-grayscale-border w-fit rounded-[182.13px] px-[33px] py-[5px] text-[12px] text-grayscale-black font-bold'>코멘트</div>
                     <div className='text-[14px] h-full overflow-y-auto no-scrollbar'>{data?.[0]?.mentorComment || ''}</div>
                 </div>

@@ -1,28 +1,71 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useModalActions } from '@/shared/store/modal.store';
 import { MODAL_KEY } from '@/shared/model/modal';
 import { ChevronLeft, FilePlus } from 'lucide-react';
-import noti from '@/assets/icons/noti.svg';
-import { useGetTodoSubmissionQuery } from '@/entities/study/queries/study.queries';
+import { useGetTodoSubmissionQuery, useProblemSubmitMutation } from '@/entities/study/queries/study.queries';
 import { CommonUtil } from '@/shared/utils/commonUtil';
 import { SUBJECT_TODO_CARD_STYLE } from '@/shared/constants/constants';
+import { useFileUploadMutation } from '@/entities/file/queries/file.queries';
+
+type SubmissionFile = { fileUrl: string; fileName: string };
 
 const LearningInspectionModal = (props: { todoId: number, title: string, subject: string, goalDescription: string, studyTimeHours: string, studyTimeMinutes: string, studyTimeSeconds: string, isCompleted: boolean }) => {
     const { todoId, title, subject, goalDescription, studyTimeHours, studyTimeMinutes, studyTimeSeconds, isCompleted } = props;
     const { closeModal } = useModalActions();
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const { data } = useGetTodoSubmissionQuery(todoId);
+    const { mutateAsync } = useProblemSubmitMutation();
+    const { mutateAsync: uploadFile } = useFileUploadMutation();
 
     const [memo, setMemo] = useState('');
-    const [submissionFiles, setSubmissionFiles] = useState<string[]>([]);
+    const [submissionFiles, setSubmissionFiles] = useState<SubmissionFile[]>([]);
+    const [uploadingNames, setUploadingNames] = useState<string[]>([]);
 
     useEffect(() => {
         if (!data) return;
-        Promise.resolve().then(() => {
-            setMemo(data.memo ?? '');
-            setSubmissionFiles(data.files ?? []);
-        });
+        const files: SubmissionFile[] = (data.files ?? []).map((url) => ({
+            fileUrl: url,
+            fileName: url.split('/').pop() || url,
+        }));
+        setMemo(data.memo ?? '');
+        setSubmissionFiles(files);
     }, [data]);
+
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files?.length) return;
+        for (const file of Array.from(files)) {
+            setUploadingNames((prev) => [...prev, file.name]);
+            try {
+                const res = await uploadFile({ file });
+                const fileUrl = res.data?.fileUrl ?? '';
+                if (fileUrl) {
+                    setSubmissionFiles((prev) => [...prev, { fileUrl, fileName: file.name }]);
+                }
+            } finally {
+                setUploadingNames((prev) => prev.filter((n) => n !== file.name));
+            }
+        }
+        e.target.value = '';
+    };
+
+    const removeSubmissionFile = (index: number) => {
+        setSubmissionFiles((prev) => prev.filter((_, i) => i !== index));
+    };
+
+    const handleProblemSubmit = async () => {
+        try {
+            await mutateAsync({
+                todoId,
+                files: submissionFiles,
+                memo,
+            });
+            closeModal(MODAL_KEY.LEARNING_INSPECTION);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const subjectStyle = SUBJECT_TODO_CARD_STYLE[subject as keyof typeof SUBJECT_TODO_CARD_STYLE];
 
@@ -44,7 +87,6 @@ const LearningInspectionModal = (props: { todoId: number, title: string, subject
                 <h1 className="flex-1 text-center text-[16px] font-medium text-grayscale-black pr-8">
                     학습 점검
                 </h1>
-                <img src={noti} alt="알림" />
             </header>
             <main className="flex-1 overflow-auto min-h-0 p-4">
                 <div className={`${subjectStyle?.headerBg ?? ''} flex rounded-[25px]`}>
@@ -78,28 +120,61 @@ const LearningInspectionModal = (props: { todoId: number, title: string, subject
                         </div>
                     </div>
                 </div>
-                <div className="mt-[27px] bg-[#FEFEFE] min-h-[135px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col items-center justify-center gap-[6px] px-4 py-3">
-                    {submissionFiles.length === 0 ? (
-                        <>
+                <div className="mt-[27px] bg-[#FEFEFE] min-h-[135px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] px-4 py-3">
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        className="hidden"
+                        accept="*/*"
+                        multiple
+                        onChange={handleFileChange}
+                    />
+                    {(submissionFiles.length === 0 && uploadingNames.length === 0) ? (
+                        <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            className="flex flex-1 flex-col items-center justify-center gap-[6px] min-h-[100px]"
+                        >
                             <FilePlus size={20} />
                             <p className='text-[10px] text-[#828282]'>파일 추가</p>
-                        </>
+                        </button>
                     ) : (
                         <div className="w-full flex flex-col gap-[6px]">
-                            {submissionFiles.map((fileUrl, index) => {
-                                const fileName = fileUrl.split('/').pop() || fileUrl;
-                                return (
-                                    <a
-                                        key={`${fileUrl}-${index}`}
-                                        href={fileUrl}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="text-[12px] text-primary-blue underline break-all"
+                            <div className="max-h-[144px] overflow-y-auto no-scrollbar flex flex-col gap-[6px]">
+                                {uploadingNames.map((name) => (
+                                    <div
+                                        key={`uploading-${name}`}
+                                        className="flex items-center justify-between py-[6px] px-[10px] bg-grayscale-bg-gray rounded-[8px] text-[14px] text-grayscale-dark-gray flex-shrink-0"
                                     >
-                                        {fileName}
-                                    </a>
-                                );
-                            })}
+                                        <span className="truncate flex-1">{name}</span>
+                                        <span className="text-[12px] text-grayscale-medium-gray shrink-0 ml-2">업로드 중...</span>
+                                    </div>
+                                ))}
+                                {submissionFiles.map((file, index) => (
+                                    <div
+                                        key={`${file.fileUrl}-${index}`}
+                                        className="flex items-center justify-between py-[6px] px-[10px] bg-grayscale-bg-gray rounded-[8px] text-[14px] flex-shrink-0"
+                                    >
+                                        <span className="truncate flex-1 text-grayscale-black">
+                                            {file.fileName}
+                                        </span>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeSubmissionFile(index)}
+                                            className="shrink-0 ml-2 text-[12px] text-red-500 underline"
+                                        >
+                                            삭제
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => fileInputRef.current?.click()}
+                                className="w-full py-[8px] rounded-[8px] border border-primary-blue text-primary-blue text-[12px] flex-shrink-0"
+                            >
+                                파일 추가
+                            </button>
                         </div>
                     )}
                 </div>
@@ -111,6 +186,7 @@ const LearningInspectionModal = (props: { todoId: number, title: string, subject
                 />
                 <button
                     type="button"
+                    onClick={handleProblemSubmit}
                     className="w-full mt-[24px] py-[14px] rounded-[10px] bg-primary-blue text-white text-[14px] font-medium"
                 >
                     저장하기

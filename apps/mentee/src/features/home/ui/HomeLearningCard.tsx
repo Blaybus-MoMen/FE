@@ -1,4 +1,5 @@
 import pdf from '@/assets/icons/pdf.svg';
+import { useDownloadMaterialsMutation } from '@/entities/file/queries/file.queries';
 import { CommonUtil } from '@/shared/utils/commonUtil';
 import { HomeLearningCardTimer } from './HomeLearningCardTimer';
 
@@ -10,6 +11,11 @@ interface IHomeLearningCardProps {
     startDate: string;
     endDate: string;
     isCompleted: boolean;
+    materials: {
+        materialId: number;
+        fileUrl: string;
+        fileName: string;
+    }[];
 }
 
 
@@ -20,8 +26,17 @@ export const HomeLearningCard = ({
     subject,
     goalDescription,
     isCompleted,
+    materials,
 }: IHomeLearningCardProps) => {
     const { headerBg, subjectBg } = CommonUtil.getTodoCardStyle(subject);
+    const { mutateAsync: downloadMaterials, isPending } = useDownloadMaterialsMutation();
+
+    const handleDownload = () => {
+        if (materials.length === 0) return;
+        downloadMaterials({
+            materials: materials.map((m) => ({ fileUrl: m.fileUrl, fileName: m.fileName })),
+        }).catch(console.error);
+    };
 
     return (
         <div className='min-w-full flex-shrink-0 snap-center flex flex-col gap-[8px]'>
@@ -49,15 +64,22 @@ export const HomeLearningCard = ({
             </div>
             <div className='flex items-center w-full gap-[8px]'>
                 <HomeLearningCardTimer todoId={todoId} />
-                <div className='flex-1 rounded-[20px] bg-[#FEFEFE] p-[12px] h-[135px] flex flex-col justify-between'>
+                <button
+                    type="button"
+                    onClick={handleDownload}
+                    disabled={materials.length === 0 || isPending}
+                    className='flex-1 rounded-[20px] bg-[#FEFEFE] p-[12px] h-[135px] flex flex-col justify-between text-left disabled:opacity-60 disabled:cursor-not-allowed'
+                >
                     <div className='flex flex-col gap-[4px]'>
                         <p className='text-[14px] text-grayscale-dark-gray'>오늘의 학습지</p>
-                        <p className='text-[12px] text-grayscale-dark-gray'>다운로드</p>
+                        <p className='text-[12px] text-grayscale-dark-gray'>
+                            {isPending ? '다운로드 중' : '다운로드'}
+                        </p>
                     </div>
                     <div className='flex justify-end'>
                         <img src={pdf} alt='pdf' />
                     </div>
-                </div>
+                </button>
             </div>
         </div>
     );

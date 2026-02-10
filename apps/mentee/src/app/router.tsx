@@ -7,6 +7,7 @@ import MainLayout from "@/shared/lib/MainLayout";
 import ReportPage from "@/pages/report/ReportPage";
 import ManagePage from "@/pages/manage/ManagePage";
 import MyPage from "@/pages/mypage/MyPage";
+import AlarmLayout from "@/shared/lib/AlarmLayout";
 
 export const router = createBrowserRouter([
     {
@@ -21,34 +22,37 @@ export const router = createBrowserRouter([
         element: <AuthGuard />,
         children: [
             {
-                element: <NavBarLayout />,
+                element: <AlarmLayout />,
                 children: [
                     {
-                        path: '/home',
-                        element: <HomePage />,
+                        element: <NavBarLayout />,
+                        children: [
+                            {
+                                path: '/home',
+                                element: <HomePage />,
+                            },
+                            {
+                                path: '/my-page',
+                                element: <MyPage />,
+                            },
+                        ],
                     },
                     {
-                        path: '/my-page',
-                        element: <MyPage />,
-                    },
-                ],
-            },
-            {
-                element: <MainLayout />,
-                children: [
-                    {
-                        path: '/manage',
-                        element: <ManagePage />,
-                    },
-                    {
-                        path: '/report',
-                        element: <ReportPage />,
-                    },
+                        element: <MainLayout />,
+                        children: [
+                            {
+                                path: '/manage',
+                                element: <ManagePage />,
+                            },
+                            {
+                                path: '/report',
+                                element: <ReportPage />,
+                            },
 
+                        ]
+                    }
                 ]
-            }
-
-
+            },
         ],
     },
 ], {

@@ -55,6 +55,7 @@ export const HomeLearningCardSlice = ({ date }: { date: string }) => {
                                 startDate={item.startDate}
                                 endDate={item.endDate}
                                 isCompleted={item.isCompleted}
+                                materials={item.materials}
                             />
                         ))
                     ) : (

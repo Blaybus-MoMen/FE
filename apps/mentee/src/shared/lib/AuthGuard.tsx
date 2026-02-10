@@ -7,8 +7,7 @@ import { useAuthStore } from "../store/auth.store"
 const AuthGuard = () => {
     const token = useAuthStore((state) => state.token)
     const hydrated = useAuthStore.persist.hasHydrated()
-
-    // useNotificationSSE(token ?? "")
+    useNotificationSSE(token ?? "")
     if (!hydrated) return null
     if (!token) return <Navigate to={'/login'} replace />
     return (

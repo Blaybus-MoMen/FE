@@ -1,6 +1,6 @@
 import { ApiHelper } from '@/shared/api/api.base'
 import { API_PATH } from '@/shared/api/api.path'
-import type { ICreateTodoRequest, IDailyStatsResponse, IGetMyInfoResponse, IGetMyPageInfoResponse, IStudyTimeResponse, ISubmitTodoRequest, ITodoDetailResponse, ITodoListResponse, ITodoSubmissionResponse, IUpdateCardRequest, IUpdateCheerMessageRequest, IUpdateStudyTimeRequest, IUpdateTodoRequest } from './study.api.type'
+import type { ICreateTodoRequest, IDailyStatsResponse, IGetMyInfoResponse, IGetMyPageInfoResponse, IProblemSubmitRequest, IStudyTimeResponse, ISubmitTodoRequest, ITodoDetailResponse, ITodoListResponse, ITodoSubmissionResponse, IUpdateCardRequest, IUpdateCheerMessageRequest, IUpdateStudyTimeRequest, IUpdateTodoRequest } from './study.api.type'
 import type { ApiResponse } from '@/shared/model/type'
 
 /** 스터디 API */
@@ -99,6 +99,11 @@ export const studyApi = {
     },
     updateCard: async (params: IUpdateCardRequest) => {
         const response = await ApiHelper.patch(API_PATH.STUDY.CARD, params)
+        return response
+    },
+    problemSubmit: async (params: IProblemSubmitRequest) => {
+        const { todoId, ...rest } = params;
+        const response = await ApiHelper.post(`${API_PATH.STUDY.SUBMIT(todoId)}`, rest)
         return response
     },
 }   

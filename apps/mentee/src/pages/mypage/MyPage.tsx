@@ -1,4 +1,3 @@
-import noti from '@/assets/icons/noti.svg';
 import edit from '@/assets/icons/edit.svg';
 import { LogOut, User } from 'lucide-react';
 import { useNavigate } from 'react-router';
@@ -31,7 +30,7 @@ const getChartDataFromCompletionRates = (rates: Record<string, number> | undefin
 const MyPage = () => {
     const navigate = useNavigate();
     const { data } = useGetMyPageInfoQuery();
-    const { openModal } = useModalActions();
+    const { openModal, openAlert } = useModalActions();
     const { removeToken } = useAuthAction();
     const { mutateAsync: logout } = useLogoutMutation();
     const chartData = getChartDataFromCompletionRates(data?.subjectCompletionRates);
@@ -50,14 +49,13 @@ const MyPage = () => {
         <div
             className="relative min-h-screen overflow-auto p-[16px] pb-24 bg-[#e1ecff]"
         >
-            <div className='flex items-center justify-between gap-[8px]'>
+            <div className='flex items-center gap-[8px]'>
                 <h3>마이 페이지</h3>
-                <div className='flex gap-[8px]'>
+                <div className='flex gap-[15px]'>
+                    <button onClick={() => openModal('FEATURE', { features: data?.cards.length ? data?.cards : [], })}><img src={edit} alt='edit' /> </button>
                     <button type="button" onClick={handleLogout} className="flex items-center justify-center" aria-label="로그아웃">
                         <LogOut className="w-5 h-5" />
                     </button>
-                    <button onClick={() => openModal('FEATURE', { features: data?.cards.length ? data?.cards : [], })}><img src={edit} alt='edit' /> </button>
-                    <button><img src={noti} alt='noti' /> </button>
                 </div>
             </div>
             <div
@@ -111,6 +109,7 @@ const MyPage = () => {
                 <button
                     type="button"
                     className="mt-[24px] w-fit rounded-[10px] bg-primary-blue text-white text-[14px] px-[50px] py-[10px] font-medium flex items-center justify-center gap-[8px]"
+                    onClick={() => openAlert({ message: '상담 신청 기능 구현 예정입니다.', variant: 'success' })}
                 >
                     <img src={talk} alt='talk' />
                     <p>상담 신청하기</p>

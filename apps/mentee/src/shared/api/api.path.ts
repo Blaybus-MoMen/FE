@@ -14,6 +14,7 @@ export const API_PATH = {
         TODO_SUBMISSION: (todoId: number) => `/study/todos/${todoId}/submission`,
         TODO_STUDY_TIME: (todoId: number) => `/study/todos/${todoId}/study-time`,
         CARD: '/study/me/cards',
+        SUBMIT: (todoId: number) => `/study/todos/${todoId}/submit`,
     },
     FEEDBACK: {
         TODO: '/feedback/todo',
@@ -24,8 +25,10 @@ export const API_PATH = {
     NOTIFICATION: {
         LIST: '/notifications',
         UNREAD_LIST: '/notifications/unread-count',
+        READ: (id: number) => `/notifications/${id}/read`,
     },
     FILE: {
         UPLOAD: '/files/upload',
+        DOWNLOAD: `/files`,
     },
 }

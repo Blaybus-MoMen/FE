@@ -1,11 +1,10 @@
 import { useModalActions } from '@/shared/store/modal.store';
 import { MODAL_KEY } from '@/shared/model/modal';
 import { ChevronLeft } from 'lucide-react';
-import noti from '@/assets/icons/noti.svg';
 import { CommonUtil } from '@/shared/utils/commonUtil';
 import { useFeedbackQuestionMutation, useGetTodoFeedbackQuery } from '@/entities/feedback/queries/feedback.queries';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const FeedbackConfirmModal = ({ todoId, title, subject, goalDescription, studyTimeHours, studyTimeMinutes, studyTimeSeconds, isCompleted }: { todoId: number, title: string, subject: string, goalDescription: string, studyTimeHours: string, studyTimeMinutes: string, studyTimeSeconds: string, isCompleted: boolean }) => {
     const { closeModal } = useModalActions();
@@ -14,7 +13,7 @@ const FeedbackConfirmModal = ({ todoId, title, subject, goalDescription, studyTi
 
     const { headerBg, subjectBg } = CommonUtil.getTodoCardStyle(subject);
 
-    const [question, setQuestion] = useState(data?.question || '');
+    const [question, setQuestion] = useState('');
     const isChanged = question.trim() !== (data?.question || '').trim();
 
     const { mutateAsync: feedbackQuestion } = useFeedbackQuestionMutation();
@@ -23,6 +22,11 @@ const FeedbackConfirmModal = ({ todoId, title, subject, goalDescription, studyTi
         await feedbackQuestion({ todoId, question });
         closeModal(MODAL_KEY.FEEDBACK_CONFIRM);
     }
+    useEffect(() => {
+        if (!data) return;
+        const questionFromData = data.question ?? '';
+        queueMicrotask(() => setQuestion(questionFromData));
+    }, [data]);
 
     return (
         <div
@@ -42,7 +46,6 @@ const FeedbackConfirmModal = ({ todoId, title, subject, goalDescription, studyTi
                 <h1 className="flex-1 text-center text-[16px] font-medium text-grayscale-black pr-8">
                     피드백
                 </h1>
-                <img src={noti} alt="알림" />
             </header>
             <main className="flex-1 overflow-auto min-h-0 p-4">
                 <div className={clsx('flex', headerBg)}>

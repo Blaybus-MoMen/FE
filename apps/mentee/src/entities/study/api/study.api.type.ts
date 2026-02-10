@@ -48,6 +48,11 @@ export interface ITodoListResponse {
     studyTimeMinutes: string,
     studyTimeSeconds: string
     isCompleted: boolean,
+    materials: {
+        materialId: number,
+        fileUrl: string,
+        fileName: string
+    }[]
 
 }
 
@@ -132,4 +137,13 @@ export interface ISubmitTodoRequest {
 
 export interface IUpdateCardRequest {
     cards: string[]
+}
+
+export interface IProblemSubmitRequest {
+    files: {
+        fileUrl: string
+        fileName: string
+    }[]
+    memo: string
+    todoId: number
 }

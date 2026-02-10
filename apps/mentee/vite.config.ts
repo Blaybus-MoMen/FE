@@ -8,7 +8,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
   base: '/mentee/',
-  envDir: __dirname,
+  envDir: path.resolve(__dirname, '../..'),
   plugins: [
     tailwindcss(),
     react({
