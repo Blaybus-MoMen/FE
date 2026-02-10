@@ -61,7 +61,7 @@ const TodoItem = ({
                     </div>
 
                     <div className="flex gap-2 items-center">
-                        <span className="rounded-md bg-grayscale-medium-gray px-3 py-1 text-center ui-caption text-white">
+                        <span className="flex justify-center items-center rounded-md w-[72px] h-[25px] bg-grayscale-medium-gray text-white whitespace-nowrap ui-caption">
                             학습 목표
                         </span>
 
@@ -108,14 +108,16 @@ const TodoItem = ({
 
             <div className="flex flex-col gap-4 md:hidden">
                 <div className="flex items-center gap-4">
-                    <span className={`rounded-lg px-5 py-1.5 ui-caption ${SUBJECT_STYLE[subject]}`}>{subject}</span>
+                    <span className={`rounded-lg px-5 py-1.5 ui-caption ${SUBJECT_STYLE[subject]}`}>
+                        {SUBJECT_LABEL_MAP[subject as keyof typeof SUBJECT_LABEL_MAP]}
+                    </span>
                     <span className="truncate text-xl font-bold" title={task}>
                         {task}
                     </span>
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <span className="rounded-md bg-grayscale-medium-gray px-3 py-1 ui-caption text-white">
+                    <span className="flex justify-center items-center rounded-md w-[72px] h-[25px] bg-grayscale-medium-gray text-white whitespace-nowrap">
                         학습 목표
                     </span>
                     <span className="truncate ui-caption text-grayscale-dark-gray" title={goal}>

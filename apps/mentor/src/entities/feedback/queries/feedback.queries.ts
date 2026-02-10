@@ -7,6 +7,7 @@ import type {
     IMonthlyFeedbackRequest,
     IMonthlyAiSummaryRequest,
 } from '@/entities/feedback/api/feedback.api.type';
+import { manageApi } from '@/entities/manage/api/manage.api';
 
 /** Todo(일간) 피드백 조회 */
 export const useGetTodoFeedbackQuery = (todoId: number) => {
@@ -36,7 +37,7 @@ export const useGetWeeklyFeedbackListQuery = (
     options?: { enabled?: boolean }
 ) => {
     return useQuery({
-        queryKey: ['feedback', 'weekly', menteeId, params],
+        queryKey: ['feedback', 'weekly', menteeId, params.yearMonth, params.weekStartDate],
         queryFn: () => feedbackApi.getWeeklyFeedbackList(menteeId, params),
         enabled: (options?.enabled ?? true) && !!menteeId,
     });
@@ -90,5 +91,20 @@ export const useSaveMonthlyFeedbackMutation = (menteeId: number) => {
 export const useRequestMonthlyAiSummaryMutation = (menteeId: number) => {
     return useMutation({
         mutationFn: (body: IMonthlyAiSummaryRequest) => feedbackApi.requestMonthlyAiSummary(menteeId, body),
+    });
+};
+
+/** 주간 TODO 요청 */
+export const useGetWeeklyTodosQuery = (menteeId: number, weekStartDate: string) => {
+    return useQuery({
+        queryKey: ['mentoring', 'todos', menteeId, 'weekly', weekStartDate],
+        queryFn: () =>
+            manageApi.getMenteeTodosByDate({
+                menteeId,
+                weekStartDate,
+                yearMonth: '',
+                date: '',
+            }),
+        enabled: !!menteeId && !!weekStartDate,
     });
 };

@@ -28,15 +28,13 @@ export const manageApi = {
      */
     getMenteeTodosByDate: async (params: {
         menteeId: number;
-        yearMonth: string;
-        weekStartDate: string;
-        date: string;
+        yearMonth?: string;
+        weekStartDate?: string;
+        date?: string;
     }) => {
         const { menteeId, ...query } = params;
 
-        return ApiHelper.get<ApiResponse<ITodoResponse[]>>(API_PATH.MENTORING.TODO.DAY(menteeId), {
-            params: query,
-        });
+        return ApiHelper.get<ApiResponse<ITodoResponse[]>>(API_PATH.MENTORING.TODO.DAY(menteeId), { params: query });
     },
 
     /**

@@ -34,8 +34,13 @@ const DailySummaryPanel = ({ todoId, onSave }: Props) => {
 
     return (
         <div className="flex flex-col gap-6">
-            <Box title="멘티 학습 내용" mentor={false} value={feedback?.question ?? ''}/>
-            <Box title="멘토 피드백" placeholder="피드백을 입력해주세요." value={mentorComment} onChange={setMentorComment}/>
+            <Box title="학습 점검" mentor={false} value={feedback?.question ?? ''} />
+            <Box
+                title="멘토 피드백"
+                placeholder="피드백을 입력해주세요."
+                value={mentorComment}
+                onChange={setMentorComment}
+            />
 
             <section className="flex flex-col md:flex-row md:h-[250px] gap-6 box-border p-4 rounded-2xl bg-white shadow-md">
                 <div className="flex flex-col gap-3 flex-1">
@@ -55,7 +60,12 @@ const DailySummaryPanel = ({ todoId, onSave }: Props) => {
                     <span className="self-start inline-block rounded-full px-4 py-1 ui-overline bg-grayscale-dark-gray text-white">
                         답변
                     </span>
-                    <textarea placeholder="답변을 입력해주세요." value={answer} onChange={(e) => setAnswer(e.target.value)} className="flex-1 resize-none rounded-xl bg-grayscale-bg-gray p-4 outline-none border-0 placeholder:text-grayscale-light-gray text-base"/>
+                    <textarea
+                        placeholder="답변을 입력해주세요."
+                        value={answer}
+                        onChange={(e) => setAnswer(e.target.value)}
+                        className="flex-1 resize-none rounded-xl bg-grayscale-bg-gray p-4 outline-none border-0 placeholder:text-grayscale-light-gray text-base"
+                    />
                 </div>
             </section>
         </div>

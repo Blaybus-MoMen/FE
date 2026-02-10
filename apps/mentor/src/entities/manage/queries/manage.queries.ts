@@ -13,15 +13,30 @@ export const useGetMenteeQuery = (menteeId: number) => {
 
 interface UseGetMenteeTodosParams {
     menteeId: number;
-    yearMonth: string;
-    weekStartDate: string;
-    date: string;
+    yearMonth?: string;
+    weekStartDate?: string;
+    date?: string;
 }
 
 /** 특정 멘티의 특정 날짜 할 일 조회 쿼리 */
-export const useGetMenteeTodosQuery = ({ menteeId, yearMonth, weekStartDate, date }: UseGetMenteeTodosParams) => {
+export const useGetMenteeTodosQuery = ({
+    menteeId,
+    yearMonth,
+    weekStartDate,
+    date,
+}: UseGetMenteeTodosParams & { mode?: 'daily' | 'weekly' | 'monthly' }) => {
     return useQuery({
-        queryKey: ['mentoring', 'mentee', menteeId, 'todos', date],
+        queryKey: [
+            'mentoring',
+            'mentee',
+            menteeId,
+            'todos',
+            {
+                date,
+                weekStartDate,
+                yearMonth,
+            },
+        ],
         queryFn: () =>
             manageApi.getMenteeTodosByDate({
                 menteeId,
@@ -29,7 +44,7 @@ export const useGetMenteeTodosQuery = ({ menteeId, yearMonth, weekStartDate, dat
                 weekStartDate,
                 date,
             }),
-        enabled: !!menteeId && !!yearMonth && !!weekStartDate && !!date,
+        enabled: !!menteeId && (!!date || !!weekStartDate || !!yearMonth),
     });
 };
 
@@ -43,7 +58,8 @@ export const useConfirmTodoMutation = (menteeId: number, date: string) => {
 
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ['mentoring', 'mentee', menteeId, 'todos', date],
+                queryKey: ['mentoring', 'mentee', menteeId, 'todos'],
+                exact: false,
             });
         },
     });
@@ -65,30 +81,40 @@ export const useCreateTodoMutation = (menteeId: number) => {
 };
 
 /** Todo 수정 뮤테이션 */
-export const useUpdateTodoMutation = (menteeId: number, date: string) => {
+export const useUpdateTodoMutation = (menteeId: number) => {
     const queryClient = useQueryClient();
 
     return useMutation({
         mutationFn: ({ todoId, body }: { todoId: number; body: UpdateTodoRequest }) =>
             manageApi.updateTodo(menteeId, todoId, body),
 
-        onSuccess: () => {
+        onSuccess: (_, variables) => {
             queryClient.invalidateQueries({
-                queryKey: ['mentoring', 'mentee', menteeId, 'todos', date],
+                queryKey: ['mentoring', 'mentee', menteeId, 'todos'],
+                exact: false,
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: ['mentoring', 'todo', variables.todoId],
             });
         },
     });
 };
 
-export const useDeleteTodoMutation = (menteeId: number, date: string) => {
+export const useDeleteTodoMutation = (menteeId: number) => {
     const queryClient = useQueryClient();
 
     return useMutation({
         mutationFn: (todoId: number) => manageApi.deleteTodo(menteeId, todoId),
 
-        onSuccess: () => {
+        onSuccess: (_, todoId) => {
             queryClient.invalidateQueries({
-                queryKey: ['mentoring', 'mentee', menteeId, 'todos', date],
+                queryKey: ['mentoring', 'mentee', menteeId, 'todos'],
+                exact: false,
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: ['mentoring', 'todo', todoId],
             });
         },
     });

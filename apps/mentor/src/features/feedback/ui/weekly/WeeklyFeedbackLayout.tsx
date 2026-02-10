@@ -53,13 +53,19 @@ const WeeklyFeedbackLayout = ({ menteeId, dateParams }: Props) => {
     const [aiSummary, setAiSummary] = useState('');
 
     useEffect(() => {
-        if (feedback) {
-            setOverallReview(feedback.overallReview ?? '');
-            setWellDone(feedback.wellDone ?? '');
-            setToImprove(feedback.toImprove ?? '');
-            setAiSummary(feedback.aiSummary ?? '');
+        if (!feedback) {
+            setOverallReview('');
+            setWellDone('');
+            setToImprove('');
+            setAiSummary('');
+            return;
         }
-    }, [feedback]);
+
+        setOverallReview(feedback.overallReview ?? '');
+        setWellDone(feedback.wellDone ?? '');
+        setToImprove(feedback.toImprove ?? '');
+        setAiSummary(feedback.aiSummary ?? '');
+    }, [feedback?.feedbackId]);
 
     const saveMutation = useSaveWeeklyFeedbackMutation(menteeId);
     const aiMutation = useRequestWeeklyAiSummaryMutation(menteeId);
@@ -87,12 +93,14 @@ const WeeklyFeedbackLayout = ({ menteeId, dateParams }: Props) => {
         );
     };
 
-    const title = `${dateParams.year}년 ${dateParams.month}월 주간 피드백`;
+    const weekOfMonth = Math.ceil(new Date(dateParams.weekStartDate).getDate() / 7);
+
+    const title = `${dateParams.year}년 ${dateParams.month}월 ${weekOfMonth}째 주 피드백`;
 
     return (
         <section className="flex flex-1 flex-col gap-6 min-h-0 px-4 pb-6 lg:px-10 lg:pb-10">
             <div className="flex w-full gap-4">
-                <h3 className="text-primary-blue-dark flex-1">{title}</h3>
+                <h3 className="text-primary -blue-dark flex-1">{title}</h3>
                 <div className="hidden lg:flex flex-row gap-4">
                     <AISummaryButton onClick={handleAiSummary} disabled={aiMutation.isPending} />
                     <button
