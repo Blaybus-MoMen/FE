@@ -5,6 +5,7 @@ export interface ITodoFeedbackResponse {
     mentorComment: string;
     question: string;
     answer: string;
+    submission: ITodoSubmission | null;
 }
 
 /** Todo(일간) 피드백 저장 요청 */
@@ -66,4 +67,23 @@ export interface IMonthlyFeedbackRequest {
 export interface IMonthlyAiSummaryRequest {
     year: number;
     month: number;
+}
+
+/** 제출 파일 */
+export interface ISubmissionFile {
+    fileId: number;
+    fileUrl: string;
+    fileName: string;
+}
+
+/** Todo 과제 제출 */
+export interface ITodoSubmission {
+    submissionId: number;
+    todoId: number;
+    memo: string;
+    files: ISubmissionFile[];
+    submittedAt: string;
+    aiAnalysisStatus: 'PENDING' | 'COMPLETED' | 'FAILED';
+    studyDensityScore: number | null;
+    aiCheckComment: string | null;
 }

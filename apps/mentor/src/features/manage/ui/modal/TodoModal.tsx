@@ -72,6 +72,14 @@ const TodoModal = ({ data }: { data: ModalPayloadMap['TODO'] }) => {
 
     const current = previewFiles[safeIndex];
 
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+    const resolveFileUrl = (url: string) => {
+        if (!url) return '';
+        if (url.startsWith('http')) return url;
+        return `${API_BASE_URL}${url}`;
+    };
+
     const onSubmit = handleSubmit(async (form) => {
         if (!rangeStart) return;
 
@@ -348,9 +356,9 @@ const TodoModal = ({ data }: { data: ModalPayloadMap['TODO'] }) => {
                                                 ))}
                                             {current?.type === 'server' &&
                                                 (current.fileUrl.endsWith('.pdf') ? (
-                                                    <embed src={current.fileUrl} />
+                                                    <embed src={resolveFileUrl(current.fileUrl)} />
                                                 ) : (
-                                                    <img src={current.fileUrl} />
+                                                    <img src={resolveFileUrl(current.fileUrl)} />
                                                 ))}
 
                                             <button

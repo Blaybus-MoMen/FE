@@ -39,7 +39,7 @@ const TodoItem = ({
     onToggleConfirm,
 }: FeedbackCardProps) => {
     return (
-        <div className="w-full rounded-2xl bg-white p-4 shadow-md">
+        <div className="w-full h-[68px] rounded-2xl bg-white p-4 shadow-md">
             <div className="hidden md:flex items-center gap-6">
                 <div
                     className="

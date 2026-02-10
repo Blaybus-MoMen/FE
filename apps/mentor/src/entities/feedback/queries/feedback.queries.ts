@@ -108,3 +108,11 @@ export const useGetWeeklyTodosQuery = (menteeId: number, weekStartDate: string) 
         enabled: !!menteeId && !!weekStartDate,
     });
 };
+
+export const useGetTodoSubmissionQuery = (todoId: number) => {
+    return useQuery({
+        queryKey: ['todo', 'submission', todoId],
+        queryFn: () => feedbackApi.getTodoSubmission(todoId),
+        enabled: !!todoId,
+    });
+};
