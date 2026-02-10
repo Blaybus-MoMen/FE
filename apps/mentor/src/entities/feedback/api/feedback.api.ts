@@ -10,13 +10,18 @@ import type {
     IMonthlyFeedbackResponse,
     IMonthlyFeedbackRequest,
     IMonthlyAiSummaryRequest,
+    ITodoSubmission,
 } from './feedback.api.type';
 
 /** 피드백 API */
 export const feedbackApi = {
     /** Todo(일간) 피드백 조회 */
     getTodoFeedback: (todoId: number) => {
-        return ApiHelper.get<ApiResponse<ITodoFeedbackResponse>>(API_PATH.FEEDBACK.TODO.GET(todoId));
+        return ApiHelper.get<ApiResponse<ITodoFeedbackResponse | null>>(API_PATH.FEEDBACK.TODO.GET(todoId));
+    },
+
+    getTodoSubmission: (todoId: number) => {
+        return ApiHelper.get<ApiResponse<ITodoSubmission | null>>(API_PATH.MENTORING.TODO.SUBMISSIONS(todoId));
     },
 
     /** Todo(일간) 피드백 저장 */
