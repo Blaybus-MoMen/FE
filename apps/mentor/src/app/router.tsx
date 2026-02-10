@@ -32,7 +32,7 @@ export const router = createBrowserRouter(
                             element: <ManagePage />,
                         },
                         {
-                            path: '/feedback',
+                            path: '//mentoring/:menteeId/feedback',
                             element: <FeedbackPage />,
                         },
                     ],
