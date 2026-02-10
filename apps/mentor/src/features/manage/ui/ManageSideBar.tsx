@@ -30,7 +30,10 @@ const ManageSidebar = ({ mentee, selectedDate, onSelectDate }: Props) => {
 
                     <div className="flex gap-6">
                         <h3 className="cursor-pointer">학습관리</h3>
-                        <h3 className="text-grayscale-medium-gray cursor-pointer" onClick={() => navigate('/feedback')}>
+                        <h3
+                            className="text-grayscale-medium-gray cursor-pointer"
+                            onClick={() => navigate(`/mentoring/${mentee.menteeId}/feedback`)}
+                        >
                             피드백
                         </h3>
                     </div>
