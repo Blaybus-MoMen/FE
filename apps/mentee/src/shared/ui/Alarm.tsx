@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import noti from '@/assets/icons/noti.svg';
 import notifi from '@/assets/icons/notifi.svg';
-import { useGetNotificationListQuery, useGetUnreadNotificationListQuery, useReadNotificationMutation } from '@/entities/notification/queries/notification.queries';
+import { useGetNotificationListQuery, useGetUnreadNotificationListQuery, useReadAllNotificationMutation, useReadNotificationMutation } from '@/entities/notification/queries/notification.queries';
 import { useQueryClient } from '@tanstack/react-query';
 
 const Alarm = () => {
@@ -11,6 +11,7 @@ const Alarm = () => {
     const { data: notifications } = useGetNotificationListQuery()
 
     const { mutateAsync } = useReadNotificationMutation();
+    const { mutateAsync: readAllNotification } = useReadAllNotificationMutation();
 
     const [open, setOpen] = useState(false);
     const handleToggle = () => {
@@ -31,6 +32,19 @@ const Alarm = () => {
         }
     }
 
+    const handleReadAllNotification = async () => {
+        try {
+            await readAllNotification();
+            queryClient.invalidateQueries({
+                queryKey: ['getNotificationList'],
+            });
+            queryClient.invalidateQueries({
+                queryKey: ['getUnreadNotificationList'],
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div className="relative inline-block z-[999]">
@@ -50,9 +64,20 @@ const Alarm = () => {
             {open && (
                 <div className="absolute right-0 mt-2 w-80 bg-primary-blue rounded-[12px] z-[999]">
                     <div className="h-[200px] flex flex-col p-3 text-sm text-white">
-                        <div className="flex items-center gap-[4px] flex-shrink-0">
-                            <img src={notifi} alt="notifi" />
-                            <p className="text-[10px] text-white/80">알림</p>
+                        <div className="flex items-center justify-between gap-[4px] flex-shrink-0">
+                            <div className="flex items-center gap-[4px]">
+                                <img src={notifi} alt="notifi" />
+                                <p className="text-[10px] text-white/80">알림</p>
+                            </div>
+                            {notifications && notifications.length > 0 && (
+                                <button
+                                    type="button"
+                                    onClick={handleReadAllNotification}
+                                    className="text-[10px] px-2 py-[3px] rounded-full bg-white/10 text-white/80 border border-white/30 hover:bg-white/20 transition-colors"
+                                >
+                                    전체 읽기
+                                </button>
+                            )}
                         </div>
                         <div className="flex-1 overflow-y-auto mt-[10px] no-scrollbar">
                             {!notifications || notifications.length === 0 ? (

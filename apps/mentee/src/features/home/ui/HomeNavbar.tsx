@@ -5,15 +5,18 @@ const navItems = [
     { label: '홈', icon: Home, path: '/home' },
     { label: '학습 관리', icon: GraduationCap, path: '/manage' },
     { label: '학습 리포트', icon: BarChart2, path: '/report' },
-    { label: '마이 페이지', icon: UserCircle, path: '/my-page' },
+    { label: '마이페이지', icon: UserCircle, path: '/my-page' },
 ];
 
 export const HomeNavbar = () => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     return (
-        <nav className="fixed bottom-4 left-[20px] right-[20px] z-50 bg-white/80 backdrop-blur-xl border-t border-white/60 p-[4px] rounded-[589.29px]">
-            <div className="flex">
+        <nav
+            className="fixed bottom-4 left-[20px] right-[20px] z-50 bg-white/80 backdrop-blur-xl border-t border-white/60 p-[2px] rounded-[589.29px]"
+            style={{ boxShadow: '0px 0px 12px 2px #0000000D' }}
+        >
+            <div className="flex bg-[#f2f7fe] rounded-[589.29px] p-[2px]">
                 {navItems.map((item) => {
                     const Icon = item.icon;
                     const isActive = pathname === item.path;

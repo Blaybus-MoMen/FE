@@ -23,3 +23,9 @@ export const useReadNotificationMutation = () => {
         mutationFn: (id: number) => notificationApi.readNotification(id),
     })
 }
+
+export const useReadAllNotificationMutation = () => {
+    return useMutation({
+        mutationFn: () => notificationApi.readAllNotification(),
+    })
+}

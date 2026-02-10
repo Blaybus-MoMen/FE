@@ -10,17 +10,24 @@ const HomePage = () => {
     const formattedSelectedDate = CommonUtil.formatDateToYYYYMMDD(selectedDate as Date);
     return (
         <div
-            className="relative min-h-screen overflow-auto p-[16px] pb-24 bg-[#e1ecff]"
+            className="relative min-h-screen overflow-auto pb-24"
+            style={{
+                background: 'linear-gradient(180deg, #FFFFFF 0%, #97ADF9 82.21%)',
+            }}
         >
-            <HomeUserInfo />
-            <HomeLearningSummary date={formattedSelectedDate} />
-            <CommonMonthCalendar
-                selectedDate={selectedDate}
-                displayMonth={displayMonth}
-                onSelect={setSelectedDate}
-                onChangeMonth={setDisplayMonth}
-            />
-            <HomeLearningCardSlice date={formattedSelectedDate} />
+            <div className='flex flex-col'>
+                <HomeUserInfo />
+                <HomeLearningSummary date={formattedSelectedDate} />
+                <CommonMonthCalendar
+                    selectedDate={selectedDate}
+                    displayMonth={displayMonth}
+                    onSelect={setSelectedDate}
+                    onChangeMonth={setDisplayMonth}
+                />
+            </div>
+            <div className='px-[16px]'>
+                <HomeLearningCardSlice date={formattedSelectedDate} />
+            </div>
         </div>
     )
 }
