@@ -32,22 +32,36 @@ export const HomeLearningCard = ({
     const { mutateAsync: downloadFile, isPending } = useFileDownloadMutation();
 
     const handleDownload = async () => {
+        if (materials.length === 0) return;
+
+        const targets = materials
+            .filter((m) => !!m.fileUrl)
+            .map((m) => {
+                const basePathOrId = m.fileUrl.includes('/files/')
+                    ? m.fileUrl.replace(/^.*\/files\/?/, '')
+                    : m.fileUrl;
+
+                const pathOrId = basePathOrId.includes('?')
+                    ? `${basePathOrId}&download=true`
+                    : `${basePathOrId}?download=true`;
+
+                return {
+                    pathOrId,
+                    fileName: m.fileName,
+                };
+            });
+
+        if (targets.length === 0) return;
+
         try {
-            if (materials.length === 0) return;
-            const first = materials[0];
-
-            console.log(first);
-            if (!first?.fileUrl) return;
-            const pathOrId = first.fileUrl.includes('/files/')
-                ? first.fileUrl.replace(/^.*\/files\/?/, '')
-                : first.fileUrl;
-
-            console.log(pathOrId);
-            await downloadFile(pathOrId);
+            await Promise.all(
+                targets.map(({ pathOrId, fileName }) =>
+                    downloadFile({ pathOrId, fileName }),
+                ),
+            );
         } catch (error) {
             console.error(error);
         }
-
     };
 
     return (

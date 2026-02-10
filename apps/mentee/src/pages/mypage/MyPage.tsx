@@ -24,7 +24,7 @@ const getChartDataFromCompletionRates = (rates: Record<string, number> | undefin
 const MyPage = () => {
     const navigate = useNavigate();
     const { data } = useGetMyPageInfoQuery();
-    const { openModal, openAlert } = useModalActions();
+    const { openModal } = useModalActions();
     const { removeToken } = useAuthAction();
     const { mutateAsync: logout } = useLogoutMutation();
     const chartData = getChartDataFromCompletionRates(data?.subjectCompletionRates);
@@ -103,7 +103,12 @@ const MyPage = () => {
                 <button
                     type="button"
                     className="mt-[24px] w-fit rounded-[10px] bg-primary-blue text-white text-[14px] px-[50px] py-[10px] font-medium flex items-center justify-center gap-[8px]"
-                    onClick={() => openAlert({ message: '상담 신청 기능 구현 예정입니다.', variant: 'success' })}
+                    onClick={() =>
+                        window.open(
+                            'https://docs.google.com/forms/d/e/1FAIpQLSfgdWIKLyMFdZdyLI9FaxO3ix1ZdLeKmta4TB-U0VwK1B6UCg/viewform',
+                            '_blank',
+                        )
+                    }
                 >
                     <img src={talk} alt='talk' />
                     <p>상담 신청하기</p>
@@ -111,7 +116,6 @@ const MyPage = () => {
             </div>
         </div >
     )
-
 }
 
 export default MyPage;

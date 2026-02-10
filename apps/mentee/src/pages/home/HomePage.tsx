@@ -7,9 +7,7 @@ import { CommonUtil } from '@/shared/utils/commonUtil';
 
 const HomePage = () => {
     const { selectedDate, displayMonth, setSelectedDate, setDisplayMonth } = useCalendar();
-
     const formattedSelectedDate = CommonUtil.formatDateToYYYYMMDD(selectedDate as Date);
-
     return (
         <div
             className="relative min-h-screen overflow-auto p-[16px] pb-24 bg-[#e1ecff]"

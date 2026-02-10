@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { EventSourcePolyfill } from 'event-source-polyfill';
 
 const useNotificationSSE = (token: string) => {
     const queryClient = useQueryClient();
@@ -11,20 +10,20 @@ const useNotificationSSE = (token: string) => {
         if (eventSourceRef.current) {
             return;
         }
-        const eventSource = new EventSourcePolyfill(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/notifications/subscribe?token=${token}`,
+        const eventSource = new EventSource(
+            `http://100.50.98.194:8089/api/v1/notifications/subscribe?token=${token}`,
         );
         eventSourceRef.current = eventSource;
-        eventSource.onmessage = (event) => {
+        eventSource.addEventListener("notification", (event: MessageEvent) => {
             try {
-                const data = event.data ? JSON.parse(event.data as string) : null;
-                console.log('[SSE] 알림 수신', { event, data });
-            } catch {
-                console.log('[SSE] 알림 수신 (raw)', event.data);
+                const data = event.data ? JSON.parse(event.data) : null;
+                console.log("[SSE] 파싱된 데이터", data);
+            } catch (err) {
+                console.log("[SSE] 파싱 실패", event.data, err);
             }
             queryClient.invalidateQueries({ queryKey: ['getNotificationList'] });
             queryClient.invalidateQueries({ queryKey: ['getUnreadNotificationList'] });
-        };
+        });
         eventSource.onerror = () => {
             console.error("SSE 에러");
             eventSource.close();
