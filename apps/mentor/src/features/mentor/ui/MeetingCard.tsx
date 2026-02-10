@@ -2,7 +2,7 @@ import ArrowRightSvg from '@/assets/icons/arrow-right.svg';
 /**
  * @description 미팅 카드 컴포넌트
  */
-const MeetingCard = () => {
+const MeetingCard = ({ name }: { name: string }) => {
     return (
         <article
             className="w-full md:w-1/2 lg:w-full shrink-0 border-2 border-grayscale-bg-gray px-5 py-5 rounded-[57px] bg-[#FFFFFF4D] shadow-[0px_8px_4.8px_0px_#00000033] flex justify-between items-center"
@@ -14,7 +14,7 @@ const MeetingCard = () => {
                 <div className="flex flex-col">
                     <p className="body-medium text-white">Zoom Meeting</p>
                     <div className='flex flex-col'>
-                        <p className="body-small text-white">조민수 학생</p>
+                        <p className="body-small text-white">{name} 학생</p>
                         <p className="body-small text-white">14:00-15:00</p>
                     </div>
                 </div>
