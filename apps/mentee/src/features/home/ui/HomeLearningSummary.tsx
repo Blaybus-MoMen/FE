@@ -40,14 +40,14 @@ const HomeLearningSummary = ({ date }: { date: string }) => {
                     <div
                         className={`absolute -top-5 w-full flex ${isOverHalf ? 'justify-start' : 'justify-end'}`}
                     >
-                        <span className="text-[11px] font-medium text-primary-blue-light">
+                        <span className="text-[13px] font-medium text-primary-blue-light">
                             {data?.message}
                         </span>
                     </div>
                     <img
                         src={runnerImg}
                         alt={runnerAlt}
-                        className="absolute z-10 -translate-x-1/2 -translate-y-full transition-all duration-300 w-[50px] h-[30px]"
+                        className="absolute z-10 -translate-x-1/2 -translate-y-full transition-all duration-300 w-[50px] h-[35px]"
                         style={{
                             left: `${Math.min(rate, 100)}%`,
                             bottom: '-185%',

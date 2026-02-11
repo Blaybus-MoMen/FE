@@ -45,7 +45,7 @@ const ReportMonthlyTodoList = () => {
     }, [monthlyTodoList]);
 
     return (
-        <>
+        <div className="flex flex-col pb-[80px]">
             <div className="flex items-center justify-center gap-4 pt-[32px] mb-[30px]">
                 <button
                     onClick={handlePrev}
@@ -92,7 +92,7 @@ const ReportMonthlyTodoList = () => {
                     월간 피드백 확인하기
                 </button>
             </div>
-        </>
+        </div>
     )
 }
 

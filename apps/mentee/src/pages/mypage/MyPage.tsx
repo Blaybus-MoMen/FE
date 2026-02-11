@@ -28,7 +28,6 @@ const MyPage = () => {
     const { removeToken } = useAuthAction();
     const { mutateAsync: logout } = useLogoutMutation();
     const chartData = getChartDataFromCompletionRates(data?.subjectCompletionRates);
-
     const handleLogout = async () => {
         try {
             await logout();
@@ -44,7 +43,7 @@ const MyPage = () => {
             className="relative min-h-screen overflow-auto p-[16px] pb-24 bg-[#e1ecff]"
         >
             <div className='flex items-center gap-[8px]'>
-                <h3>마이 페이지</h3>
+                <h3>마이페이지</h3>
                 <div className='flex gap-[15px]'>
                     <button onClick={() => openModal('FEATURE', { features: data?.cards.length ? data?.cards : [], })}><img src={edit} alt='edit' /> </button>
                     <button type="button" onClick={handleLogout} className="flex items-center justify-center" aria-label="로그아웃">
