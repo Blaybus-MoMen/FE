@@ -39,18 +39,12 @@ const TodoItem = ({
     onToggleConfirm,
 }: FeedbackCardProps) => {
     return (
-        <div className="w-full h-[68px] rounded-2xl bg-white p-4 shadow-md">
+        <div className="w-full min-h-[68px] min-w-0 rounded-2xl bg-white p-4 shadow-md">
             <div className="hidden md:flex items-center gap-6">
-                <div
-                    className="
-            grid flex-1 items-center gap-1
-            grid-cols-[40%_35%_10%_15%]
-            min-w-0
-        "
-                >
-                    <div className="flex gap-2 items-center">
+                <div className="grid flex-1 items-center gap-1 grid-cols-[2fr_2fr_auto] min-w-0">
+                    <div className="flex w-full gap-2 items-center min-w-0">
                         <span
-                            className={`rounded-lg w-[66px] py-1.5 ui-caption ui-label text-center ${SUBJECT_STYLE[subject]}`}
+                            className={`rounded-lg min-w-[66px] py-1.5 ui-caption ui-label text-center ${SUBJECT_STYLE[subject]}`}
                         >
                             {SUBJECT_LABEL_MAP[subject as keyof typeof SUBJECT_LABEL_MAP]}
                         </span>
@@ -117,7 +111,7 @@ const TodoItem = ({
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <span className="flex justify-center items-center rounded-md w-[72px] h-[25px] bg-grayscale-medium-gray text-white whitespace-nowrap">
+                    <span className="flex justify-center items-center ui-caption rounded-md w-[72px] h-[25px] bg-grayscale-medium-gray text-white whitespace-nowrap">
                         학습 목표
                     </span>
                     <span className="truncate ui-caption text-grayscale-dark-gray" title={goal}>
