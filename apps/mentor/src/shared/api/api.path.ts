@@ -16,6 +16,7 @@ export const API_PATH = {
             CREATE: (menteeId: number) => `/mentoring/mentees/${menteeId}/todos`,
             UPDATE: (menteeId: number, todoId: number) => `/mentoring/mentees/${menteeId}/todos/${todoId}`,
             DELETE: (menteeId: number, todoId: number) => `/mentoring/mentees/${menteeId}/todos/${todoId}`,
+            SUBMISSIONS: (todoId: number) => `/mentoring/todos/${todoId}/submissions`,
         },
     },
     FEEDBACK: {

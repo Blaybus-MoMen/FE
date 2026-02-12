@@ -26,6 +26,7 @@ export const API_PATH = {
         LIST: '/notifications',
         UNREAD_LIST: '/notifications/unread-count',
         READ: (id: number) => `/notifications/${id}/read`,
+        READ_ALL: '/notifications/read-all',
     },
     FILE: {
         UPLOAD: '/files/upload',

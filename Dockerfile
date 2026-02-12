@@ -14,6 +14,15 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Create .env files for both apps
+ARG VITE_API_BASE_URL=
+ARG VITE_API_VERSION=/api/v1
+
+RUN echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > apps/mentor/.env && \
+    echo "VITE_API_VERSION=${VITE_API_VERSION}" >> apps/mentor/.env && \
+    echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > apps/mentee/.env && \
+    echo "VITE_API_VERSION=${VITE_API_VERSION}" >> apps/mentee/.env
+
 # Build both apps
 RUN npm run build:mentee && npm run build:mentor
 

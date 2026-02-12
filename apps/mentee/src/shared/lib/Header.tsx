@@ -1,8 +1,8 @@
 import { useLocation } from 'react-router';
 
 const PATH_TITLE_MAP = {
-    '/manage': '학습관리',
-    '/report': '학습리포트',
+    '/manage': '학습 관리',
+    '/report': '학습 리포트',
     '/my-page': '마이페이지',
 }
 

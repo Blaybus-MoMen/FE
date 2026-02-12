@@ -31,23 +31,28 @@ const FeedbackCard = ({
     const isCompact = layout === 'compact';
 
     return (
-        <div className={`flex w-full h-[140px] gap-4 flex-col md:flex-row cursor-pointer`} onClick={onClick}>
+        <div className={`flex w-full min-h-[140px] gap-4 flex-col md:flex-row cursor-pointer`} onClick={onClick}>
             <div
                 className={`flex-1 rounded-2xl bg-white p-6 shadow-md ${selected ? 'ring-2 ring-primary-blue ring-inset rounded-2xl' : ''}`}
             >
-                <div className="mb-4 flex items-center gap-3">
+                <div className="mb-4 grid grid-cols-[auto_1fr_auto] items-center gap-3 min-w-0">
                     <span
-                        className={`rounded-lg px-5 py-1.5 ui-caption ui-label text-grayscale-black ${SUBJECT_STYLE[subject]}`}
+                        className={`shrink-0 whitespace-nowrap rounded-lg px-5 py-1.5 ui-caption ui-label text-grayscale-black ${SUBJECT_STYLE[subject]}`}
                     >
                         {subject}
                     </span>
-                    <p className="font-bold text-black">{task}</p>
+
+                    <p className="font-bold text-black truncate min-w-0">{task}</p>
+
                     <span
-                        className={`ml-auto rounded-full px-3 py-1 ui-caption ${isConfirmed ? 'bg-system-success text-white' : 'bg-grayscale-light-gray text-black'}`}
+                        className={`shrink-0 whitespace-nowrap rounded-full px-3 py-1 ui-caption ${
+                            isConfirmed ? 'bg-system-success text-white' : 'bg-grayscale-light-gray text-black'
+                        }`}
                     >
                         멘토 확인
                     </span>
                 </div>
+
                 <div
                     className={`mt-2 ui-caption ${isCompact ? 'flex flex-col gap-4' : 'flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-4'}`}
                 >

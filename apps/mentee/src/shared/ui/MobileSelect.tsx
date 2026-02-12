@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 const triggerClass =
-    'h-[28px] min-w-[56px] bg-grayscale-bg-gray shadow-[inset_0px_2px_4px_0px_#00000040] rounded-[50px] px-[14px] text-[12px] text-grayscale-black border-0 flex items-center justify-between gap-1 whitespace-nowrap';
+    'h-[28px] min-w-[56px] bg-grayscale-bg-gray shadow-[inset_0px_2px_4px_0px_#00000040] rounded-[50px] px-[10px] text-[12px] text-grayscale-black border-0 flex items-center justify-between gap-1 whitespace-nowrap';
 
 const MobileSelect = <T extends number | string>({
     value,

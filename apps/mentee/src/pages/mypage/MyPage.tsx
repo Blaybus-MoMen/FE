@@ -24,11 +24,10 @@ const getChartDataFromCompletionRates = (rates: Record<string, number> | undefin
 const MyPage = () => {
     const navigate = useNavigate();
     const { data } = useGetMyPageInfoQuery();
-    const { openModal, openAlert } = useModalActions();
+    const { openModal } = useModalActions();
     const { removeToken } = useAuthAction();
     const { mutateAsync: logout } = useLogoutMutation();
     const chartData = getChartDataFromCompletionRates(data?.subjectCompletionRates);
-
     const handleLogout = async () => {
         try {
             await logout();
@@ -44,7 +43,7 @@ const MyPage = () => {
             className="relative min-h-screen overflow-auto p-[16px] pb-24 bg-[#e1ecff]"
         >
             <div className='flex items-center gap-[8px]'>
-                <h3>마이 페이지</h3>
+                <h3>마이페이지</h3>
                 <div className='flex gap-[15px]'>
                     <button onClick={() => openModal('FEATURE', { features: data?.cards.length ? data?.cards : [], })}><img src={edit} alt='edit' /> </button>
                     <button type="button" onClick={handleLogout} className="flex items-center justify-center" aria-label="로그아웃">
@@ -53,20 +52,18 @@ const MyPage = () => {
                 </div>
             </div>
             <div
-                className="mt-[16px] h-[180px] rounded-[30px] shadow-[0px_2px_5px_0px_#0000001A]"
+                className="mt-[16px] h-[180px] rounded-[30px]"
                 style={{
-                    background: 'linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 52.4%, #FEFEFE 100%)',
+                    background: 'linear-gradient(360deg, #FFFFFF 0%, #97ADF9 100%)',
+                    border: '2px solid #FEFEFE',
+                    boxShadow: '0px 2px 5px 0px #0000001A',
                 }}
             >
                 <div
-                    className="w-full h-full rounded-[30px] py-[19px] px-[17px] flex flex-col justify-center items-start"
-                    style={{
-                        background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, #E1ECFF 75%, #E1ECFF 100%)',
-                    }}
-                >
+                    className="w-full h-full rounded-[30px] py-[19px] px-[17px] flex flex-col justify-center items-start">
                     <div className='flex gap-[13px] w-full items-center'>
                         <div className="relative inline-block">
-                            <Avatar alt="avatar" className="w-[48px] h-[48px]" src={data?.profileImageUrl ?? undefined}>
+                            <Avatar alt="avatar" className="w-[48px] h-[48px] border border-white" src={data?.profileImageUrl ?? undefined}>
                                 {!data?.profileImageUrl && <User className="w-6 h-6 text-grayscale-dark-gray" />}
                             </Avatar>
                             <img
@@ -91,7 +88,14 @@ const MyPage = () => {
                     </div>
                 </div>
             </div>
-            <div className="h-[295px] bg-[#FEFEFE80] mt-[15px] rounded-[25px] shadow-[0px_1px_8px_0px_#0000000D] p-[20px]">
+            <div
+                className="h-[295px] mt-[15px] rounded-[25px] p-[20px]"
+                style={{
+                    background: '#FFFFFF66',
+                    border: '2px solid #FFFFFF',
+                    boxShadow: '0px 1px 8px 0px #0000001A',
+                }}
+            >
                 <p className='text-[16px] text-grayscale-black'>전체 학습 현황</p>
                 <BarChart
                     data={chartData}
@@ -103,7 +107,12 @@ const MyPage = () => {
                 <button
                     type="button"
                     className="mt-[24px] w-fit rounded-[10px] bg-primary-blue text-white text-[14px] px-[50px] py-[10px] font-medium flex items-center justify-center gap-[8px]"
-                    onClick={() => openAlert({ message: '상담 신청 기능 구현 예정입니다.', variant: 'success' })}
+                    onClick={() =>
+                        window.open(
+                            'https://docs.google.com/forms/d/e/1FAIpQLSfgdWIKLyMFdZdyLI9FaxO3ix1ZdLeKmta4TB-U0VwK1B6UCg/viewform',
+                            '_blank',
+                        )
+                    }
                 >
                     <img src={talk} alt='talk' />
                     <p>상담 신청하기</p>
@@ -111,7 +120,6 @@ const MyPage = () => {
             </div>
         </div >
     )
-
 }
 
 export default MyPage;

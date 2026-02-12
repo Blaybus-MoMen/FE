@@ -17,5 +17,9 @@ export const notificationApi = {
         const response = await ApiHelper.patch(`${API_PATH.NOTIFICATION.READ(id)}`)
         return response
     },
+    readAllNotification: async () => {
+        const response = await ApiHelper.patch(`${API_PATH.NOTIFICATION.READ_ALL}`)
+        return response
+    },
 
 }

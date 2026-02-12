@@ -27,7 +27,7 @@ const TodoList = ({ menteeId, selectedDate }: Props) => {
     const todos = data?.data ?? [];
 
     return (
-        <section className="flex flex-1 flex-col gap-6 min-h-0 px-4 md:px-10 pb-10">
+        <section className="w-full flex flex-1 flex-col gap-6 min-h-0 px-4 md:px-10 pb-10">
             <div className="flex items-start justify-end md:justify-between gap-4">
                 <div className="w-full md:w-auto gap-4">
                     <h3 className="text-primary-blue-dark">{format(selectedDate, 'yyyy년 M월 d일')}</h3>
@@ -64,7 +64,7 @@ const TodoList = ({ menteeId, selectedDate }: Props) => {
                         task={todo.title}
                         goal={todo.goalDescription}
                         isConfirmed={todo.mentorConfirmed}
-                        showActions={todo.creatorType === 'MENTOR' && !todo.hasFeedback}
+                        showActions={todo.creatorType === 'MENTOR'}
                         onEdit={() =>
                             openModal('TODO', {
                                 mode: 'edit',

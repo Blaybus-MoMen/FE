@@ -67,6 +67,10 @@ const WeekFeedbackModal = ({ date }: { date: string }) => {
                     <div className='bg-grayscale-border w-fit rounded-[182.13px] px-[9px] py-[5px] text-[12px] text-grayscale-black font-bold'>다음주 보완할 점</div>
                     <div className='text-[14px] h-full overflow-y-auto no-scrollbar'>{data?.[0]?.toImprove || ''}</div>
                 </div>
+                <div className="mt-[27px] bg-[#FEFEFE] h-[169px] shadow-[0px_0px_7px_0px_#0000002B] rounded-[15px] flex flex-col gap-[6px] p-[13px]">
+                    <div className='bg-grayscale-border w-fit rounded-[182.13px] px-[32px] py-[5px] text-[12px] text-grayscale-black font-bold'>AI 요약</div>
+                    <div className='text-[14px] h-full overflow-y-auto no-scrollbar'>{data?.[0]?.aiSummary || ''}</div>
+                </div>
             </main >
         </div >
     );

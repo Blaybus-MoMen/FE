@@ -15,10 +15,10 @@ const HomeUserInfo = () => {
 
     return (
         <>
-            <div className='flex items-center justify-between pl-[16px]'>
+            <div className='flex items-center justify-between px-[37px] pt-[10px]'>
                 <h3>{data?.name}님의 학습</h3>
             </div>
-            <div className='flex items-center gap-[7px] pl-[16px]'>
+            <div className='flex items-center gap-[7px] px-[37px] pb-[10px]'>
                 <p className='body-medium text-grayscale-black'>{data?.cheerMessage}</p>
                 <button type="button" onClick={handleEditCheerMessage}>
                     <img src={edit} alt='edit' />

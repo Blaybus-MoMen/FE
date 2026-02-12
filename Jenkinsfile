@@ -38,8 +38,9 @@ pipeline {
             steps {
                 sh """
                     sleep 3
-                    curl -f http://localhost:${PORT}/mentor/ || exit 1
-                    curl -f http://localhost:${PORT}/mentee/ || exit 1
+                    CONTAINER_IP=\$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${CONTAINER_NAME})
+                    curl -f http://\${CONTAINER_IP}:${PORT}/mentor/ || exit 1
+                    curl -f http://\${CONTAINER_IP}:${PORT}/mentee/ || exit 1
                 """
                 echo 'Health check passed!'
             }
